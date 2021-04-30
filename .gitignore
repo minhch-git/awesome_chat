@@ -72,6 +72,10 @@ typings/
 .env
 .env.test
 
+
+# sh/env.sh environment variables file
+sh/env.sh
+
 # parcel-bundler cache (https://parceljs.org/)
 .cache
 
