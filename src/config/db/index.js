@@ -9,7 +9,7 @@ const connect = () => {
     useUnifiedTopology: true
   })
     .then(db => console.log('Connect mongodb successfully!'))
-    .catch(err => console.error('Connect mongodb failure!'))
+    .catch(err => console.error('Connect mongodb failure!', err))
 }
 
 export default { connect }
