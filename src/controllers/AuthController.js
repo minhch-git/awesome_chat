@@ -1,6 +1,6 @@
 class AuthController {
   async index(req, res) {
-    return res.render('auth/loginRegister');
+    return res.render('auth/main');
   }
 }
 

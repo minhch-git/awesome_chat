@@ -1,0 +1,74 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset='UTF-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1.0')
+        meta(http-equiv='X-UA-Compatible', content='ie=edge')
+        title Awesome Chat
+        link(rel='shortcut icon', href='/images/logo_favicon/favicon-trungquandev.png')
+        link(rel='stylesheet', href='/bower_components/bootstrap/dist/css/bootstrap.min.css')
+        link(rel='stylesheet', href='/bower_components/font-awesome/css/font-awesome.min.css')
+        link(rel='stylesheet', href='/bower_components/AlertifyJS/build/css/alertify.css')
+        link(href='/css/auth.css', rel='stylesheet')
+        script(src='/bower_components/jquery/dist/jquery.min.js')
+        script(src='/bower_components/bootstrap/dist/js/bootstrap.min.js')
+        script(src='/bower_components/AlertifyJS/build/alertify.js')
+        script(src='/js/authConfig.js', type='text/javascript')
+    body 
+        .container 
+            .col-sm-2
+            .col-sm-8.my-content 
+                .row 
+                    .col-sm-12 
+                        h1.login-title.text-center Welcome To My Awesome Chat
+                        hr
+                        .col-sm-3
+                        .col-sm-6.table-responsive
+                            table.table.my-table
+                                tbody
+                                    tr
+                                        td Author:
+                                        td Trung Qu&acirc;n
+                                    tr
+                                        td Blog:
+                                        td
+                                            a(href='https://trungquandev.com/', target='_blank')
+                                                | https://trungquandev.com
+                                    tr
+                                        td CV:
+                                        td
+                                            a(href='https://cv.trungquandev.com/', target='_blank')
+                                                | https://cv.trungquandev.com
+                        .col-sm-3
+                .row 
+                    .col-sm-2
+                    .col-sm-7.text-center
+                        a.btn.big-login(data-toggle='modal', href='javascript:void(0)', onclick='openLoginModal();') &Dstrok;&abreve;ng nh&#x1EAD;p
+                        a.btn.big-register(data-toggle='modal', href='javascript:void(0)', onclick='openRegisterModal();') &Dstrok;&abreve;ng k&yacute;
+                    .col-sm-3
+                .row 
+                    .col-sm-12.text-center.bottom-description
+                        span
+                            | " Một chút hương thơm sẽ luôn bám vào đôi tay trao hoa hồng ! "
+                        br
+                        span
+                            | " A little bit of fragrance always clings to the hands that gives you roses ! "
+            .col-sm-2  
+            .modal.fade.login#loginModal 
+                .modal-dialog.login.animated  
+                    .modal-content  
+                        .modal-header
+                            button.close(type='button', data-dismiss='modal', aria-hidden='true') &times;
+                            h4.modal-title Đăng nhập
+                        .modal-body
+                            include alert/alert.pug
+                            include login/login.pug
+                            include register/register.pug
+                        .modal-footer
+                            .forgot.login-footer
+                                span
+                                | Bạn chưa có tài khoản?
+                                a(href='javascript: showRegisterForm();') Tạo một tài khoản mới
+                            .forgot.register-footer(style='display:none')
+                                span Bạn đã có tài khoản?
+                                a(href='javascript: showLoginForm();') Đăng nhập

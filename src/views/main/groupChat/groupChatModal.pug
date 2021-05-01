@@ -1,0 +1,49 @@
+#groupChatModal.modal.fade(role='dialog')
+  .modal-dialog.modal-lg
+    .modal-content
+      .modal-header
+        button.close(type='button', data-dismiss='modal') &times;
+        h4.modal-title Tạo một nhóm trò chuyện mới
+      .modal-body
+        .col-md-5.col-sm-12.find-user-add-to-group
+          .row.form-search-to-add
+            .form-group
+              input#btn-search-friend-to-add-group-chat.form-control(type='text', placeholder='Nhập E-mail hoặc username của bạn bè...')
+              span.input-group-btn
+                button.btn.btn-lg(type='button')
+                  i.glyphicon.glyphicon-search
+          .row.result-searched
+            ul#group-chat-friends
+              div(data-uid='test-uid-01')
+                li(data-uid='test-uid-01')
+                  .contactPanel
+                    .user-avatar
+                      img(src='images/users/avatar-default.jpg', alt='')
+                    .user-name
+                      p
+                        | Trung Qu&acirc;n
+                    br
+                    .user-address
+                      span &nbsp Hà Nội, Việt Nam
+                    .add-user(data-uid='test-uid-01')
+                      | Thêm vào nhóm
+              div(data-uid='test-uid-02')
+                li(data-uid='test-uid-02')
+                  .contactPanel
+                    .user-avatar
+                      img(src='images/users/default-avatar-trungquandev-02.jpg', alt='')
+                    .user-name
+                      p
+                        | Trung Qu&acirc;n
+                    br
+                    .user-address
+                      span &nbsp Hà Nội, Việt Nam
+                    .add-user(data-uid='test-uid-02')
+                      |  Thêm vào nhóm
+        .col-md-5.col-sm-12.list-user-added
+          ul#friends-added
+          #action-create-name-chat.text-center
+            input#name-group-chat.form-control(type='text', placeholder='Nhập tên nhóm trò chuyện...')
+            br
+            button#create-group-chat.btn.btn-primary(type='button') Tạo 
+            button#cancel-group-chat.btn.btn-danger(type='button') Hủy

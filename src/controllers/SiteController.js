@@ -1,6 +1,6 @@
 class SiteController {
   async index(req, res) {
-    return res.render('main/master');
+    return res.render('main/home/home');
   }
 }
 

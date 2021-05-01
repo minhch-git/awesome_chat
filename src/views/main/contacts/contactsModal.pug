@@ -1,0 +1,95 @@
+#contactsModal.modal.fade(role='dialog')
+  .modal-dialog.modal-lg
+    .modal-content
+      .modal-header
+        button.close(type='button', data-dismiss='modal') &times;
+        h4.modal-title Qu&#x1EA3;n l&yacute; li&ecirc;n l&#x1EA1;c
+      .modal-body
+        ul.nav.nav-tabs
+          li.active
+            a(data-toggle='tab', href='#find-user') T&igrave;m ng&#x1B0;&#x1EDD;i d&ugrave;ng
+          li
+            a#link-contacts(data-toggle='tab', href='#contacts')
+              | Danh b&#x1EA1; 
+              span.show-number-contacts.count-contacts (100)
+          li
+            a#link-request-contact-sent(data-toggle='tab', href='#request-contact-sent')
+              | &Dstrok;ang ch&#x1EDD; x&aacute;c nh&#x1EAD;n 
+              span.show-number-contacts.count-request-contact-sent (100)
+          li
+            a#link-request-contact-received(data-toggle='tab', href='#request-contact-received')
+              | Y&ecirc;u c&#x1EA7;u k&#x1EBF;t b&#x1EA1;n 
+              span.show-number-contacts.count-request-contact-received (100)
+        .tab-content
+          #find-user.tab-pane.fade.in.active
+            .find-user-top
+              .input-group.col-md-12
+                input.form-control(type='text', placeholder='Nhập E-mail hoặc username...')
+                span.input-group-btn
+                  button.btn.btn-lg(type='button')
+                    i.glyphicon.glyphicon-search
+            .find-user-bottom
+              ul.contactList
+                li._contactList(data-uid='user._id')
+                  .contactPanel
+                    .user-avatar
+                      img(src='/images/users/default-avatar-trungquandev-01.jpg', alt='')
+                    .user-name
+                      p
+                        | Trung Qu&acirc;n
+                    br
+                    .user-address
+                      span &amp;nbsp H&agrave; N&#x1ED9;i, Vi&#x1EC7;t Nam
+                    .user-add-new-contact(data-uid='user._id')
+                      | Th&ecirc;m v&agrave;o danh s&aacute;ch li&ecirc;n l&#x1EA1;c
+                    .user-remove-request-contact.action-danger(data-uid='user._id')
+                      | H&#x1EE7;y y&ecirc;u c&#x1EA7;u
+          #contacts.tab-pane.fade
+            .find-user-bottom
+              ul.contactList
+                li._contactList(data-uid='user._id')
+                  .contactPanel
+                    .user-avatar
+                      img(src='/images/users/default-avatar-trungquandev-01.jpg', alt='')
+                    .user-name
+                      p
+                        | Trung Qu&acirc;n
+                    br
+                    .user-address
+                      span &amp;nbsp H&agrave; N&#x1ED9;i, Vi&#x1EC7;t Nam.
+                    .user-talk(data-uid='user._id')
+                      | Tr&ograve; chuy&#x1EC7;n
+                    .user-remove-contact.action-danger(data-uid='user._id')
+                      | X&oacute;a li&ecirc;n h&#x1EC7;
+          #request-contact-sent.tab-pane.fade
+            .find-user-bottom
+              ul.contactList
+                li._contactList(data-uid='user._id')
+                  .contactPanel
+                    .user-avatar
+                      img(src='/images/users/default-avatar-trungquandev-01.jpg', alt='')
+                    .user-name
+                      p
+                        | Trung Qu&acirc;n
+                    br
+                    .user-address
+                      span &amp;nbsp H&agrave; N&#x1ED9;i, Vi&#x1EC7;t Nam.
+                    .user-remove-request-sent.action-danger(data-uid='user._id')
+                      | H&#x1EE7;y y&ecirc;u c&#x1EA7;u
+          #request-contact-received.tab-pane.fade
+            .find-user-bottom
+              ul.contactList
+                li._contactList(data-uid='user._id')
+                  .contactPanel
+                    .user-avatar
+                      img(src='/images/users/default-avatar-trungquandev-01.jpg', alt='')
+                    .user-name
+                      p
+                        | Trung Qu&acirc;n
+                    br
+                    .user-address
+                      span &amp;nbsp H&agrave; N&#x1ED9;i, Vi&#x1EC7;t Nam.
+                    .user-acccept-contact-received(data-uid='user._id')
+                      | Ch&#x1EA5;p nh&#x1EAD;n
+                    .user-reject-request-contact-received.action-danger(data-uid='user._id')
+                      | X&oacute;a y&ecirc;u c&#x1EA7;u
