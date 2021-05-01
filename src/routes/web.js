@@ -1,6 +1,3 @@
-import { Router } from 'express'
-const router = new Router()
-
 import authRoute from './authRoute'
 import siteRoute from './siteRoute'
 

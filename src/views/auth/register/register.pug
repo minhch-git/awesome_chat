@@ -2,13 +2,13 @@
   .content.registerBox(style='display:none;')
     .form
       form(method='post', html='{:multipart=>true}', data-remote='true', action='/register', accept-charset='UTF-8')
-        input#email.form-control(type='text', placeholder='Email', name='email', required='')
+        input#email.form-control(type='text', placeholder='Email', name='email')
         label.radio-inline
-          input(type='radio', name='gender', value='male', checked='', required='')
+          input(type='radio', name='gender', value='male', checked='')
           |  Nam
         label.radio-inline
-          input(type='radio', name='gender', value='female', required='')
+          input(type='radio', name='gender', value='female')
           |  Nữ
-        input#password.form-control(type='password', placeholder='Password', name='password', required='')
-        input#password_confirmation.form-control(type='password', placeholder='Repeat Password', name='password_confirmation', required='')
+        input#password.form-control(type='password', placeholder='Password', name='password')
+        input#password_confirmation.form-control(type='password', placeholder='Repeat Password', name='password_confirmation')
         input.btn.btn-default.btn-register(type='submit', value='Tạo tài khoản', name='commit')
