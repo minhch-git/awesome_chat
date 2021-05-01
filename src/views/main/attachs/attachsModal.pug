@@ -1,0 +1,14 @@
+#attachsModal.modal.fade(role='dialog')
+  .modal-dialog.modal-lg
+    .modal-content
+      .modal-header
+        button.close(type='button', data-dismiss='modal') &times;
+        h4.modal-title All Attachs in this conversation.
+      .modal-body
+        ul.list-attachs
+          li
+            a(href='fileExample/Tệp văn bản - trungquandev.pdf', download='${ item.file.fileName }')
+              | Tệp văn bản - trungquandev.pdf
+          li
+            a(href='fileExample/Tệp văn bản - trungquandev.docx', download='${ item.file.fileName }')
+              | Tệp văn bản - trungquandev.docx
