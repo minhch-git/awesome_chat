@@ -1,2 +1,8 @@
-.alert.alert-danger Error example.
-.alert.alert-success Success example.
+if errorArr
+  each error in errorArr 
+    script openRegisterModal()
+    .alert.alert-danger=error 
+if successArr 
+  each value in successArr  
+    script openLoginModal()
+    .alert.alert-success=value 

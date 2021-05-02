@@ -1,14 +1,18 @@
 class Validator {
   body(schema) {
     return (req, res, next) => {
-      let validatorResult = schema.validate(req.body)
-      if(validatorResult.error) {
-        console.log(validatorResult.error)
-        return
+      if (!req.body.valueChecked) {
+        req.body.valueChecked = new Promise(async (resolve, reject) => {
+          try {
+            let validatorResult = await schema.validateAsync(req.body, { abortEarly: false })
+            resolve(validatorResult)
+          } catch (error) {
+            reject(error)
+          }
+        })
+        next()
       }
-      console.log(req.body)
     }
   }
 }
-
 export default new Validator()
