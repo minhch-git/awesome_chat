@@ -8,15 +8,21 @@ const port = process.env.APP_PORT || 8080
 import db from './config/db'
 import viewEngine from './config/templates//viewEngine'
 import initRoutes from './routes/web'
+import configSession from './config/session/configSession'
 
 // connect db (mongodb)
 db.connect()
+
+// Config session
+configSession(app)
 
 // templates engine
 viewEngine.configViewEngine(app, path.join(__dirname, 'views'))
 
 // Enable post data for request
 app.use(express.urlencoded({ extended: true }))
+
+
 
 // init routes
 initRoutes(app)

@@ -5,7 +5,7 @@ const UserSchema = mongoose.Schema({
   gender: { type: String, default: 'male' },
   phone: { type: String, default: null, },
   address: { type: String, default: null },
-  avatar: { type: String, default: avatar_default.jpg, },
+  avatar: { type: String, default: 'avatar_default.jpg', },
   role: { type: String, default: 'user', },
   local: {
     email: { type: String, trim: true, lowerCase: true, },
@@ -27,5 +27,15 @@ const UserSchema = mongoose.Schema({
   updateAt: { type: Number, default: null },
   deleteAt: { type: Number, default: null },
 })
+
+UserSchema.statics = {
+  createNew(item) {
+    return this.create(item)
+  },
+
+  findByEmail(email) {
+    return this.findOne({'local.email': email}).exec()
+  }
+}
 
 export default mongoose.model('user', UserSchema)
