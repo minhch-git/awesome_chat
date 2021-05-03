@@ -6,7 +6,8 @@ const connect = () => {
   const URI = `${process.env.DB_CONNECTION}://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`
   mongoose.connect(URI, {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: false,
   })
     .then(db => console.log('Connect mongodb successfully!'))
     .catch(err => console.error('Connect mongodb failure!', err))
