@@ -9,3 +9,9 @@ export DB_PORT=***
 export DB_NAME=***
 export DB_USER=***
 export DB_PASSWORD=***
+
+# Config admin use account
+export MAIL_USER=***
+export MAIL_PASSWORD=***
+export MAIL_HOST=***
+export MAIL_PORT=***

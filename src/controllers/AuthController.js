@@ -9,16 +9,19 @@ class AuthController {
   // [ POST ] /auth/register
   async postRegister(req, res) {
     try {
-      let successArr = []
       let { email, gender, password } = await req.body.valueChecked
+      let successArr = []
 
       // register 
-      let createUserSuccess = await authService.register(email, gender, password)
+      let createUserSuccess = await authService.register(email, gender, password, req.protocol, req.get('host'))
+
+      // messages success
       successArr.push(createUserSuccess)
       
       res.render('auth/main', { successArr })
     } catch (errors) {
       let errorArr = []
+      // messages error
       errors.details ? errors.details.forEach(err => errorArr.push(err.message)) : errorArr.push(errors)
       res.render('auth/main', { errorArr })
     }
