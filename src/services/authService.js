@@ -38,10 +38,20 @@ class AuthServices {
         .catch(async (error) => {
           // remove user
           await UserModel.removeById(user._id)
-          console.log('error: ', error)
-          return reject(transEmail.send_failed)
+          reject(transEmail.send_failed)
         })
-      resolve(tranSuccess.userCreated(user.local.email))
+    })
+  }
+
+  verifyAccount(token) {
+    return new Promise(async (resolve, reject) => {
+      let userByToken = await UserModel.findByToken(token)
+
+      if (!userByToken) {
+        return reject(transErrors.token_undefined)
+      }
+      await UserModel.verifyToken(token)
+      resolve(tranSuccess.account_actived)
     })
   }
 }

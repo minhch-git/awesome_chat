@@ -8,21 +8,34 @@ class AuthController {
 
   // [ POST ] /auth/register
   async postRegister(req, res) {
-    try {
-      let { email, gender, password } = await req.body.valueChecked
-      let successArr = []
+    let errorArr = []
+    let successArr = []
+    let { email, gender, password } = await req.body.valueChecked
 
+    try {
       // register 
       let createUserSuccess = await authService.register(email, gender, password, req.protocol, req.get('host'))
 
-      // messages success
       successArr.push(createUserSuccess)
-      
       res.render('auth/main', { successArr })
     } catch (errors) {
-      let errorArr = []
       // messages error
       errors.details ? errors.details.forEach(err => errorArr.push(err.message)) : errorArr.push(errors)
+      res.render('auth/main', { errorArr })
+    }
+  }
+
+  // [ GET ] /verify/token
+  async verifyAccount(req, res) {
+    let successArr = []
+    let errorArr = []
+    try {
+      let { token } = req.params
+      let verifySuccess = await authService.verifyAccount(token)
+      successArr.push(verifySuccess)
+      res.render('auth/main', { successArr })
+    } catch (error) {
+      errorArr.push(error)
       res.render('auth/main', { errorArr })
     }
   }

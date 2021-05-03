@@ -1,7 +1,7 @@
 .box
   .content.registerBox(style='display:none;')
     .form
-      form(method='post', html='{:multipart=>true}', data-remote='true', action='/auth/register', accept-charset='UTF-8')
+      form(method='post', html='{:multipart=>true}', data-remote='true', action='/login-register', accept-charset='UTF-8')
         input#email.form-control(type='text', placeholder='Email', name='email')
         label.radio-inline
           input(type='radio', name='gender', value='male', checked='')
