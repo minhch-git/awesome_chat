@@ -11,13 +11,13 @@ class AuthServices {
     return new Promise(async (resolve, reject) => {
       let userByEmail = await UserModel.findByEmail(email)
       let salt = bcryptjs.genSaltSync(saltRound);
+      if (userByEmail) {
 
-      let errorMessages = userByEmail.deleteAt == null && transErrors.account_removed
-        || !userByEmail.local.isActive && transErrors.account_not_active
-        || !!userByEmail && transErrors.account_in_use
+        let errMessages = !!userByEmail.deleteAt && transErrors.account_removed
+          || !userByEmail.local.isActive && transErrors.account_not_active
+          || transErrors.account_in_use
 
-      if (errorMessages) {
-        return reject(errorMessages)
+        return reject(errMessages)
       }
       let userItem = {
         username: email.split('@')[0],
@@ -30,6 +30,7 @@ class AuthServices {
       }
 
       let user = await UserModel.createNew(userItem)
+      console.log(user.local.email)
       resolve(tranSuccess.userCreated(user.local.email))
     })
   }

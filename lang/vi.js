@@ -7,9 +7,9 @@ let transValidations = {
 }
 
 let transErrors = {
-  account_in_use: `Email này đã được sử dụng!`,
+  account_in_use: `Email đã được sử dụng!`,
   account_removed: `Tài khoản của này đã bị gỡ khỏi hệ thống, nếu tin rằng điều này là hiểu nhầm, vui lòng liên hệ với bộ phận hỗ trợ của chúng tôi `,
-  account_not_active: `Email đã đăng ký chưa active tài khoản, vui lòng kiểm tra email của bạn hoặc liên hệ với bộ phận hỗ trợ của chúng tôi`
+  account_not_active: `Email đã đăng ký nhưng chưa active tài khoản, vui lòng kiểm tra email của bạn hoặc liên hệ với bộ phận hỗ trợ của chúng tôi`
 }
 
 let tranSuccess = {
