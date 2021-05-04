@@ -1,10 +1,10 @@
+import UserModel from '../../models/userModel'
+import { transErrors, tranSuccess } from '../../../../lang/vi'
+
 import passport from 'passport'
 import passportLocal from 'passport-local'
 
 let LocalStrategy = passportLocal.Strategy
-
-import UserModel from './../../models/userModel'
-import { transErrors, tranSuccess } from './../../../lang/vi'
 
 /**
  * Valid user account type local
@@ -39,7 +39,7 @@ let initPassportLocal = () => {
   }))
   
   // save userId to session
-  passport.serializeUser((user, done)=>done(null, user.id))
+  passport.serializeUser((user, done)=>done(null, user._id))
 
   // this is called by passport.session()
   // return userInfo to req.user

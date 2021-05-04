@@ -1,19 +1,19 @@
+// import controller
+import siteController from '../app/controllers/SiteController'
+import authController from '../app/controllers/AuthController'
+import { validate, schemaValidate } from '../validation'
+import initPassportLocal from '../app/controllers/passportController/local'
+import authMiddleware from '../app/middlewares/authMiddleware'
 import { Router } from 'express'
 import passport from 'passport'
 const router = new Router()
-
-// import controller
-import siteController from './../controllers/SiteController'
-import authController from './../controllers/AuthController'
-import { validate, schemaValidate } from './../validate'
-import initPassportLocal from './../controllers/passportController/local'
 
 // init passport
 initPassportLocal()
 
 // add route
-router.post('/register', validate.body(schemaValidate.register), authController.postRegister)
-router.post('/login', passport.authenticate('local',
+router.post('/register', authMiddleware.checkLoggedOut, validate.body(schemaValidate.register), authController.postRegister)
+router.post('/login', authMiddleware.checkLoggedOut, passport.authenticate('local',
   {
     successRedirect: '/',
     failureRedirect: '/login-register',
@@ -22,10 +22,11 @@ router.post('/login', passport.authenticate('local',
   }
 ))
 
-router.get('/login-register', authController.loginRegister)
-router.get('/verify/:token', authController.verifyAccount)
+router.get('/logout', authMiddleware.checkLoggedIn, authController.getLogout)
 
-router.route('/')
-  .get(siteController.index)
+router.get('/login-register', authMiddleware.checkLoggedOut, authController.getLoginRegister)
+router.get('/verify/:token', authMiddleware.checkLoggedOut, authController.verifyAccount)
+
+router.get('/', authMiddleware.checkLoggedIn, siteController.getHome)
 
 export default router

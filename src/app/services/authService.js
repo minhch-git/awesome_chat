@@ -2,8 +2,8 @@ import bcryptjs from 'bcryptjs'
 import { v4 as uuidv4 } from 'uuid'
 
 import UserModel from '../models/userModel'
-import { transErrors, tranSuccess, transEmail } from './../../lang/vi'
-import sendEmail from './../config/mailer'
+import { transErrors, tranSuccess, transEmail } from '../../../lang/vi'
+import sendEmail from '../../config/mailer'
 
 let saltRound = 8;
 
