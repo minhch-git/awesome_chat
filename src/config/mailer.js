@@ -5,25 +5,25 @@ let adminPassword = process.env.MAIL_PASSWORD
 let mailHost = process.env.MAIL_HOST
 let mailPort = process.env.MAIL_PORT
 
-const sendMail = (to, subject, htmlContent) => {
+const mailer = (to, subject, htmlContent) => {
   let transporter = nodemailer.createTransport({
     host: mailHost,
     port: mailPort,
     secure: false,
     auth: {
       user: adminEmail,
-      pass: adminPassword,
+      pass: adminPassword
     }
   })
 
-  let info = transporter.sendMail({
+  let info = {
     from: adminEmail,
     to: to,
     subject: subject,
-    html: htmlContent,
-  }) // return a promise
+    html: htmlContent
+  }
 
-  return info
+  return transporter.sendMail(info)
 }
 
-export default sendMail
+export default mailer

@@ -1,28 +1,31 @@
 import express from 'express'
 import path from 'path'
+import passport from 'passport'
+import flash from 'connect-flash'
 
 const app = express()
 const host = process.env.APP_HOST || 'localhost'
 const port = process.env.APP_PORT || 8080
 
-import db from './config/db'
-import viewEngine from './config/templates//viewEngine'
+import * as config  from './config'
 import initRoutes from './routes/web'
-import configSession from './config/session/configSession'
 
-// connect db (mongodb)
-db.connect()
+// Connect db (mongodb)
+config.connectDB()
 
 // Config session
-configSession(app)
+config.session(app)
+app.use(flash())
 
-// templates engine
-viewEngine.configViewEngine(app, path.join(__dirname, 'views'))
+// Templates engine
+config.viewEngine(app, path.join(__dirname, 'views'))
 
 // Enable post data for request
 app.use(express.urlencoded({ extended: true }))
 
-
+// // Config passport js
+app.use(passport.initialize())
+app.use(passport.session())
 
 // init routes
 initRoutes(app)
