@@ -14,4 +14,4 @@ const configViewEngine = (app, folder) => {
   app.use(express.static('src/public'))
 }
 
-export default { configViewEngine }
+export default configViewEngine

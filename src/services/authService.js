@@ -34,7 +34,9 @@ class AuthServices {
       // Send email
       let linkVerify = `${protocol}://${reqHost}/verify/${user.local.verifyToken}`
       sendEmail(user.local.email, transEmail.subject, transEmail.template(linkVerify))
-        .then(success => resolve(tranSuccess.userCreated(user.local.email)))
+        .then(success => {
+          resolve(tranSuccess.userCreated(user.local.email))
+        })
         .catch(async (error) => {
           // remove user
           await UserModel.removeById(user._id)

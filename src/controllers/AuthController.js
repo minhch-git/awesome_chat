@@ -1,42 +1,51 @@
 import { authService } from './../services'
 class AuthController {
 
-  // [ GET ] /auth/login-register
+  // [ GET ] /login-register
   async loginRegister(req, res) {
-    return res.render('auth/main');
+    return res.render('auth/main', {
+      errors: req.flash('errors'),
+      success: req.flash('success')
+    });
   }
 
-  // [ POST ] /auth/register
+  // [ POST ] /register
   async postRegister(req, res) {
-    let errorArr = []
+    let errorsArr = []
     let successArr = []
-    let { email, gender, password } = await req.body.valueChecked
-
     try {
       // register 
+      let { email, gender, password } = await req.body.valueChecked
       let createUserSuccess = await authService.register(email, gender, password, req.protocol, req.get('host'))
-
       successArr.push(createUserSuccess)
-      res.render('auth/main', { successArr })
+
+      req.flash('success', successArr)
+      res.redirect('/login-register')
     } catch (errors) {
       // messages error
-      errors.details ? errors.details.forEach(err => errorArr.push(err.message)) : errorArr.push(errors)
-      res.render('auth/main', { errorArr })
+      errors.details ? errors.details.forEach(err => errorsArr.push(err.message)) : errorsArr.push(errors)
+
+      req.flash('errors', errorsArr)
+      res.redirect('/login-register')
     }
   }
 
   // [ GET ] /verify/token
   async verifyAccount(req, res) {
     let successArr = []
-    let errorArr = []
+    let errorsArr = []
     try {
       let { token } = req.params
       let verifySuccess = await authService.verifyAccount(token)
       successArr.push(verifySuccess)
-      res.render('auth/main', { successArr })
+
+      req.flash('success', successArr)
+      res.redirect('/login-register')
     } catch (error) {
-      errorArr.push(error)
-      res.render('auth/main', { errorArr })
+      errorsArr.push(error)
+      
+      req.flash('errors', errorsArr)
+      res.redirect('/login-register')
     }
   }
 }

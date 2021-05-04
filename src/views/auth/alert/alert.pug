@@ -1,8 +1,8 @@
-if errorArr
-  each error in errorArr 
-    script openRegisterModal()
-    .alert.alert-danger=error 
-if successArr 
-  each value in successArr  
+if errors
+  each error in errors 
     script openLoginModal()
-    .alert.alert-success=value 
+    .alert.alert-danger=error 
+if success 
+  each item in success  
+    script openLoginModal()
+    .alert.alert-success=item 

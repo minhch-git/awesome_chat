@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-
+import bcryptjs from 'bcryptjs'
 const UserSchema = mongoose.Schema({
   username: String,
   gender: { type: String, default: 'male' },
@@ -29,6 +29,10 @@ const UserSchema = mongoose.Schema({
 })
 
 UserSchema.statics = {
+  findByUserId(id) {
+    return this.findById(id).exec()
+  },
+
   createNew(item) {
     return this.create(item)
   },
@@ -54,6 +58,13 @@ UserSchema.statics = {
       }
     ).exec()
   },
+
+}
+
+UserSchema.methods = {
+  comparePassword(password) {
+    return bcryptjs.compareSync(password, this.local.password)
+  }
 }
 
 export default mongoose.model('user', UserSchema)
