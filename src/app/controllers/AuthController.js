@@ -1,12 +1,22 @@
+import { tranSuccess } from '../../../lang/vi';
 import { authService } from './../services'
+
 class AuthController {
 
   // [ GET ] /login-register
-  async loginRegister(req, res) {
+  async getLoginRegister(req, res) {
     return res.render('auth/main', {
       errors: req.flash('errors'),
       success: req.flash('success')
     });
+  }
+
+  // [ GET ] /getLogout
+  async getLogout (req, res) {
+    req.logout() // remove session passport user
+
+    req.flash('success', tranSuccess.logout_success)
+    res.redirect('/login-register')
   }
 
   // [ POST ] /register

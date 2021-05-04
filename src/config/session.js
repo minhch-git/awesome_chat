@@ -1,7 +1,6 @@
 import session from 'express-session'
 import MongoStore from 'connect-mongo'
 
-
 /**
  * this variable is where save session, in this case is mongodb
  */

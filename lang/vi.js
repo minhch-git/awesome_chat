@@ -12,15 +12,14 @@ const transErrors = {
   account_not_active: `Email đã đăng ký nhưng chưa active tài khoản, vui lòng kiểm tra email của bạn hoặc liên hệ với bộ phận hỗ trợ của chúng tôi.`,
   token_undefined: `Token không tồn tại.`,
   login_failed: `Tên đăng nhập hoặc mật khẩu không chính xác.`,
-  server_error: `Có lỗi ở phía server, vui lòng liên hệ với bộ phận của chúng tôi để báo cáo lỗi này. Xin cảm ơn!`
+  server_error: `Có lỗi ở phía server, vui lòng liên hệ với bộ phận của chúng tôi để báo cáo lỗi này. Xin cảm ơn!`,
 }
 
 const tranSuccess = {
-  userCreated: (userEmail) => {
-    return `Tài khoản ${userEmail} đã được tạo, vui lòng kiểm tra email của bạn để active tài khoản trước khi đăng nhập.`
-  },
+  userCreated: (userEmail) => `Tài khoản ${userEmail} đã được tạo, vui lòng kiểm tra email của bạn để active tài khoản trước khi đăng nhập.`,
   account_actived: `Kích hoạt tài khoản thành công, bạn đã có thể đăng nhập vào ứng dụng.`,
-  login_success: (username) => `Xin chào ${username}. Chúc bạn một ngày tốt lành.`
+  login_success: (username) => `Xin chào ${username}. Chúc bạn một ngày tốt lành.`,
+  logout_success: `Đăng xuất tài khoản thành công. Hẹn gặp lại bạn!`
 }
 
 const transEmail = {

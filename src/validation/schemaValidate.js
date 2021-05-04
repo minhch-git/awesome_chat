@@ -1,5 +1,5 @@
 import Joi from 'joi'
-import { transValidations } from './../../lang/vi'
+import { transValidations } from '../../lang/vi'
 
 const SchemaValidate = {
   register: Joi.object({
