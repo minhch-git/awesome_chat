@@ -9,7 +9,7 @@ let fbAppId = process.env.FB_APP_ID
 let fbAppSecret = process.env.FB_APP_SECRET
 let fbCallbackUrl = process.env.FB_CALLBACK_URL
 /**
- * Valid user acount type: facebook
+ * Valid user account type: facebook
  */
 let initPassportFacebook = () => {
   passport.use(new FacebookStrategy({
