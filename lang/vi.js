@@ -10,7 +10,7 @@ const transErrors = {
   account_in_use: `Email đã được sử dụng!`,
   account_removed: `Tài khoản của này đã bị gỡ khỏi hệ thống, nếu tin rằng điều này là hiểu nhầm, vui lòng liên hệ với bộ phận hỗ trợ của chúng tôi.`,
   account_not_active: `Email đã đăng ký nhưng chưa active tài khoản, vui lòng kiểm tra email của bạn hoặc liên hệ với bộ phận hỗ trợ của chúng tôi.`,
-  token_undefined: `Token không tồn tại.`,
+  token_undefined: `Bạn đã xác minh tài khoản trước đó.`,
   login_failed: `Tên đăng nhập hoặc mật khẩu không chính xác.`,
   server_error: `Có lỗi ở phía server, vui lòng liên hệ với bộ phận của chúng tôi để báo cáo lỗi này. Xin cảm ơn!`,
 }

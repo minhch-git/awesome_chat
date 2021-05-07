@@ -1,16 +1,16 @@
-import UserModel from '../../models/userModel'
+import User from '../../models/User'
 import { transErrors, tranSuccess } from '../../../../lang/vi'
 
-import passport from 'passport'
 import passportLocal from 'passport-local'
-
 let LocalStrategy = passportLocal.Strategy
 
 /**
+ * 
+ * @param passport from passport
  * Valid user account type local
  */
 
-let initPassportLocal = () => {
+let applyPassportLocal = passport => {
   passport.use(new LocalStrategy({
     usernameField: 'email',
     passwordField: 'password',
@@ -18,17 +18,16 @@ let initPassportLocal = () => {
   }, async (req, username, password, done) => {
     try {
       let user = await UserModel.findByEmail(username)
-
       if (!user) {
         return done(null, false, req.flash('errors', transErrors.login_failed))
       }
 
-      if(!user.local.isActive) {
+      if (!user.local.isActive) {
         return done(null, false, req.flash('errors', transErrors.account_not_active))
       }
 
       let checkPassword = await user.comparePassword(password)
-      if(!checkPassword) {
+      if (!checkPassword) {
         return done(null, false, req.flash('errors', transErrors.login_failed))
       }
       return done(null, user, req.flash('success', tranSuccess.login_success(user.username)))
@@ -37,9 +36,9 @@ let initPassportLocal = () => {
       return done(null, false, req.flash('errors', transErrors.server_error))
     }
   }))
-  
+
   // save userId to session
-  passport.serializeUser((user, done)=>done(null, user._id))
+  passport.serializeUser((user, done) => done(null, user._id))
 
   // this is called by passport.session()
   // return userInfo to req.user
@@ -48,7 +47,7 @@ let initPassportLocal = () => {
       .then(user => done(null, user))
       .catch(err => done(err, null))
   })
-  
+
 }
 
 export default initPassportLocal

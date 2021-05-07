@@ -12,6 +12,7 @@ const UserSchema = mongoose.Schema({
     password: String,
     isActive: { type: Boolean, default: false },
     verifyToken: String,
+    token: String
   },
   facebook: {
     uid: String,
