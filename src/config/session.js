@@ -10,7 +10,7 @@ let sessionStore = MongoStore.create({
   // autoRemove: 'native' default
 })
 /**
- * Config view engine for app
+ * Config session for app
  * @param app from exactly express module
  */
 let configSession = (app) => {

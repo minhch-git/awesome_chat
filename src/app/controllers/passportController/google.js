@@ -1,5 +1,5 @@
 import { tranSuccess } from '../../../../lang/vi'
-import UserModel from '../../models/userModel'
+import UserModel from '../../models/User'
 
 import passport from 'passport'
 import passportGoogle from 'passport-google-oauth'

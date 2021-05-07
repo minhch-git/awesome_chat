@@ -6,6 +6,14 @@ class SiteController {
       success: req.flash('success')
     });
   }
+
+  // [ GET ] /login-register
+  async getLoginRegister(req, res) {
+    return res.render('auth/main', {
+      errors: req.flash('errors'),
+      success: req.flash('success')
+    });
+  }
 }
 
 export default new SiteController();

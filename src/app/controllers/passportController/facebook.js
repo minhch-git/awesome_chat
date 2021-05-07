@@ -1,4 +1,4 @@
-import UserModel from '../../models/userModel'
+import UserModel from '../../models/User'
 import { tranSuccess } from '../../../../lang/vi'
 
 import passport from 'passport'
