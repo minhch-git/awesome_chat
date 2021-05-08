@@ -4,7 +4,7 @@ import { authService } from './../services'
 
 class AuthController {
 
-  // [ POST ] /register
+  // [ POST ] /auth/register
   async postRegister(req, res) {
     let errorsArr = []
     let successArr = []
@@ -23,7 +23,7 @@ class AuthController {
       res.redirect('/login-register')
     }
   }
-  // [ GET ] /verify/:token (nodemailer)
+  // [ GET ] /auth/verify/:token (nodemailer)
   async verifyAccount(req, res) {
     let successArr = []
     let errorsArr = []
@@ -41,7 +41,8 @@ class AuthController {
       res.redirect('/login-register')
     }
   }
-  // [ GET ] /getLogout
+
+  // [ GET ] /auth/getLogout
   async getLogout(req, res) {
     req.logout() // remove session passport user
 

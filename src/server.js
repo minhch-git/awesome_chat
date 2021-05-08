@@ -1,6 +1,5 @@
 import express from 'express'
 import path from 'path'
-import passport from 'passport'
 import flash from 'connect-flash'
 
 const host = process.env.APP_HOST || 'localhost'
@@ -9,27 +8,61 @@ const port = process.env.APP_PORT || 8080
 import * as config from './config'
 import initRoutes from './routes/web'
 
-// init app
-const app = express()
+import pem from 'pem'
+import https from 'https'
 
-// Connect db (mongodb)
-config.connectDB()
+pem.createCertificate({ days: 1, selfSigned: true }, function (err, keys) {
+  if (err) {
+    throw err
+  }
 
-// Config session
-config.session(app)
-app.use(flash())
+  // init app
+  const app = express()
 
-// Templates engine
-config.viewEngine(app, path.join(__dirname, 'views'))
+  // Connect db (mongodb)
+  config.connectDB()
 
-// Enable post data for request
-app.use(express.urlencoded({ extended: true }))
+  // Config session
+  config.applySession(app)
+  app.use(flash())
+
+  // Templates engine
+  config.viewEngine(app, path.join(__dirname, 'views'))
+
+  // Enable post data for request
+  app.use(express.urlencoded({ extended: true }))
+
+  // Config passport js
+  config.applyPassport(app)
+
+  // init routes
+  initRoutes(app)
+
+  https.createServer({ key: keys.serviceKey, cert: keys.certificate }, app).
+    listen(port, console.log(`App listening at https://${host}:${port}`))
+})
+
+
+// // init app
+// const app = express()
+
+// // Connect db (mongodb)
+// config.connectDB()
+
+// // Config session
+// config.applySession(app)
+// app.use(flash())
+
+// // Templates engine
+// config.viewEngine(app, path.join(__dirname, 'views'))
+
+// // Enable post data for request
+// app.use(express.urlencoded({ extended: true }))
 
 // // Config passport js
-app.use(passport.initialize())
-app.use(passport.session())
+// config.applyPassport(app)
 
-// init routes
-initRoutes(app)
+// // init routes
+// initRoutes(app)
 
-app.listen(port, console.log(`App listening at http://${host}:${port}`))
+// app.listen(port, console.log(`App listening at http://${host}:${port}`))

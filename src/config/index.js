@@ -1,9 +1,11 @@
-import session from './session'
+import applySession from './session'
 import connectDB from './connectDB'
 import viewEngine from './viewEngine'
+import applyPassport from './passport'
 
 export {
-  session,
+  applySession,
   connectDB,
   viewEngine,
+  applyPassport
 }

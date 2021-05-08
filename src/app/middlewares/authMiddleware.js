@@ -1,14 +1,14 @@
 class AuthMiddleware {
-  checkLoggedOut(req, res, next) {
-    if (req.isAuthenticated()) {
-      return res.redirect('/login-register')
+  isLoggedOut(req, res, next) {
+    if (req.isAuthenticated()) { //false
+      return res.redirect('/')
     }
     next()
   }
 
-  checkLoggedIn(req, res, next) {
-    if (!req.isAuthenticated()) {
-      return res.redirect('/')
+  isLoggedIn(req, res, next) {
+    if (!req.isAuthenticated()) { // true
+      return res.redirect('/login-register')
     }
     next()
   }
