@@ -41,7 +41,7 @@ class AuthServices {
           })
           .catch(async (error) => {
             // remove user
-            await UserModel.removeById(newUser._id)
+            await User.removeById(newUser._id)
             reject(transEmail.send_failed)
           })
       } catch (error) {

@@ -5,7 +5,7 @@ const UserSchema = mongoose.Schema({
   gender: { type: String, default: 'male' },
   phone: { type: String, default: null, },
   address: { type: String, default: null },
-  avatar: { type: String, default: 'avatar_default.jpg', },
+  avatar: { type: String, default: 'avatar-default.jpg', },
   role: { type: String, default: 'user', },
   local: {
     email: { type: String, trim: true, lowerCase: true, },
