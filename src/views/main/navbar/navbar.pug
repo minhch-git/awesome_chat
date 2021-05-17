@@ -30,7 +30,7 @@ nav.navbar.navbar-inverse.no-margin-bottom
             .noti_counter(style='display: block;') 30
             #noti_Container
               #notifications
-                h3 Th&ocirc;ng b&aacute;o
+                h3 Thông báo
                 .noti_content
                   span(data-uid='${ user.id }')
                     img.avatar-small(src='images/users/default-avatar-trungquandev-01.jpg', alt='')
@@ -47,11 +47,11 @@ nav.navbar.navbar-inverse.no-margin-bottom
                   br
                   br
                 .seeAll
-                  a(href='#') Xem t&#x1EA5;t c&#x1EA3;
+                  a(href='#') Xem tất cả
         li#dropdown-navbar-user.dropdown(data-uid='user._id')
           a.dropdown-toggle(data-toggle='dropdown', href='#')
-            img.avatar-small(src='images/users//default-avatar-trungquandev-02.jpg', alt='')
-            |             Trung Qu&acirc;n
+            img.avatar-small(src=`images/users/${user.avatar}`, alt='')
+            | minh chìu
             span.caret
           ul.dropdown-menu
             li
