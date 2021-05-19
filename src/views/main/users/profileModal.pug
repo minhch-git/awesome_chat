@@ -25,14 +25,14 @@
                     #show-button-update-avatar
                 // edit form column
                 .col-md-9.personal-info
-                  .alert.alert-danger.alert-dismissable
+                  .alert.alert-danger.alert-dismissable.user-modal-alert-error
                     a.panel-close.close(data-dismiss='alert') &times;
-                    |                                             Update user error example.
+                    span Update user error example.
                     br
                     // <script>openProfileModal();</script>
-                  .alert.alert-success.alert-dismissable
+                  .alert.alert-success.alert-dismissable.user-modal-alert-success
                     a.panel-close.close(data-dismiss='alert') &times;
-                    |                                             Update user success example.
+                    span Update user success example.
                     br
                     // <script>openProfileModal();</script>
                   if user.local.email
@@ -105,7 +105,7 @@
                 |                                     Update password success example
                 br
                 // <script>openProfilePasswordModal();</script>
-              h3 Thay &dstrok;&#x1ED5;i m&#x1EAD;t kh&#x1EA9;u
+              h3 Thay đổi mật khẩu
               br
               form.form-horizontal(method='post', role='form', action='')
                 .form-group
@@ -125,4 +125,4 @@
                   .col-md-8
                     input.btn.btn-primary.custom-background-btn-primary(type='submit', value='Lưu lại')
                     span
-                    input.btn.btn-default.custom-background-btn-reset(type='reset', value='Hủy bỏ')
+                    input.btn.btn-default.custom-background-btn-reset(type='button', value='Hủy bỏ')

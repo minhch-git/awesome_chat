@@ -50,15 +50,15 @@ nav.navbar.navbar-inverse.no-margin-bottom
                   a(href='#') Xem tất cả
         li#dropdown-navbar-user.dropdown(data-uid='user._id')
           a.dropdown-toggle(data-toggle='dropdown', href='#')
-            img.avatar-small(src=`images/users/${user.avatar}`, alt='')
-            | minh chìu
+            img#navbar-avatar.avatar-small(src=`images/users/${user.avatar}`, alt='')
+            span=user.username
             span.caret
           ul.dropdown-menu
             li
               a(href='#user-profile-modal', data-toggle='modal')
                 i.fa.fa-cog
-                |                 &nbsp;C&agrave;i &dstrok;&#x1EB7;t t&agrave;i kho&#x1EA3;n
+                |                 &nbsp;Cài đặt tài khoản
             li
               a(href='/auth/logout')
                 i.fa.fa-sign-out
-                |                 &nbsp;&Dstrok;&abreve;ng xu&#x1EA5;t
+                |                 &nbsp;Đăng xuất

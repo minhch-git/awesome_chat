@@ -9,7 +9,7 @@ function updateUserInfo() {
     let limit = 1048576 //byte = 1MB
 
     if ($.inArray(fileData.type, math) == -1) {
-      alertify.notify('Kiểu file không hơp lệ, chỉ chấp nhận ảnh png | jpg |jpeg ', 'error', 7)
+      alertify.notify('Kiểu file không hơp lệ, chỉ chấp nhận ảnh png, jpg và jpeg ', 'error', 7)
       $(this).val(null)
       return false
     }
@@ -94,10 +94,25 @@ $(document).ready(function() {
       processData: false,
       data: userAvatar,
       success: function(result) {
-        
+
+        // display success
+        $('.user-modal-alert-success').find('span').text(result.messages)
+        $('.user-modal-alert-success').css('display', 'block')
+
+        // update avatar at navbar
+        $('#navbar-avatar').attr('src', result.imageSrc)
+
+        // update origin avatar src
+        originAvatarSrc = result.imageSrc
+
+        $('#input-btn-cancel-update-user').click()
       },
       error: function(error) {
-        
+        $('.user-modal-alert-error').find('span').text(error.responseText)
+        $('.user-modal-alert-error').css('display', 'block')
+
+        // reset all
+        $('#input-btn-cancel-update-user').click()
       },
     })
   })
