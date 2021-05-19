@@ -34,12 +34,16 @@ UserSchema.statics = {
     return this.findById(id).exec()
   },
 
+  findByEmail(email) {
+    return this.findOne({ 'local.email': email }).exec()
+  },
+
   createNew(item) {
     return this.create(item)
   },
 
-  findByEmail(email) {
-    return this.findOne({ 'local.email': email }).exec()
+  findUserIdAndUpdate(id, item) {
+    return this.findByIdAndUpdate(id, item).exec()
   },
 
   removeById(id) {
