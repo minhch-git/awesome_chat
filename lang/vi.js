@@ -3,7 +3,11 @@ const transValidations = {
   email_incorrect: `Email phải có dạng example@gmail.com.`,
   gender_incorrect: `Trường giới tính không chính xác.`,
   password_incorrect: `Mật khẩu phải chứa ít nhất 6 ký tự.`,
-  password_confirm_incorrect: `Mật khẩu nhập lại không chính xác.`
+  password_confirm_incorrect: `Mật khẩu nhập lại không chính xác.`,
+  update_username: 'Username giới hạn trong khoảng 3-17 ký tự và không được phép chứa ký tự đặc biệt.',
+  update_gender: 'Giới liệu dữ tích có vấn đề, bạn là Hacker phải chăng? ',
+  update_address: 'Địa chỉ giới hạn 3-30 ký tự',
+  update_phone: 'Số điện thoại Việt Nam bắt đầu số 0, giới hạn trong khoảng 10-11 ký tự. ',
 }
 
 const transErrors = {
@@ -21,7 +25,8 @@ const tranSuccess = {
   account_actived: `Kích hoạt tài khoản thành công, bạn đã có thể đăng nhập vào ứng dụng.`,
   login_success: (username) => `Xin chào ${username}. Chúc bạn một ngày tốt lành.`,
   logout_success: `Đăng xuất tài khoản thành công. Hẹn gặp lại bạn!`,
-  avatar_update: `Cập nhập ảnh đại diện thành công`
+  avatar_update: `Cập nhập ảnh đại diện thành công`,
+  user_info_update: `Cập nhập thông tin cá nhân thành công`,
 }
 
 const transEmail = {
