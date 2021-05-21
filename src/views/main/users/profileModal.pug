@@ -61,21 +61,21 @@
                       label.radio-inline.col-lg-2
                         | Nam
                         if user.gender=='male'
-                          input(type='radio', name='gender', value='male', checked, required='')
+                          input#input-change-gender-male(type='radio', name='gender', value='male', checked, required='')
                         else
                           input#input-change-gender-male(type='radio', name='gender', value='male', required='')
                         span.checkmark
                       label.radio-inline.col-lg-2
                         | Nữ
                         if user.gender=='female'
-                          input(type='radio', name='gender', value='female', checked, required='')
+                          input#input-change-gender-female(type='radio', name='gender', value='female', checked, required='')
                         else
                           input#input-change-gender-female(type='radio', name='gender', value='female', required='')
                         span.checkmark
                       label.radio-inline.col-lg-2
                         | Khác
                         if user.gender=='other'
-                          input(type='radio', name='gender', value='other', checked, required='')
+                          input#input-change-gender-other(type='radio', name='gender', value='other', checked, required='')
                         else
                           input#input-change-gender-other(type='radio', name='gender', value='other', required='')
                         span.checkmark

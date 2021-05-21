@@ -35,14 +35,14 @@ nav.navbar.navbar-inverse.no-margin-bottom
                   span(data-uid='${ user.id }')
                     img.avatar-small(src='images/users/default-avatar-trungquandev-01.jpg', alt='')
                     strong Trung Qu&acirc;n
-                    |  &dstrok;&atilde; ch&#x1EA5;p nh&#x1EAD;n l&#x1EDD;i m&#x1EDD;i k&#x1EBF;t b&#x1EA1;n c&#x1EE7;a b&#x1EA1;n!
+                    |  Đã chấp nhận lời mời kết bạn của bạn!
                   br
                   br
                   br
                   span(data-uid='${ user.id }')
                     img.avatar-small(src='images/users/default-avatar-trungquandev-02.jpg', alt='')
                     strong Trung Qu&acirc;n
-                    |  &dstrok;&atilde; g&#x1EED;i cho b&#x1EA1;n m&#x1ED9;t l&#x1EDD;i m&#x1EDD;i k&#x1EBF;t b&#x1EA1;n!
+                    |  Đã chấp nhận lời mời kết bạn của bạn!
                   br
                   br
                   br
@@ -51,7 +51,7 @@ nav.navbar.navbar-inverse.no-margin-bottom
         li#dropdown-navbar-user.dropdown(data-uid='user._id')
           a.dropdown-toggle(data-toggle='dropdown', href='#')
             img#navbar-avatar.avatar-small(src=`images/users/${user.avatar}`, alt='')
-            span=user.username
+            span#navbar-username=user.username
             span.caret
           ul.dropdown-menu
             li

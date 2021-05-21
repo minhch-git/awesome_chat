@@ -1,7 +1,7 @@
 import Joi from 'joi'
 import { transValidations } from '../../lang/vi'
 
-class Validator {
+class Validate {
   body(schema) {
     return (req, res, next) => {
       if (!req.body.valueChecked) {
@@ -37,9 +37,23 @@ const SchemaValidate = {
         'any.only': transValidations.password_confirm_incorrect
       })
   }),
+
+  update: Joi.object({
+    username: Joi.string()
+      .pattern(new RegExp('[A-Za-z]')).message(transValidations.update_username),
+    gender: Joi.string()
+      .valid('male', 'female', 'other').messages({
+        'any.only': transValidations.update_gender
+      }),
+    address: Joi.string()
+      .min(3).message(transValidations.update_address)
+      .max(30).message(transValidations.update_address),
+    phone: Joi.string()
+      .pattern(new RegExp('^(0)[0-9]{9,10}')).message(transValidations.update_phone)
+  })
 }
 
 export {
   SchemaValidate
 }
-export default new Validator()
+export default new Validate()

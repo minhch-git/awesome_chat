@@ -16,7 +16,6 @@ class UserController {
         return res.status(500).send(err)
       }
 
-
       try {
         let updateUserItem = {
           avatar: req.file.filename,
@@ -38,6 +37,22 @@ class UserController {
         return res.status(500).send(error)
       }
     })
+  }
+
+  async updateInfo(req, res) {
+    try {
+      let updateUserItem = await req.body.valueChecked
+
+      let userUpdate = await userService.updateUser(req.user._id, updateUserItem)
+      let result = {
+        messages: tranSuccess.user_info_update,
+      }
+      return res.status(200).send(result)
+    } catch (errors) {
+      let errorsArr = []
+      errors.details ? errors.details.forEach(err => errorsArr.push(err.message)) : errorsArr.push(errors)
+      return res.status(500).send(errorsArr)
+    }
   }
 }
 
