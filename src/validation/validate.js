@@ -38,7 +38,7 @@ const SchemaValidate = {
       })
   }),
 
-  update: Joi.object({
+  updateInfo: Joi.object({
     username: Joi.string()
       .pattern(new RegExp('[A-Za-z]')).message(transValidations.update_username),
     gender: Joi.string()
@@ -50,6 +50,22 @@ const SchemaValidate = {
       .max(30).message(transValidations.update_address),
     phone: Joi.string()
       .pattern(new RegExp('^(0)[0-9]{9,10}')).message(transValidations.update_phone)
+  }),
+
+  updatePassword: Joi.object({
+    currentPassword: Joi.string().min(6).messages({
+      'string.min': transValidations.password_incorrect,
+      'string.empty': transValidations.string_empty,
+    }),
+    newPassword: Joi.string().min(6).messages({
+      'string.min': transValidations.password_incorrect,
+      'string.empty': transValidations.string_empty,
+    }),
+    confirmNewPassword: Joi.string().valid(Joi.ref('password'))
+      .messages({
+      'string.empty': transValidations.string_empty,
+      'any.only': transValidations.password_confirm_incorrect
+      })
   })
 }
 

@@ -1278,6 +1278,8 @@ label:focus,
 
 
 .user-modal-alert-error,
-.user-modal-alert-success {
+.user-modal-alert-success,
+.user-modal-password-alert-error,
+.user-modal-password-alert-success {
   display: none;
 }

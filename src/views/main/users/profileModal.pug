@@ -11,6 +11,7 @@
           li
             a#link-to-password-profile(data-toggle='tab', href='#password-profile') Quản lý mật khẩu
         .tab-content
+          //- update info and avatar 
           #seting-profile.tab-pane.fade.in.active
             .row
               form.form-horizontal(method='post', role='form', action='')
@@ -95,34 +96,33 @@
                       input#input-btn-cancel-update-user.btn.btn-default.custom-background-btn-reset(type='reset', value='Hủy bỏ')
           #password-profile.tab-pane.fade
             .col-md-9.personal-info
-              .alert.alert-danger.alert-dismissable
+              br
+              .alert.alert-danger.alert-dismissable.user-modal-password-alert-error
                 a.panel-close.close(data-dismiss='alert') &times;
-                |                                     Update password error example
+                span Update user error example.
                 br
-                // <script>openProfilePasswordModal();</script>
-              .alert.alert-success.alert-dismissable
+              .alert.alert-success.alert-dismissable.user-modal-password-alert-success
                 a.panel-close.close(data-dismiss='alert') &times;
-                |                                     Update password success example
+                span Update user success example.
                 br
-                // <script>openProfilePasswordModal();</script>
               h3 Thay đổi mật khẩu
               br
               form.form-horizontal(method='post', role='form', action='')
                 .form-group
-                  label.col-md-4.control-label M&#x1EAD;t kh&#x1EA9;u c&utilde;
+                  label.col-md-4.control-label Mật khẩu cũ:
                   .col-md-8
-                    input.form-control(type='password', name='current_password', placeholder='Enter your curent password...')
+                    input#input-change-current-password.form-control(type='password', name='current_password', placeholder='Enter your curent password...')
                 .form-group
-                  label.col-md-4.control-label M&#x1EAD;t kh&#x1EA9;u m&#x1EDB;i
+                  label.col-md-4.control-label Mật khẩu mới:
                   .col-md-8
-                    input.form-control(type='password', name='new_password', placeholder='Enter new password...')
+                    input#input-change-new-password.form-control(type='password', name='new_password', placeholder='Enter new password...')
                 .form-group
-                  label.col-md-4.control-label Nh&#x1EAD;p l&#x1EA1;i m&#x1EAD;t kh&#x1EA9;u m&#x1EDB;i
+                  label.col-md-4.control-label Nhập lại mật khẩu mới:
                   .col-md-8
-                    input.form-control(type='password', name='confirm_new_password', placeholder='Enter confirm new password...')
+                    input#input-confirm-new-password.form-control(type='password', name='confirm_new_password', placeholder='Enter confirm new password...')
                 .form-group
                   label.col-md-4.control-label
                   .col-md-8
-                    input.btn.btn-primary.custom-background-btn-primary(type='submit', value='Lưu lại')
+                    input#input-btn-update-user-password.btn.btn-primary.custom-background-btn-primary(type='button', value='Lưu lại')
                     span
-                    input.btn.btn-default.custom-background-btn-reset(type='button', value='Hủy bỏ')
+                    input#input-btn-cancel-update-user-password.btn.btn-default.custom-background-btn-reset(type='button', value='Hủy bỏ')
