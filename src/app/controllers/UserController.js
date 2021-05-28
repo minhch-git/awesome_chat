@@ -54,6 +54,18 @@ class UserController {
       return res.status(500).send(errorsArr)
     }
   }
+
+  async updatePassword(req, res) {
+    try {
+      let updateUserItem = await req.body.valueChecked
+      await userService.updatePassword(req.user._id, updateUserItem)
+      return res.status(201).json({ msg: tranSuccess.user_password_update })
+    } catch (errors) {
+      let errorsArr = []
+      errors.details ? errors.details.forEach(err => errorsArr.push(err.message)) : errorsArr.push(errors)
+      return res.status(500).json({ msg: errorsArr })
+    }
+  }
 }
 
 

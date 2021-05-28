@@ -70,6 +70,10 @@ UserSchema.statics = {
 
   findByGoogleUid(uid) {
     return this.findOne({ 'google.uid': uid }).exec()
+  },
+  
+  updatePassword(id, hashedPassword) {
+    return this.findByIdAndUpdate(id, {"local.password": hashedPassword}).exec()
   }
 }
 

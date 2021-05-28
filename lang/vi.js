@@ -12,12 +12,14 @@ const transValidations = {
 
 const transErrors = {
   account_in_use: `Email đã được sử dụng!`,
+  account_undefined: `Tài khoản không tồn tại!`,
   account_removed: `Tài khoản của này đã bị gỡ khỏi hệ thống, nếu tin rằng điều này là hiểu nhầm, vui lòng liên hệ với bộ phận hỗ trợ của chúng tôi.`,
   account_not_active: `Email đã đăng ký nhưng chưa active tài khoản, vui lòng kiểm tra email của bạn hoặc liên hệ với bộ phận hỗ trợ của chúng tôi.`,
   token_undefined: `Bạn đã xác minh tài khoản trước đó.`,
   login_failed: `Tên đăng nhập hoặc mật khẩu không chính xác.`,
   server_error: `Có lỗi ở phía server, vui lòng liên hệ với bộ phận của chúng tôi để báo cáo lỗi này. Xin cảm ơn!`,
-  avatar_type: `Kiểu file không hơp lệ, chỉ chấp nhận ảnh png, jpg và jpeg`
+  avatar_type: `Kiểu file không hơp lệ, chỉ chấp nhận ảnh png, jpg và jpeg`,
+  user_current_password_failed: 'Nhập mật khẩu cũ không chính xác'
 }
 
 const tranSuccess = {
@@ -27,6 +29,7 @@ const tranSuccess = {
   logout_success: `Đăng xuất tài khoản thành công. Hẹn gặp lại bạn!`,
   avatar_update: `Cập nhập ảnh đại diện thành công`,
   user_info_update: `Cập nhập thông tin cá nhân thành công`,
+  user_password_update: 'Cập nhập mật khẩu thành công'
 }
 
 const transEmail = {

@@ -1,7 +1,6 @@
 import express from 'express'
 import path from 'path'
 import flash from 'connect-flash'
-
 const host = process.env.APP_HOST || 'localhost'
 const port = process.env.APP_PORT || 8080
 
@@ -25,7 +24,8 @@ app.use(flash())
 config.viewEngine(app, path.join(__dirname, 'views'))
 
 // Enable post data for request
-app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
+app.use(express.urlencoded({ extended: false }))
 
 // Config passport js
 config.applyPassport(app)
