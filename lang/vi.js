@@ -8,6 +8,7 @@ const transValidations = {
   update_gender: 'Giới liệu dữ tích có vấn đề, bạn là Hacker phải chăng? ',
   update_address: 'Địa chỉ giới hạn 3-30 ký tự',
   update_phone: 'Số điện thoại Việt Nam bắt đầu số 0, giới hạn trong khoảng 10-11 ký tự. ',
+  keyword_find_users: 'Lõi từ khóa tìm kiếm, chỉ cho phép ký tự chữ cái và số, cho phép khoảng trống.'
 }
 
 const transErrors = {
