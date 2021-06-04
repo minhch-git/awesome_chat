@@ -12,6 +12,19 @@ const ContactSchema = mongoose.Schema({
 ContactSchema.statics = {
   createNew(item) {
     return this.create(item)
+  },
+
+  /**
+   * Find all items that related with user
+   * @param {currentUserId} userId 
+   */
+  findAllByUser(userId) {
+    return this.find({
+      $or: [
+        { 'userId': userId },
+        {'contactId': userId}
+      ]
+    }).exec()
   }
 }
 

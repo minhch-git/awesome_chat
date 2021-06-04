@@ -17,6 +17,23 @@ class Validate {
       }
     }
   }
+
+  params(schema) {
+    return (req, res, next) => {
+      if (!req.params.valueChecked) {
+        req.params.valueChecked = new Promise(async (resolve, reject) => {
+          try {
+            let validatorResult = await schema.validateAsync(req.params)
+            resolve(validatorResult)
+          } catch (error) {
+            error = error.details[0].message || error
+            reject(error)
+          }
+        })
+        next()
+      }
+    }
+  }
 }
 
 const SchemaValidate = {
@@ -63,9 +80,15 @@ const SchemaValidate = {
     }),
     confirmNewPassword: Joi.string().valid(Joi.ref('password'))
       .messages({
-      'string.empty': transValidations.string_empty,
-      'any.only': transValidations.password_confirm_incorrect
+        'string.empty': transValidations.string_empty,
+        'any.only': transValidations.password_confirm_incorrect
       })
+  }),
+
+  keyword: Joi.object({
+    keyword: Joi.string()
+      .min(3).message(transValidations.keyword_find_users)
+      .max(17).message(transValidations.keyword_find_users)
   })
 }
 
