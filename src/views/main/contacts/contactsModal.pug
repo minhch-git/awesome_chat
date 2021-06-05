@@ -3,7 +3,7 @@
     .modal-content
       .modal-header
         button.close(type='button', data-dismiss='modal') &times;
-        h4.modal-title Qu&#x1EA3;n l&yacute; li&ecirc;n l&#x1EA1;c
+        h4.modal-title Quản lý liên lạc
       .modal-body
         //- nav 
         ul.nav.nav-tabs
@@ -16,7 +16,8 @@
           li
             a#link-request-contact-sent(data-toggle='tab', href='#request-contact-sent')
               | Đang chờ xác nhận
-              span.show-number-contacts.count-request-contact-sent (100)
+              span.show-number-contacts.count-request-contact-sent
+                em
           li
             a#link-request-contact-received(data-toggle='tab', href='#request-contact-received')
               | Yêu cầu kết bạn
@@ -34,6 +35,7 @@
             //- list user
             .find-user-bottom
               ul.contactList
+                //- item render form js
           #contacts.tab-pane.fade
             .find-user-bottom
               ul.contactList

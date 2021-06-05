@@ -1,11 +1,11 @@
 // import controller
 import siteController from '../app/controllers/SiteController'
-import authMiddleware from '../app/middlewares/authMiddleware'
+import isLogin from './../validation/isLogin'
 
 import { Router } from 'express'
 const router = new Router()
 
-router.get('/login-register', authMiddleware.isLoggedOut, siteController.getLoginRegister)
-router.get('/', authMiddleware.isLoggedIn, siteController.getHome)
+router.get('/login-register', isLogin.isLoggedOut, siteController.getLoginRegister)
+router.get('/', isLogin.isLoggedIn, siteController.getHome)
 
 export default router

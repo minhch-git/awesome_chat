@@ -1,4 +1,3 @@
-
 function callFindUsers(element) {
   if (element.which === 13 || element.type === 'click') {
     let keyword = $('#input-find-users-contact').val()
@@ -20,6 +19,8 @@ function callFindUsers(element) {
       })
       .then(data => {
         $('#find-user .contactList').html(renderUsers(data))
+        addContact()
+        removeRequestContact()
       })
   }
 }
