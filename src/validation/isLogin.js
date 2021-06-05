@@ -1,4 +1,4 @@
-class AuthMiddleware {
+class Login {
   isLoggedOut(req, res, next) {
     if (req.isAuthenticated()) { //false
       return res.redirect('/')
@@ -14,4 +14,4 @@ class AuthMiddleware {
   }
 }
 
-export default new AuthMiddleware()
+export default new Login()
