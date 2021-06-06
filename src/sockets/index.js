@@ -6,6 +6,7 @@ import Contact from './contact/Contact'
 
 const initSocket = (io) => {
   Contact.addNew(io)
+  Contact.removeRequest(io)
   // 
 }
 

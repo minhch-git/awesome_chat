@@ -12,7 +12,7 @@ nav.navbar.navbar-inverse.no-margin-bottom
         li
           input.searchBox(type='text', name='search', placeholder='Tìm kiếm tên cuộc trò chuyện')
           #search-results
-            h3 K&#x1EBF;t qu&#x1EA3;
+            h3 Kết quả
             .search_content
               ul
     #myNavbar.collapse.navbar-collapse.col-sm-6.navbar-right
@@ -23,29 +23,18 @@ nav.navbar.navbar-inverse.no-margin-bottom
         li
           a#show-modal-contacts(href='#contactsModal', data-toggle='modal', title='Quản lý liên lạc')
             i.fa.fa-user-plus
-            .noti_contact_counter 100
+            .noti_contact_counter
+              //- number
         li
           a#noti_Button(href='#', data-toggle='modal', title='Thông báo')
             i.fa.fa-globe
-            .noti_counter(style='display: block;') 30
+            .noti_counter
+              //- number
             #noti_Container
               #notifications
                 h3 Thông báo
                 .noti_content
-                  span(data-uid='${ user.id }')
-                    img.avatar-small(src='images/users/default-avatar-trungquandev-01.jpg', alt='')
-                    strong Trung Qu&acirc;n
-                    |  Đã chấp nhận lời mời kết bạn của bạn!
-                  br
-                  br
-                  br
-                  span(data-uid='${ user.id }')
-                    img.avatar-small(src='images/users/default-avatar-trungquandev-02.jpg', alt='')
-                    strong Trung Qu&acirc;n
-                    |  Đã chấp nhận lời mời kết bạn của bạn!
-                  br
-                  br
-                  br
+                  //- Notification-content
                 .seeAll
                   a(href='#') Xem tất cả
         li#dropdown-navbar-user.dropdown(data-uid='user._id')
