@@ -34,6 +34,8 @@ nav.navbar.navbar-inverse.no-margin-bottom
               #notifications
                 h3 Thông báo
                 .noti_content
+                  each notifContent in notifications 
+                    div= notifContent
                   //- Notification-content
                 .seeAll
                   a(href='#') Xem tất cả

@@ -78,7 +78,7 @@ const SchemaValidate = {
       'string.min': transValidations.password_incorrect,
       'string.empty': transValidations.string_empty,
     }),
-    confirmNewPassword: Joi.string().valid(Joi.ref('password'))
+    confirmNewPassword: Joi.string().valid(Joi.ref('newPassword'))
       .messages({
         'string.empty': transValidations.string_empty,
         'any.only': transValidations.password_confirm_incorrect

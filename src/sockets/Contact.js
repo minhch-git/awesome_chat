@@ -1,4 +1,4 @@
-import socketHelper from './../../helpers/socketHelper'
+import socketHelper from './../helpers/socketHelper'
 /**
  * @param io from socket.io library
  */

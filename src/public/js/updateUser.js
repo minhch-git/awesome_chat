@@ -73,52 +73,51 @@ function updateUserInfo() {
   })
 
   // // handle password
-  // $('#input-change-current-password').bind('change', function () {
-  //   let currentPassword = $(this).val()
-  //   // let regexPassword = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}$/)
-  //   let msgError = `Mật khẩu chứa ít nhất 8 ký tự, bao gồm chữ in hoa, chữ thường, chữ số và ký tự đặc biệt`
-  //   if (currentPassword.length < 8) {
-  //     alertify.notify(msgError, 'error', 7)
+  $('#input-change-current-password').bind('change', function () {
+    let currentPassword = $(this).val()
+    let msgError = `Mật khẩu hiện cũ của bạn không chính xác!!!`
+    if (currentPassword.length < 8) {
+      alertify.notify(msgError, 'error', 7)
 
-  //     $(this).val(null)
-  //     delete userUpdatePassword.currentPassword
-  //     return false
-  //   }
-  //   userUpdatePassword.currentPassword = currentPassword
-  // })
-  // $('#input-change-new-password').bind('change', function () {
-  //   let newPassword = $(this).val()
-  //   // let regexPassword = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}$/)
-  //   let msgError = `Mật khẩu chứa ít nhất 8 ký tự, bao gồm chữ in hoa, chữ thường, chữ số và ký tự đặc biệt`
-  //   if (newPassword.length < 8) {
-  //     alertify.notify(msgError, 'error', 7)
+      $(this).val(null)
+      delete userUpdatePassword.currentPassword
+      return false
+    }
+    userUpdatePassword.currentPassword = currentPassword
+  })
+  $('#input-change-new-password').bind('change', function () {
+    let newPassword = $(this).val()
+    var regex = /[a-z]/
+    let msgError = `Mật khẩu chứa ít nhất 8 ký tự, bao gồm chữ in hoa, chữ thường, chữ số và ký tự đặc biệt`
+    if (!newPassword.match(regex)) {
+      alertify.notify(msgError, 'error', 7)
 
-  //     $(this).val(null)
-  //     delete userUpdatePassword.newPassword
-  //     return false
-  //   }
-  //   userUpdatePassword.newPassword = newPassword
-  // })
-  // $('#input-confirm-new-password').bind('change', function () {
-  //   let confirmNewPassword = $(this).val()
+      $(this).val(null)
+      delete userUpdatePassword.newPassword
+      return false
+    }
+    userUpdatePassword.newPassword = newPassword
+  })
+  $('#input-confirm-new-password').bind('change', function () {
+    let confirmNewPassword = $(this).val()
 
-  //   if (!userUpdatePassword.newPassword) {
-  //     alertify.notify('Bạn chưa nhập mật khẩu mới', 'error', 7)
+    if (!userUpdatePassword.newPassword) {
+      alertify.notify('Bạn chưa nhập mật khẩu mới', 'error', 7)
 
-  //     $(this).val(null)
-  //     delete userUpdatePassword.confirmNewPassword
-  //     return false
-  //   }
+      $(this).val(null)
+      delete userUpdatePassword.confirmNewPassword
+      return false
+    }
 
-  //   if (confirmNewPassword != userUpdatePassword.newPassword) {
-  //     alertify.notify('Mật khẩu nhập lại chưa chính xác', 'error', 7)
+    if (confirmNewPassword != userUpdatePassword.newPassword) {
+      alertify.notify('Mật khẩu nhập lại chưa chính xác', 'error', 7)
 
-  //     $(this).val(null)
-  //     delete userUpdatePassword.confirmNewPassword
-  //     return false
-  //   }
-  //   userUpdatePassword.confirmNewPassword = confirmNewPassword
-  // })
+      $(this).val(null)
+      delete userUpdatePassword.confirmNewPassword
+      return false
+    }
+    userUpdatePassword.confirmNewPassword = confirmNewPassword
+  })
 
 }
 
@@ -185,6 +184,7 @@ let callUpdateUserInfo = () => {
 }
 
 let callUpdateUserPassword = async () => {
+  console.log(userUpdatePassword)
   try {
     let response = await fetch('/user/update-password', {
       method: 'PUT',

@@ -1,0 +1,20 @@
+<div class="box">
+  <div class="content registerBox" style="display:none;">
+      <div class="form">
+        <form method="post" html="{:multipart=&gt;true}" data-remote="true" action="/auth/register" accept-charset="UTF-8">
+          <input class="form-control" id="email" type="text" placeholder="Email" name="email" />
+          <label class="radio-inline">
+            <input type="radio" name="gender" value="male" checked="" />
+            Nam
+          </label>
+          <label class="radio-inline">
+            <input type="radio" name="gender" value="female" checked="" />
+            Nữ
+          </label>
+          <input class="form-control" id="password" type="password" placeholder="Password" name="password" />
+          <input class="form-control" id="password_confirmation" type="password" placeholder="Repeat Password" name="password_confirmation" />
+          <input class="btn btn-default btn-register" type="submit" value="Tạo tài khoản" />
+        </form>
+      </div>
+  </div>
+</div>
