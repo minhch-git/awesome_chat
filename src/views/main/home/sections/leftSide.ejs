@@ -1,0 +1,50 @@
+<div class="col-sm-3 sidenav no-padding">
+  <div class="left">
+    <div class="top form-group">
+      <select class="form-control" id="select-type-chat">
+        <option value="all-chat">Tạo bộ trò chuyện</option>
+        <option value="personal-chat">Trò chuyện cá nhân</option>
+        <option value="group-chat">Trò chuyện nhóm</option>
+      </select>
+      <a class="create-group-chat" href="#groupChatModal" data-toggle="modal" title="Tạo một nhóm trò chuyện mới"></a>
+    </div>
+    <ul class="people no-padding-start">
+      <a class="room-chat" href="#uidcontact._id">
+        <li class="person" data-chat="contact._id">
+          <div class="left-avatar">
+            <div class="dot"></div>
+            <img src="images/users/my_avatar.jpg" alt="" />
+          </div>
+          <span class="name">Minh Chìu</span>
+          <span class="time">Một phút trước</span>
+          <span class="preview">Xin chào</span>
+        </li>
+      </a>
+
+      <a class="room-chat" href="#uidgroupChatItem._id">
+        <li class="person group-chat" data-chat="groupChatItem._id">
+          <div class="left-avatar">
+            <!-- <div class="dot"></div>-->
+            <img src="images/users/group-avatar-trungquandev.png" alt="" />
+          </div>
+          <span class="name">
+            <span class="group-chat-name">Group:</span> Group Chat</span>
+            <span class="time">Hai giờ trước</span>
+            <span class="preview">Chào cả nhóm</span>
+        </li>
+      </a>
+
+      <a class="room-chat" id="null-contact" href="#">
+        <li class="person active" data-chat="person-default">
+          <div class="left-avatar">
+            <div class="dot online"></div>
+            <img class="avatar-online" src="images/users/trungquandev_new-ava.png" alt="" />
+          </div>
+          <span class="name">Minh Chìu (admin)</span>
+          <span class="time">B&acirc;y gi&#x1EDD;</span>
+          <span class="preview">Xin chào <strong>Minh Chìu</strong>...</span>
+        </li>
+      </a>
+    </ul>
+  </div>
+</div>

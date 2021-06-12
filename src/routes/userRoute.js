@@ -5,8 +5,7 @@ import isLogin from './../validation/isLogin'
 
 import userController from '../app/controllers/UserController'
 
-router.put('/update-info',
-  isLogin.isLoggedIn,
+router.put('/update-info',  isLogin.isLoggedIn,
   validate.body(SchemaValidate.updateInfo),
   userController.updateInfo)
 
@@ -18,6 +17,5 @@ router.put('/update-password',
   isLogin.isLoggedIn,
   validate.body(SchemaValidate.updatePassword),
   userController.updatePassword)
-
 
 export default router

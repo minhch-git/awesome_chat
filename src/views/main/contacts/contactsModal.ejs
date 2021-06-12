@@ -1,0 +1,133 @@
+<div class="modal fade" id="contactsModal" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" type="button" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Quản lý liên lạc</h4>
+      </div>
+      <div class="modal-body">
+        <!-- menu -->
+        <ul class="nav nav-tabs">
+          <!-- search -->
+          <li class="active">
+            <a data-toggle="tab" href="#find-user">Tìm người dùng</a>
+          </li>
+          <!-- List -->
+          <li>
+            <a id="link-contacts" data-toggle="tab" href="#contacts">Danh bạ 
+              <span class="show-number-contacts count-contacts">(100)</span>
+            </a>
+          </li>
+          <!-- Waiting for confirmation -->
+          <li>
+            <a id="link-request-contact-sent" data-toggle="tab" href="#request-contact-sent">
+              Đang chờ xác nhận
+              <span class="show-number-contacts count-request-contact-sent"><em></em></span>
+            </a>
+          </li>
+          <!-- Friend request -->
+          <li>
+            <a id="link-request-contact-received" data-toggle="tab" href="#request-contact-received">
+              Yêu cầu kết bạn
+              <span class="show-number-contacts count-request-contact-received">
+                <!-- // number -->
+              </span>
+            </a>
+          </li>
+        </ul>
+
+        <!-- tab content -->
+        <div class="tab-content">
+          <!-- tab search -->
+          <div class="tab-pane fade in active" id="find-user">
+            <div class="find-user-top">
+                <div class="input-group col-md-12">
+                  <input class="form-control"
+                  id="input-find-users-contact"
+                  type="text"
+                  placeholder="Nhập E-mail hoặc username..." />
+                  <span class="input-group-btn">
+                    <button class="btn btn-lg" id="btn-find-users-contact" type="button">
+                      <i class="glyphicon glyphicon-search"></i>
+                    </button>
+                  </span>
+                </div>
+            </div>
+            <div class="find-user-bottom">
+                <ul class="contactList"></ul>
+            </div>
+          </div>
+
+          <!-- tab list -->
+          <div class="tab-pane fade" id="contacts">
+            <div class="find-user-bottom">
+                <ul class="contactList">
+                    <li class="_contactList" data-uid="user._id">
+                        <div class="contactPanel">
+                            <div class="user-avatar"><img src="/images/users/my_avatar.jpg" alt="" /></div>
+                            <div class="user-name">
+                                <p>Minh Chìu</p>
+                            </div>
+                            <br />
+                            <div class="user-address">
+                              <span>Ngũ Hành Sơn, Đà Nẵng, Việt Nam.</span>
+                            </div>
+                            <div class="user-talk" data-uid="user._id">Trò chuyện</div>
+                            <div class="user-remove-contact action-danger" data-uid="user._id">
+                              Xóa liên hệ
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+          </div>
+
+          <!-- Tab waiting for confirmation -->
+          <div class="tab-pane fade" id="request-contact-sent">
+            <div class="find-user-bottom">
+                <ul class="contactList">
+                    <li class="_contactList" data-uid="user._id">
+                        <div class="contactPanel">
+                            <div class="user-avatar"><img src="/images/users/my_avatar.jpg" alt="" /></div>
+                            <div class="user-name">
+                                <p>Minh Chìu</p>
+                            </div><br />
+                            <div class="user-address">Ngũ Hành Sơn, Đà Nẵng, Việt Nam.</span></div>
+                            <div class="user-remove-request-sent action-danger" data-uid="user._id">
+                              Hủy yêu cầu
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+          </div>
+
+          <!-- Tab friend request -->
+          <div class="tab-pane fade" id="request-contact-received">
+            <div class="find-user-bottom">
+                <ul class="contactList">
+                    <li class="_contactList" data-uid="user._id">
+                        <div class="contactPanel">
+                            <div class="user-avatar"><img src="/images/users/my_avatar.jpg" alt="" /></div>
+                            <div class="user-name">
+                                <p>Minh Chìu</p>
+                            </div><br />
+                            <div class="user-address">
+                              <span>Ngũ Hành Sơn, Đà Nẵng, Việt Nam.</span>
+                            </div>
+                            <div class="user-acccept-contact-received" data-uid="user._id">
+                              Chấp nhận
+                            </div>
+                            <div class="user-reject-request-contact-received action-danger" data-uid="user._id">
+                              Xóa yêu cầu
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

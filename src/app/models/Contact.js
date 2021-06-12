@@ -65,8 +65,8 @@ ContactSchema.statics = {
   removeRequestContact(userId, contactId) {
     return this.deleteOne({
       $and: [
-        {userId},
-        {contactId}
+        { userId },
+        { contactId }
       ]
     }).exec()
   }
