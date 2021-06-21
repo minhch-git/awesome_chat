@@ -39,8 +39,17 @@ NotificationSchema.statics = {
         {'isRead': false}
       ]
     }).exec()
-  }
+  },
 
+  /**
+   * Readmore notifications
+   * @param {string} userId 
+   * @param {number} skip 
+   * @param {number} limit
+   */
+  readMore(userId, skip, limit) {
+    return this.find({ 'receiverId': userId }).skip(skip).sort({ "createAt": -1 }).limit(limit).exec()
+  }
 }
 
 const NOTIFYCATION_TYPES = {
