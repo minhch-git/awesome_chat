@@ -9,7 +9,6 @@ class ContactService {
       try {
         let deprecatedUserIds = [currentUserId]
         let contactsByUser = await Contact.findAllByUser(currentUserId)
-        console.log(contactsByUser)
         contactsByUser.forEach(contact => {
           deprecatedUserIds.push(contact.userId, contact.contactId)
         })
