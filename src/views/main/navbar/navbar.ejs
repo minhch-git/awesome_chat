@@ -12,14 +12,14 @@
     </div>
     <div class="col-sm-3 no-padding">
       <ul class="nav navbar-nav navbar-left no-padding-start">
-          <li><input class="searchBox" type="text" name="search" placeholder="Tìm kiếm tên cuộc trò chuyện" />
-              <div id="search-results">
-                  <h3>Kết quả</h3>
-                  <div class="search_content">
-                      <ul></ul>
-                  </div>
-              </div>
-          </li>
+        <li><input class="searchBox" type="text" name="search" placeholder="Tìm kiếm tên cuộc trò chuyện" />
+          <div id="search-results">
+            <h3>Kết quả</h3>
+            <div class="search_content">
+              <ul></ul>
+            </div>
+          </div>
+        </li>
       </ul>
     </div>
 
@@ -36,36 +36,44 @@
         </li>
 
         <li>
-          <a id="noti_Button" href="#" data-toggle="modal" title="Thông báo"><i class="fa fa-globe"></i>
-            <div class="noti_counter">
-              <!-- number -->
-            </div>
-
-            <div id="noti_Container">
-              <div id="notifications">
-                  <h3>Thông báo</h3>
-                  <div class="noti_content">
-                    <% notifications.forEach(function(notifaction) { %>
-                       <%- notifaction %>
-                    <% }) %>
-                  <!-- Notification-content -->
-                  </div>
-                  <div class="seeAll"><a href="#">Xem tất cả</a></div>
+          <a href="javascript:void(0)" id="noti_Button" href="#" data-toggle="modal" title="Thông báo"><i
+              class="fa fa-globe"></i>
+            <!-- render number notif -->
+            <% if(notifications.length> 0) { %>
+              <div class="noti_counter">
+                <%= notifications.length %>
               </div>
-            </div>
+              <% } else { %>
+                <div class="d-none noti_counter">
+                </div>
+                <% } %>
+                  <div id="noti_Container">
+                    <div id="notifications">
+                      <a href="javascript:void(0)" id="popup-mark-notif-as-read">Đánh dấu tất cả đã đọc</a>
+                      <div class="noti_content">
+                        <!-- render notifications from server -->
+                        <% notifications.forEach(function(notif){ %>
+                          <%- notif %>
+                            <% }); %>
+                      </div>
+                      <div class="seeAll"><a href="#notificationsModal" data-toggle="modal">Xem tất cả</a></div>
+                    </div>
+                  </div>
           </a>
         </li>
 
         <li id="dropdown-navbar-user" class="dropdown" data-uid='user._id'>
           <a href="#" class="dropdown-toggle" data-toggle='dropdown'>
             <img class="avatar-small" id="navbar-avatar" src="images/users/<%= user.avatar %>" alt="" />
-            <span id="navbar-usernam"><%= user.username %></span>
+            <span id="navbar-usernam">
+              <%= user.username %>
+            </span>
             <span class="caret"></span>
           </a>
           <ul class="dropdown-menu">
             <li>
               <a href="#user-profile-modal" data-toggle="modal">
-                <i class="fa fa-cog"></i> 
+                <i class="fa fa-cog"></i>
                 &nbsp;Cài đặt tài khoản
               </a>
             </li>

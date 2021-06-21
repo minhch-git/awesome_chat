@@ -10,6 +10,10 @@ export DB_NAME=***
 export DB_USER=***
 export DB_PASSWORD=***
 
+# config session
+export SESSION_KEY=***
+export SESSION_SECRET=***
+
 # Config admin use account
 export MAIL_USER=***
 export MAIL_PASSWORD=***

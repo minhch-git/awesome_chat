@@ -2,6 +2,23 @@ import Notification from './../models/Notification'
 import User from './../models/User'
 class NotificationService {
 
+
+  /**
+   * Count all notifications unread
+   * @param {string} currentUserId 
+   * @returns promise
+   */
+  countNotifUnread(currentUserId) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let notificationsUnread = await Notification.model.countNotifUnread(currentUserId)
+        resolve(notificationsUnread)
+      } catch (error) {
+        console.error(error)
+      }
+    })
+  }
+
   /**
    * Get notifications when f5 page
    * Just 10 item one time

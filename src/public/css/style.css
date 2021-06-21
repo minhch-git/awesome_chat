@@ -278,7 +278,7 @@ label:focus,
 }
 
 .noti_contact_counter {
-  display: none;
+  display: block;
   position: absolute;
   background: #E1141E;
   color: #FFF;
@@ -293,7 +293,7 @@ label:focus,
 }
 
 .noti_counter {
-  display: none;
+  display: block;
   position: absolute;
   background: #E1141E;
   color: #FFF;
@@ -315,11 +315,14 @@ label:focus,
 }
 
 .noti_content>span {
-  position: absolute;
   max-width: 95%;
   margin-top: 5px;
   margin-left: 7px;
   color: #333;
+  max-height: 58px;
+}
+.noti_content>span:hover {
+  background: #F6F7F8;
 }
 
 .seeAll {
@@ -422,6 +425,24 @@ label:focus,
   cursor: pointer;
   background-color: #eceff1;
 }
+
+.list-notifications li {
+  border-bottom: 1px solid #dfe6e9;
+  width: 90%;
+  height: auto;
+  padding: 7px 0px 12px 5px;
+  margin: 0 auto;
+  list-style-type: none;
+}
+.list-notifications li span {
+    padding: 20px 12px;
+}
+
+.list-notifications li:hover {
+  cursor: pointer;
+  background-color: #eceff1;
+}
+
 
 .navbar-brand>img {
   margin: -12px 0px 0px 7px;
@@ -1283,4 +1304,23 @@ label:focus,
 .user-modal-password-alert-error,
 .user-modal-password-alert-success {
   display: none;
+}
+
+.notif-readed-false {
+  background-color: #e3f8f0;
+}
+.d-none {
+  display: none;
+}
+.d-block {
+  display: block !important;
+}
+
+#noti_Button:hover {
+  text-decoration: none;
+}
+
+#popup-mark-notif-as-read {
+  padding: 8px;
+  display: block;
 }

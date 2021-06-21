@@ -25,13 +25,15 @@ socket.on('response-add-new-contact', (user) => {
   console.log(user)
 
   let notif = `
-    <span data-uid="${user.id}">
+    <span class="d-block " data-uid="${user.id}">
       <img class="avatar-small" src="images/users/${user.avatar}" alt="" />
-      <strong>${user.username}</strong> Đã gửi lời mời kết bạn!<br /><br /><br />
+      <strong>${user.username}</strong> Đã gửi cho bạn một lời mời kết bạn!
     </span>
   `
 
   $('.noti_content').prepend(notif)
+  $('.list-notifications').prepend(`<li>${notif}</li>`)
+
   increaseNumberNotifContact('.count-request-contact-received')
 
   increaseNumberNotification('.noti_contact_counter')

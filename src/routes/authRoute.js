@@ -9,31 +9,31 @@ import passportController from '../app/controllers/PassportController'
 
 // init passport
 passportController.applyPassportLocal(passport)
-passportController.applyPassportFacebook(passport)
-passportController.applyPassportGoogle(passport)
+// passportController.applyPassportFacebook(passport)
+// passportController.applyPassportGoogle(passport)
 
 // login type: google
-router.get('/google',
-  passport.authenticate('google', { scope: ['email'] }))
-router.get('/google/callback',
-  passport.authenticate('google', {
-    successRedirect: '/',
-    failureRedirect: '/login-register',
-    successFlash: true,
-    failureFlash: true,
-  }))
+// router.get('/google',
+//   passport.authenticate('google', { scope: ['email'] }))
+// router.get('/google/callback',
+//   passport.authenticate('google', {
+//     successRedirect: '/',
+//     failureRedirect: '/login-register',
+//     successFlash: true,
+//     failureFlash: true,
+//   }))
 
 // login type: facebook
-router.get('/facebook',
-  passport.authenticate('facebook', { scope: ['email'] }))
-router.get('/facebook/callback',
-  passport.authenticate('facebook', {
-    successRedirect: '/',
-    failureRedirect: '/login-register',
-    failureFlash: true,
-    successFlash: true,
-  })
-)
+// router.get('/facebook',
+//   passport.authenticate('facebook', { scope: ['email'] }))
+// router.get('/facebook/callback',
+//   passport.authenticate('facebook', {
+//     successRedirect: '/',
+//     failureRedirect: '/login-register',
+//     failureFlash: true,
+//     successFlash: true,
+//   })
+// )
 
 // login type: local
 router.post('/login',

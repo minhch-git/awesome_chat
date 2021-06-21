@@ -14,7 +14,7 @@
           </li>
           <!-- List -->
           <li>
-            <a id="link-contacts" data-toggle="tab" href="#contacts">Danh bạ 
+            <a id="link-contacts" data-toggle="tab" href="#contacts">Danh bạ
               <span class="show-number-contacts count-contacts">(100)</span>
             </a>
           </li>
@@ -41,89 +41,90 @@
           <!-- tab search -->
           <div class="tab-pane fade in active" id="find-user">
             <div class="find-user-top">
-                <div class="input-group col-md-12">
-                  <input class="form-control"
-                  id="input-find-users-contact"
-                  type="text"
+              <div class="input-group col-md-12">
+
+                <!-- input search -->
+                <input name="name" id="input-find-users-contact" class="form-control" type="text"
                   placeholder="Nhập E-mail hoặc username..." />
-                  <span class="input-group-btn">
-                    <button class="btn btn-lg" id="btn-find-users-contact" type="button">
-                      <i class="glyphicon glyphicon-search"></i>
-                    </button>
-                  </span>
-                </div>
+
+                <span class="input-group-btn">
+                  <button id="btn-find-users-contact" class="btn btn-lg" type="button">
+                    <i class="glyphicon glyphicon-search"></i>
+                  </button>
+                </span>
+              </div>
             </div>
             <div class="find-user-bottom">
-                <ul class="contactList"></ul>
+              <ul class="contactList"></ul>
             </div>
           </div>
 
           <!-- tab list -->
           <div class="tab-pane fade" id="contacts">
             <div class="find-user-bottom">
-                <ul class="contactList">
-                    <li class="_contactList" data-uid="user._id">
-                        <div class="contactPanel">
-                            <div class="user-avatar"><img src="/images/users/my_avatar.jpg" alt="" /></div>
-                            <div class="user-name">
-                                <p>Minh Chìu</p>
-                            </div>
-                            <br />
-                            <div class="user-address">
-                              <span>Ngũ Hành Sơn, Đà Nẵng, Việt Nam.</span>
-                            </div>
-                            <div class="user-talk" data-uid="user._id">Trò chuyện</div>
-                            <div class="user-remove-contact action-danger" data-uid="user._id">
-                              Xóa liên hệ
-                            </div>
-                        </div>
-                    </li>
-                </ul>
+              <ul class="contactList">
+                <li class="_contactList" data-uid="user._id">
+                  <div class="contactPanel">
+                    <div class="user-avatar"><img src="/images/users/my_avatar.jpg" alt="" /></div>
+                    <div class="user-name">
+                      <p>Minh Chìu</p>
+                    </div>
+                    <br />
+                    <div class="user-address">
+                      <span>Ngũ Hành Sơn, Đà Nẵng, Việt Nam.</span>
+                    </div>
+                    <div class="user-talk" data-uid="user._id">Trò chuyện</div>
+                    <div class="user-remove-contact action-danger" data-uid="user._id">
+                      Xóa liên hệ
+                    </div>
+                  </div>
+                </li>
+              </ul>
             </div>
           </div>
 
           <!-- Tab waiting for confirmation -->
           <div class="tab-pane fade" id="request-contact-sent">
             <div class="find-user-bottom">
-                <ul class="contactList">
-                    <li class="_contactList" data-uid="user._id">
-                        <div class="contactPanel">
-                            <div class="user-avatar"><img src="/images/users/my_avatar.jpg" alt="" /></div>
-                            <div class="user-name">
-                                <p>Minh Chìu</p>
-                            </div><br />
-                            <div class="user-address">Ngũ Hành Sơn, Đà Nẵng, Việt Nam.</span></div>
-                            <div class="user-remove-request-sent action-danger" data-uid="user._id">
-                              Hủy yêu cầu
-                            </div>
-                        </div>
-                    </li>
-                </ul>
+              <ul class="contactList">
+                <li class="_contactList" data-uid="user._id">
+                  <div class="contactPanel">
+                    <div class="user-avatar"><img src="/images/users/my_avatar.jpg" alt="" /></div>
+                    <div class="user-name">
+                      <p>Minh Chìu</p>
+                    </div><br />
+                    <div class="user-address">Ngũ Hành Sơn, Đà Nẵng, Việt Nam.</span></div>
+                    <div class="user-remove-request-sent action-danger" data-uid="user._id">
+                      Hủy yêu cầu
+                    </div>
+                  </div>
+                </li>
+              </ul>
             </div>
           </div>
 
           <!-- Tab friend request -->
           <div class="tab-pane fade" id="request-contact-received">
             <div class="find-user-bottom">
-                <ul class="contactList">
-                    <li class="_contactList" data-uid="user._id">
-                        <div class="contactPanel">
-                            <div class="user-avatar"><img src="/images/users/my_avatar.jpg" alt="" /></div>
-                            <div class="user-name">
-                                <p>Minh Chìu</p>
-                            </div><br />
-                            <div class="user-address">
-                              <span>Ngũ Hành Sơn, Đà Nẵng, Việt Nam.</span>
-                            </div>
-                            <div class="user-acccept-contact-received" data-uid="user._id">
-                              Chấp nhận
-                            </div>
-                            <div class="user-reject-request-contact-received action-danger" data-uid="user._id">
-                              Xóa yêu cầu
-                            </div>
-                        </div>
-                    </li>
-                </ul>
+              <ul class="contactList">
+                <li class="_contactList" data-uid="user._id">
+                  <div class="contactPanel">
+                    <div class="user-avatar"><img src="/images/users/my_avatar.jpg" alt="" /></div>
+                    <div class="user-name">
+                      <p>Minh Chìu</p>
+                    </div><br />
+                    <div class="user-address">
+                      <span>Ngũ Hành Sơn, Đà Nẵng, Việt Nam.</span>
+                    </div>
+                    <div class="user-acccept-contact-received" data-uid="user._id">
+                      Chấp nhận
+                    </div>
+                    <div class="user-reject-request-contact-received action-danger" data-uid="user._id">
+                      Xóa yêu cầu
+                    </div>
+                  </div>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
