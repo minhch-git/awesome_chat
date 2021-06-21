@@ -1,0 +1,32 @@
+<div class="modal fade" id="notificationsModal" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header"><button class="close" type="button" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Tất cả thông báo.</h4>
+      </div>
+      <div class="modal-body">
+        <div class="mark-notif-as-read">
+          <a href="javascript:void(0)" class="d-block" style="text-align: right;" id="modal-mark-notif-as-read">
+            <strong>Đánh dấu tất cả đã đọc</strong>
+          </a>
+        </div>
+
+        <ul class="list-notifications">
+          <!-- render notifications from server -->
+          <% notifications.forEach(function(notif){ %>
+            <li>
+              <%- notif %>
+            </li>
+            <% }); %>
+
+        </ul>
+        <hr>
+        <div class="mark-notif-as-read">
+          <a href="javascript:void(0)" class="d-block" style="text-align: center;" id="link-read-more-notif">
+            <strong>Xem thêm 10 thông báo</strong>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -14,7 +14,7 @@ NotificationSchema.statics = {
   },
 
   removeRequestContactNotification(senderId, receiverId, type) {
-    return this.remove({
+    return this.deleteOne({
       $and: [
         { 'senderId': senderId },
         { 'receiverId': receiverId },
@@ -30,7 +30,17 @@ NotificationSchema.statics = {
    */
   getByUserIdAndLimit(userId, limit) {
     return this.find({ 'receiverId': userId }).sort({ "createAt": -1 }).limit(limit).exec()
+  },
+
+  countNotifUnread(userId) {
+    return this.countDocuments({
+      $and: [
+        {'receiverId': userId},
+        {'isRead': false}
+      ]
+    }).exec()
   }
+
 }
 
 const NOTIFYCATION_TYPES = {
@@ -40,11 +50,19 @@ const NOTIFYCATION_TYPES = {
 const NOTIFYCATION_CONTENT = {
   getContent: (notificationTypes, isRead, userId, username, userAvatar) => {
     if (notificationTypes === NOTIFYCATION_TYPES.ADD_CONTACT) {
-      return `
-        <span data-uid="${userId}">
+      if (!isRead) {
+        return `
+        <span class="d-block notif-readed-false" data-uid="${userId}">
           <img class="avatar-small" src="images/users/${userAvatar}" alt="" />
-          <strong>${username}</strong> Đã gửi cho bạn một lời mời kết bạn!<br /><br /><br />
+          <strong>${username}</strong> Đã gửi cho bạn một lời mời kết bạn!
         </span>`
+      }
+      return `
+        <span class="d-block" data-uid="${userId}">
+          <img class="avatar-small" src="images/users/${userAvatar}" alt="" />
+          <strong>${username}</strong> Đã gửi cho bạn một lời mời kết bạn!
+        </span>`
+
     }
     return 'No matching with any notification type.'
   }

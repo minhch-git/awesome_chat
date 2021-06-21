@@ -22,7 +22,8 @@ function removeRequestContact() {
 
 socket.on('response-remove-request-contact', (user) => {
   console.log(user)
-  $('.noti_content').find(`span[data-uid=${user.id}]`).remove()
+  $('.noti_content').find(`span[data-uid=${user.id}]`).remove() // remove popup mark notif
+  $('.noti_content').find(`li>div[data-uid=${user.id}]`).parent().remove() // remove modal notif
 
   // Xóa kêt bạn ở yêu cầu kết bạn
 

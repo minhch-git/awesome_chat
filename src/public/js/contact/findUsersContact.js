@@ -12,7 +12,7 @@ function callFindUsers(element) {
     // call API
     fetch(`/contact/find-users/${keyword}`)
       .then(response => {
-        if(!response.ok) {
+        if (!response.ok) {
           throw new Error()
         }
         return response.json()
