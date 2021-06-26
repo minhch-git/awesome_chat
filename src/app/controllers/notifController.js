@@ -12,6 +12,15 @@ class NotifController {
       res.status(400).send(error)
     }
   }
+  async markAllAsRead(req, res) {
+    try {
+      let mark = await notificationService.markAllAsRead(req.user._id, req.body.targetUsers)
+      return res.status(200).send(mark)
+    } catch (error) {
+      res.status(400).send(error)
+    }
+  }
+
 }
 
 export default new NotifController()

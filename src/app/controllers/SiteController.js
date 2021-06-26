@@ -6,7 +6,7 @@ class SiteController {
     let notifs = await notificationService.getNotifications(req.user._id)
 
     // get amount notifications unread
-    let countNotifUnread = notificationService.countNotifUnread(req.user._id)
+    let countNotifUnread = await notificationService.countNotifUnread(req.user._id)
 
     return res.render('main/home/home', {
       errors: req.flash('errors'),
