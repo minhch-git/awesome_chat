@@ -64,6 +64,24 @@ class NotificationService {
     })
   }
 
+  /**
+   * Mark notifications as read
+   * @param {string} currentUserId 
+   * @param {array} targetUsers 
+   * @returns 
+   */
+  markAllAsRead(currentUserId, targetUsers) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        await Notification.model.markAllAsRead(currentUserId, targetUsers)
+        resolve({ "success": true })
+      } catch (error) {
+        console.log('Error when mark notification as read: ', error)
+        reject(false)
+      }
+    })
+  }
+
 }
 
 export default new NotificationService();

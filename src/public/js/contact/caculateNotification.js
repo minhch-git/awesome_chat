@@ -1,6 +1,6 @@
-function decreaseNumberNotification(selector) {
+function decreaseNumberNotification(selector, number) {
   let currentValue = + $(selector).text()
-  currentValue -= 1
+  currentValue -= number
   if(currentValue === 0) {
     $(selector).css('display', 'none').html('')
   }else {
@@ -8,9 +8,9 @@ function decreaseNumberNotification(selector) {
   }
 }
 
-function increaseNumberNotification(selector) {
+function increaseNumberNotification(selector, number) {
   let currentValue = + $(selector).text()
-  currentValue += 1
+  currentValue += number
   if(currentValue === 0) {
     $(selector).css('display', 'none').html('')
   }else {

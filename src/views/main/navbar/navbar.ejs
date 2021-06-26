@@ -38,15 +38,17 @@
         <li>
           <a href="javascript:void(0)" id="noti_Button" href="#" data-toggle="modal" title="Thông báo"><i
               class="fa fa-globe"></i>
+
             <!-- render number notif -->
-            <% if(notifications.length> 0) { %>
+            <% if(countNotifUnread> 0) { %>
               <div class="noti_counter">
-                <%= notifications.length %>
+                <%= countNotifUnread %>
               </div>
               <% } else { %>
                 <div class="d-none noti_counter">
                 </div>
                 <% } %>
+
                   <div id="noti_Container">
                     <div id="notifications">
                       <a href="javascript:void(0)" id="popup-mark-notif-as-read">Đánh dấu tất cả đã đọc</a>
