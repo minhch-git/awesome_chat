@@ -15,23 +15,47 @@
           <!-- List -->
           <li>
             <a id="link-contacts" data-toggle="tab" href="#contacts">Danh bạ
-              <span class="show-number-contacts count-contacts">(100)</span>
+              <% if(countAllContacts > 0) { %>
+                <span class="show-number-contacts count-contacts">
+                  <em>(<%= countAllContacts %>)</em>
+                </span>
+              <%} else { %>
+                <span class="show-number-contacts count-contacts">
+                  <em></em>
+                </span>
+                <% } %>
+              
             </a>
           </li>
           <!-- Waiting for confirmation -->
           <li>
             <a id="link-request-contact-sent" data-toggle="tab" href="#request-contact-sent">
               Đang chờ xác nhận
-              <span class="show-number-contacts count-request-contact-sent"><em></em></span>
+              <% if(countAllContactsSent > 0) { %>
+                <span class="show-number-contacts count-request-contact-sent">
+                  <em>(<%= countAllContactsSent %>)</em>
+                </span>
+              <% } else { %>
+                <span class="show-number-contacts count-request-contact-sent">
+                  <em></em>
+                </span>
+                <% } %>
             </a>
           </li>
           <!-- Friend request -->
           <li>
             <a id="link-request-contact-received" data-toggle="tab" href="#request-contact-received">
               Yêu cầu kết bạn
-              <span class="show-number-contacts count-request-contact-received">
-                <!-- // number -->
-              </span>
+              <% if(countAllContactsReceived > 0) { %>
+                <span class="show-number-contacts count-request-contact-received">
+                  <em>(<%= countAllContactsReceived %>)</em>
+                </span>
+                <%} else { %>
+                  <span class="show-number-contacts count-request-contact-received">
+                    <em></em>
+                  </span>
+                  <% } %>
+                
             </a>
           </li>
         </ul>
@@ -59,72 +83,89 @@
             </div>
           </div>
 
-          <!-- tab list -->
+          <!-- tab contacts -->
           <div class="tab-pane fade" id="contacts">
             <div class="find-user-bottom">
               <ul class="contactList">
-                <li class="_contactList" data-uid="user._id">
-                  <div class="contactPanel">
-                    <div class="user-avatar"><img src="/images/users/my_avatar.jpg" alt="" /></div>
-                    <div class="user-name">
-                      <p>Minh Chìu</p>
+                <% contacts.forEach(function (user) { %>
+                  <li class="_contactList" data-uid="<%=user._id%>">
+                    <div class="contactPanel">
+                      <div class="user-avatar"><img src="/images/users/<%= user.avatar %>" alt="" /></div>
+                      <div class="user-name">
+                        <p><%= user.username %></p>
+                      </div>
+                      <br />
+                      <div class="user-address">
+                        <span><%= user.address ? user.address : "" %></span>
+                      </div>
+                      <div class="user-talk" data-uid="<%=user._id%>">Trò chuyện</div>
+                      <div class="user-remove-contact action-danger" data-uid="<%= user._id %>">
+                        Xóa liên hệ
+                      </div>
                     </div>
-                    <br />
-                    <div class="user-address">
-                      <span>Ngũ Hành Sơn, Đà Nẵng, Việt Nam.</span>
-                    </div>
-                    <div class="user-talk" data-uid="user._id">Trò chuyện</div>
-                    <div class="user-remove-contact action-danger" data-uid="user._id">
-                      Xóa liên hệ
-                    </div>
-                  </div>
-                </li>
+                  </li>
+                <% }); %>
               </ul>
+              <a href="javascript:void(0)" class="d-block" style="text-align: center;" id="link-read-more-contacts">
+                <strong>Xem thêm 10 bạn bè</strong>
+              </a>
             </div>
           </div>
 
-          <!-- Tab waiting for confirmation -->
+          <!-- Tab contacts sent -->
           <div class="tab-pane fade" id="request-contact-sent">
             <div class="find-user-bottom">
               <ul class="contactList">
-                <li class="_contactList" data-uid="user._id">
-                  <div class="contactPanel">
-                    <div class="user-avatar"><img src="/images/users/my_avatar.jpg" alt="" /></div>
-                    <div class="user-name">
-                      <p>Minh Chìu</p>
-                    </div><br />
-                    <div class="user-address">Ngũ Hành Sơn, Đà Nẵng, Việt Nam.</span></div>
-                    <div class="user-remove-request-sent action-danger" data-uid="user._id">
-                      Hủy yêu cầu
+                <% contactsSent.forEach(function (user) { %>
+                  <li class="_contactList" data-uid="<%=user._id%>">
+                    <div class="contactPanel">
+                      <div class="user-avatar"><img src="/images/users/<%= user.avatar %>" alt="" /></div>
+                      <div class="user-name">
+                        <p><%= user.username %></p>
+                      </div><br />
+                      <div class="user-address">
+                        <span><%= user.address ? user.address : "" %></span>
+                      </div>
+                      <div class="user-remove-request-sent action-danger" data-uid="<%=user._id%>">
+                        Hủy yêu cầu
+                      </div>
                     </div>
-                  </div>
-                </li>
+                  </li>
+                <% }); %>
               </ul>
+              <a href="javascript:void(0)" class="d-block" style="text-align: center;" id="link-read-more-contacts-sent">
+                <strong>Xem thêm 10 người khác</strong>
+              </a>
             </div>
           </div>
 
-          <!-- Tab friend request -->
+          <!-- Tab contacts received -->
           <div class="tab-pane fade" id="request-contact-received">
             <div class="find-user-bottom">
               <ul class="contactList">
-                <li class="_contactList" data-uid="user._id">
-                  <div class="contactPanel">
-                    <div class="user-avatar"><img src="/images/users/my_avatar.jpg" alt="" /></div>
-                    <div class="user-name">
-                      <p>Minh Chìu</p>
-                    </div><br />
-                    <div class="user-address">
-                      <span>Ngũ Hành Sơn, Đà Nẵng, Việt Nam.</span>
+                <% contactsReceived.forEach(function (user) { %>
+                  <li class="_contactList" data-uid="<%=user._id%>">
+                    <div class="contactPanel">
+                      <div class="user-avatar"><img src="/images/users/<%=user.avatar%>" alt="" /></div>
+                      <div class="user-name">
+                        <p><%=user.username%></p>
+                      </div><br />
+                      <div class="user-address">
+                        <span><%=user.address ? user.address : "" %></span>
+                      </div>
+                      <div class="user-acccept-contact-received" data-uid="<%=user._id%>">
+                        Chấp nhận
+                      </div>
+                      <div class="user-reject-request-contact-received action-danger" data-uid="<%=user._id%>">
+                        Xóa yêu cầu
+                      </div>
                     </div>
-                    <div class="user-acccept-contact-received" data-uid="user._id">
-                      Chấp nhận
-                    </div>
-                    <div class="user-reject-request-contact-received action-danger" data-uid="user._id">
-                      Xóa yêu cầu
-                    </div>
-                  </div>
-                </li>
+                  </li>
+                <% }); %>
               </ul>
+                <a href="javascript:void(0)" class="d-block" style="text-align: center;" id="link-read-more-contacts-recived">
+                  <strong>Xem thêm 10 người khác</strong>
+                </a>
             </div>
           </div>
         </div>

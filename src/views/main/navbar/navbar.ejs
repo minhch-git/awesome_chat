@@ -30,7 +30,9 @@
           <a id="show-modal-contacts" href="#contactsModal" data-toggle="modal" title="Quản lý liên lạc">
             <i class="fa fa-user-plus"></i>
             <div class="noti_contact_counter">
-              <!-- number -->
+              <% if(countAllContactsSent + countAllContactsReceived>0 ){ %>
+                <%= countAllContactsSent + countAllContactsReceived %>
+              <% } %>
             </div>
           </a>
         </li>
@@ -44,23 +46,22 @@
               <div class="noti_counter">
                 <%= countNotifUnread %>
               </div>
-              <% } else { %>
-                <div class="d-none noti_counter">
-                </div>
-                <% } %>
-
-                  <div id="noti_Container">
-                    <div id="notifications">
-                      <a href="javascript:void(0)" id="popup-mark-notif-as-read">Đánh dấu tất cả đã đọc</a>
-                      <div class="noti_content">
-                        <!-- render notifications from server -->
-                        <% notifications.forEach(function(notif){ %>
-                          <%- notif %>
-                            <% }); %>
-                      </div>
-                      <div class="seeAll"><a href="#notificationsModal" data-toggle="modal">Xem tất cả</a></div>
-                    </div>
+            <% } else { %>
+              <div class="d-none noti_counter">
+              </div>
+            <% } %>
+              <div id="noti_Container">
+                <div id="notifications">
+                  <a href="javascript:void(0)" id="popup-mark-notif-as-read">Đánh dấu tất cả đã đọc</a>
+                  <div class="noti_content">
+                    <!-- render notifications from server -->
+                    <% notifications.forEach(function(notif){ %>
+                      <%- notif %>
+                    <% }); %>
                   </div>
+                  <div class="seeAll"><a href="#notificationsModal" data-toggle="modal">Xem tất cả</a></div>
+                </div>
+              </div>
           </a>
         </li>
 
