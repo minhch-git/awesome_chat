@@ -16,9 +16,14 @@ router.post(
   contactController.addNew
 );
 router.delete(
-  '/remove-request-contact',
+  '/remove-request-contact-sent',
   isLogin.isLoggedIn,
   contactController.removeRequestContactSent
+);
+router.delete(
+  '/remove-request-contact-received',
+  isLogin.isLoggedIn,
+  contactController.removeRequestContactReceived
 );
 router.get(
   '/read-more-contacts',

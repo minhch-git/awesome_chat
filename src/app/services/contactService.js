@@ -76,6 +76,27 @@ class ContactService {
     });
   }
 
+  removeRequestContactReceived(currentUserId, contactId) {
+    return new Promise(async (resolve, reject) => {
+      let removeReq = await Contact.removeRequestContactReceived(
+        currentUserId,
+        contactId
+      );
+      if (removeReq.n === 0) {
+        return reject(false);
+      }
+
+      // remove notification Chức năng này chua muốn lam
+      // await Notification.model.removeRequestContactReceivedNotification(
+      //   currentUserId,
+      //   contactId,
+      //   Notification.types.ADD_CONTACT
+      // );
+
+      return resolve(true);
+    });
+  }
+
   getContacts(currentUserId) {
     return new Promise(async (resolve, reject) => {
       try {

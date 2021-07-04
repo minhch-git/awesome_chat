@@ -66,7 +66,7 @@ socket.on('response-add-new-contact', user => {
         <div class="user-acccept-contact-received" data-uid="${user.id}">
           Chấp nhận
         </div>
-        <div class="user-reject-request-contact-received action-danger" data-uid="${user.id}">
+        <div class="user-remove-request-contact-received action-danger" data-uid="${user.id}">
           Xóa yêu cầu
         </div>
       </div>
@@ -74,4 +74,5 @@ socket.on('response-add-new-contact', user => {
   `;
   // Thêm kêt bạn ở modal, tab yêu câu kết bạn
   $('#request-contact-received').find('ul').prepend(userInfoHTML);
+  removeRequestContactReceived();
 });

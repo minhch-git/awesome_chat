@@ -17,7 +17,7 @@
             <a id="link-contacts" data-toggle="tab" href="#contacts">Danh bạ
               <% if(countAllContacts > 0) { %>
                 <span class="show-number-contacts count-contacts">
-                  <em>(<%= countAllContacts %>)</em>
+                  (<em><%= countAllContacts %></em>)
                 </span>
               <%} else { %>
                 <span class="show-number-contacts count-contacts">
@@ -33,7 +33,7 @@
               Đang chờ xác nhận
               <% if(countAllContactsSent > 0) { %>
                 <span class="show-number-contacts count-request-contact-sent">
-                  <em>(<%= countAllContactsSent %>)</em>
+                  (<em><%= countAllContactsSent %></em>)
                 </span>
               <% } else { %>
                 <span class="show-number-contacts count-request-contact-sent">
@@ -48,7 +48,7 @@
               Yêu cầu kết bạn
               <% if(countAllContactsReceived > 0) { %>
                 <span class="show-number-contacts count-request-contact-received">
-                  <em>(<%= countAllContactsReceived %>)</em>
+                  (<em><%= countAllContactsReceived %></em>)
                 </span>
                 <%} else { %>
                   <span class="show-number-contacts count-request-contact-received">
@@ -172,7 +172,7 @@
                       <div class="user-acccept-contact-received" data-uid="<%=user._id%>">
                         Chấp nhận
                       </div>
-                      <div class="user-reject-request-contact-received action-danger" data-uid="<%=user._id%>">
+                      <div class="user-remove-request-contact-received action-danger" data-uid="<%=user._id%>">
                         Xóa yêu cầu
                       </div>
                     </div>
