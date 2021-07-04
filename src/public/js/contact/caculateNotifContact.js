@@ -1,7 +1,7 @@
 function decreaseNumberNotifContact(selector) {
   let currentValue = +$(selector).find('em').text();
   currentValue -= 1;
-  if (currentValue === 0) {
+  if (currentValue == 0) {
     $(selector).html('');
   } else {
     $(selector).html(`(<em>${currentValue}</em>)`);

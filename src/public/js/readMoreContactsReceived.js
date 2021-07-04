@@ -53,7 +53,7 @@ $(document).ready(function () {
                 }">
                   Chấp nhận
                 </div>
-                <div class="user-reject-request-contact-received action-danger" data-uid="${
+                <div class="user-remove-request-contact-received action-danger" data-uid="${
                   user._id
                 }">
                   Xóa yêu cầu
@@ -71,6 +71,7 @@ $(document).ready(function () {
           'display',
           'none'
         );
+        removeRequestContactReceived();
       }
     );
   });

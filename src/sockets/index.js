@@ -1,13 +1,13 @@
-import Contact from './Contact'
+import ContactSocket from './ContactSocket';
 
 /**
  * @param io from socket.io library
  */
+const initSocket = io => {
+  ContactSocket.addNew(io);
+  ContactSocket.removeRequestContactSent(io);
+  ContactSocket.removeRequestContactReceived(io);
+  //
+};
 
-const initSocket = (io) => {
-  Contact.addNew(io)
-  Contact.removeRequest(io)
-  // 
-}
-
-export default initSocket
+export default initSocket;

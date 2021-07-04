@@ -4,7 +4,7 @@ function removeRequestContactSent() {
     .on('click', async function () {
       let targetId = $(this).data('uid');
       const dataResponse = await fetch(
-        '/contact/remove-request-contact',
+        '/contact/remove-request-contact-sent',
         {
           method: 'DELETE',
           headers: {
@@ -49,7 +49,7 @@ socket.on('response-remove-request-contact-sent', user => {
 
   // Xóa kêt bạn ở modal, tab yêu cầu kết bạn
   $('#request-contact-received')
-    .find(`ul li[data-uid="${user.id}]"`)
+    .find(`ul li[data-uid="${user.id}"]`)
     .remove();
 
   decreaseNumberNotifContact('.count-request-contact-received');
