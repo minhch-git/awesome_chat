@@ -1,11 +1,40 @@
-import { Router } from 'express'
-import Validate, { SchemaValidate } from './../validation/validate'
-let router = new Router()
+import { Router } from 'express';
+import Validate, { SchemaValidate } from './../validation/validate';
+let router = new Router();
 
-import contactController from '../app/controllers/ContactController'
-import isLogin from './../validation/isLogin'
+import contactController from '../app/controllers/ContactController';
+import isLogin from './../validation/isLogin';
 
-router.get('/find-users/:keyword', Validate.params(SchemaValidate.keyword) , contactController.findUsersContact)
-router.post('/add-new', isLogin.isLoggedIn , contactController.addNew)
-router.delete('/remove-request-contact', isLogin.isLoggedIn , contactController.removeRequestContact)
-export default router
+router.get(
+  '/find-users/:keyword',
+  Validate.params(SchemaValidate.keyword),
+  contactController.findUsersContact
+);
+router.post(
+  '/add-new',
+  isLogin.isLoggedIn,
+  contactController.addNew
+);
+router.delete(
+  '/remove-request-contact',
+  isLogin.isLoggedIn,
+  contactController.removeRequestContactSent
+);
+router.get(
+  '/read-more-contacts',
+  isLogin.isLoggedIn,
+  contactController.readMoreContacts
+);
+
+router.get(
+  '/read-more-contacts-sent',
+  isLogin.isLoggedIn,
+  contactController.readMoreContactsSent
+);
+router.get(
+  '/read-more-contacts-received',
+  isLogin.isLoggedIn,
+  contactController.readMoreContactsReceived
+);
+
+export default router;

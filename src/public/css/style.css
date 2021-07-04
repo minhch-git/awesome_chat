@@ -196,9 +196,8 @@ label:focus,
 .contactPanel .user-add-new-contact,
 .contactPanel .user-talk,
 .contactPanel .user-remove-contact,
-.contactPanel .user-remove-request-contact,
+.contactPanel .user-remove-request-contact-sent,
 .contactPanel .user-acccept-contact-received,
-.contactPanel .user-remove-request-sent,
 .contactPanel .user-reject-request-contact-received {
   box-sizing: border-box;
   display: inline-flex;
@@ -228,7 +227,7 @@ label:focus,
   margin: 10px 0px 5px 2px;
 }
 
-.contactPanel .user-remove-request-contact {
+.contactPanel .user-remove-request-contact-sent {
   display: none;
 }
 
@@ -289,6 +288,7 @@ label:focus,
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
   z-index: 1;
+  padding: 0 4px;
 }
 
 .noti_counter {
@@ -1386,4 +1386,65 @@ label:focus,
     height: 72px;
     opacity: 0;
   }
+}
+
+/* read more contacts loader */
+.read-more-contacts-loader {
+  display: none;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.read-more-contacts-loader div {
+  position: absolute;
+  top: 33px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #34495e;
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+.read-more-contacts-loader div:nth-child(1) {
+  left: 8px;
+  animation: read-more-contacts-loader1 0.6s infinite;
+}
+.read-more-contacts-loader div:nth-child(2) {
+  left: 8px;
+  animation: read-more-contacts-loader2 0.6s infinite;
+}
+.read-more-contacts-loader div:nth-child(3) {
+  left: 32px;
+  animation: read-more-contacts-loader2 0.6s infinite;
+}
+.read-more-contacts-loader div:nth-child(4) {
+  left: 56px;
+  animation: read-more-contacts-loader3 0.6s infinite;
+}
+@keyframes read-more-contacts-loader1 {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes read-more-contacts-loader3 {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+@keyframes read-more-contacts-loader2 {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(24px, 0);
+  }
+}
+
+.d-inline-block {
+  display: inline-block !important;
 }

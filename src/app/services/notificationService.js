@@ -32,7 +32,7 @@ class NotificationService {
         let notifications = await Notification.model.getByUserIdAndLimit(currentUserId, this.LIMIT_NUMBER_TAKEN)
 
         let getNotifContent = notifications.map(async (notification) => {
-          let sender = await User.findByUserId(notification.senderId)
+          let sender = await User.getNormalUserById(notification.senderId)
           return Notification.content.getContent(notification.type, notification.isRead, sender._id, sender.username, sender.avatar)
         })
 
@@ -54,7 +54,7 @@ class NotificationService {
         const newNotifications = await Notification.model.readMore(currentUserId, skipNumberNotif, this.LIMIT_NUMBER_TAKEN)
 
         let getNotifContent = newNotifications.map(async (notification) => {
-          let sender = await User.findByUserId(notification.senderId)
+          let sender = await User.getNormalUserById(notification.senderId)
           return Notification.content.getContent(notification.type, notification.isRead, sender._id, sender.username, sender.avatar)
         })
         resolve(await Promise.all(getNotifContent))

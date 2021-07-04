@@ -11,7 +11,7 @@ class ContactService {
         let contactsByUser = await Contact.findAllByUser(
           currentUserId
         );
-        contactsByUser.forEach((contact) => {
+        contactsByUser.forEach(contact => {
           deprecatedUserIds.push(contact.userId, contact.contactId);
         });
         deprecatedUserIds = _.uniqBy(deprecatedUserIds);
@@ -55,9 +55,9 @@ class ContactService {
     });
   }
 
-  removeRequestContact(currentUserId, contactId) {
+  removeRequestContactSent(currentUserId, contactId) {
     return new Promise(async (resolve, reject) => {
-      let removeReq = await Contact.removeRequestContact(
+      let removeReq = await Contact.removeRequestContactSent(
         currentUserId,
         contactId
       );
@@ -66,7 +66,7 @@ class ContactService {
       }
 
       // remove notification
-      await Notification.model.removeRequestContactNotification(
+      await Notification.model.removeRequestContactSentNotification(
         currentUserId,
         contactId,
         Notification.types.ADD_CONTACT
@@ -83,14 +83,14 @@ class ContactService {
           currentUserId,
           LIMIT_NUMBER_TAKEN
         );
-        let users = contacts.map(async (contact) => {
+        let users = contacts.map(async contact => {
           if (contact.contactId == currentUserId) {
-            await User.findByUserId(contact.userId);
+            return await User.getNormalUserById(contact.userId);
           } else {
-            await User.findByUserId(contact.contactId);
+            return await User.getNormalUserById(contact.contactId);
           }
         });
-        resolve(await Promise.all(users));
+        return resolve(await Promise.all(users));
       } catch (error) {
         reject(error);
       }
@@ -105,8 +105,8 @@ class ContactService {
           LIMIT_NUMBER_TAKEN
         );
         const users = contacts.map(
-          async (contact) =>
-            await User.findByUserId(contact.contactId)
+          async contact =>
+            await User.getNormalUserById(contact.contactId)
         );
         resolve(await Promise.all(users));
       } catch (error) {
@@ -123,7 +123,8 @@ class ContactService {
           LIMIT_NUMBER_TAKEN
         );
         const users = contacts.map(
-          async (contact) => await User.findByUserId(contact.userId)
+          async contact =>
+            await User.getNormalUserById(contact.userId)
         );
         resolve(await Promise.all(users));
       } catch (error) {
@@ -163,6 +164,70 @@ class ContactService {
         resolve(count);
       } catch (error) {
         reject(error);
+      }
+    });
+  }
+
+  readMoreContacts(currentUserId, skipNumberContacts) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let newContacts = await Contact.readMoreContacts(
+          currentUserId,
+          skipNumberContacts,
+          LIMIT_NUMBER_TAKEN
+        );
+        let users = newContacts.map(async contact => {
+          if (contact.contactId == currentUserId) {
+            return await User.getNormalUserById(contact.userId);
+          } else {
+            return await User.getNormalUserById(contact.contactId);
+          }
+        });
+        return resolve(await Promise.all(users));
+      } catch (error) {
+        return reject(error);
+      }
+    });
+  }
+  readMoreContactsSent(currentUserId, skipNumberContacts) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let newContacts = await Contact.readMoreContactsSent(
+          currentUserId,
+          skipNumberContacts,
+          LIMIT_NUMBER_TAKEN
+        );
+        let users = newContacts.map(async contact => {
+          if (contact.contactId == currentUserId) {
+            return await User.getNormalUserById(contact.userId);
+          } else {
+            return await User.getNormalUserById(contact.contactId);
+          }
+        });
+        return resolve(await Promise.all(users));
+      } catch (error) {
+        return reject(error);
+      }
+    });
+  }
+  readMoreContactsReceived(currentUserId, skipNumberContacts) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let newContacts = await Contact.readMoreContactsReceived(
+          currentUserId,
+          skipNumberContacts,
+          LIMIT_NUMBER_TAKEN
+        );
+        let users = newContacts.map(async contact => {
+          if (contact.contactId == currentUserId) {
+            return await User.getNormalUserById(contact.userId);
+          } else {
+            return await User.getNormalUserById(contact.contactId);
+          }
+        });
+        return resolve(await Promise.all(users));
+      } catch (error) {
+        return reject(error);
       }
     });
   }
