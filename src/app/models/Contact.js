@@ -52,7 +52,7 @@ ContactSchema.statics = {
    * @param {string} userId
    * @param {string} contactId
    */
-  removeRequestContact(userId, contactId) {
+  removeRequestContactSent(userId, contactId) {
     return this.deleteOne({
       $and: [{ userId }, { contactId }],
     }).exec();
@@ -134,6 +134,58 @@ ContactSchema.statics = {
     return this.countDocuments({
       $and: [{ contactId: userId }, { status: false }],
     }).exec();
+  },
+  /**
+   * Get contacts by userId and skip and limit
+   * @param {string} userId
+   * @param {number} skip
+   * @param {number} limit
+   * @returns promise
+   */
+  readMoreContacts(userId, skip, limit) {
+    return this.find({
+      $and: [
+        { $or: [{ userId: userId }, { contactId: userId }] },
+        { status: true },
+      ],
+    })
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit)
+      .exec();
+  },
+  /**
+   * Get contacts sent by userId and skip and limit
+   * @param {string} userId
+   * @param {number} skip
+   * @param {number} limit
+   * @returns promise
+   */
+  readMoreContactsSent(userId, skip, limit) {
+    return this.find({
+      $and: [{ userId: userId }, { status: false }],
+    })
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit)
+      .exec();
+  },
+
+  /**
+   * Get contacts received by userId and skip and limit
+   * @param {string} userId
+   * @param {number} skip
+   * @param {number} limit
+   * @returns promise
+   */
+  readMoreContactsReceived(userId, skip, limit) {
+    return this.find({
+      $and: [{ contactId: userId }, { status: false }],
+    })
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit)
+      .exec();
   },
 };
 

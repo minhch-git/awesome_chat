@@ -1,7 +1,7 @@
-function removeRequestContact() {
-  $('.user-remove-request-contact').bind(
-    'click',
-    async function () {
+function removeRequestContactSent() {
+  $('.user-remove-request-contact-sent')
+    .unbind('click')
+    .on('click', async function () {
       let targetId = $(this).data('uid');
       const dataResponse = await fetch(
         '/contact/remove-request-contact',
@@ -18,12 +18,13 @@ function removeRequestContact() {
       if (data.success) {
         $('#find-user')
           .find(
-            `div.user-remove-request-contact[data-uid="${targetId}"]`
+            `div.user-remove-request-contact-sent[data-uid="${targetId}"]`
           )
           .hide();
         $('#find-user')
           .find(`div.user-add-new-contact[data-uid=${targetId}]`)
           .css('display', 'inline-block');
+        decreaseNumberNotification('.noti_contact_counter', 1);
         decreaseNumberNotifContact('.count-request-contact-sent');
 
         // Xóa kêt bạn ở modal, tab chờ kết bạn
@@ -31,15 +32,14 @@ function removeRequestContact() {
           .find(`ul li[data-uid="${targetId}"]`)
           .remove();
         // Xử lý realtime
-        socket.emit('remove-request-contact', {
+        socket.emit('remove-request-contact-sent', {
           contactId: targetId,
         });
       }
-    }
-  );
+    });
 }
 
-socket.on('response-remove-request-contact', (user) => {
+socket.on('response-remove-request-contact-sent', user => {
   console.log(user);
   $('.noti_content').find(`span[data-uid=${user.id}]`).remove(); // remove popup mark notif
   $('.noti_content')
@@ -56,4 +56,8 @@ socket.on('response-remove-request-contact', (user) => {
 
   decreaseNumberNotification('.noti_contact_counter', 1);
   decreaseNumberNotification('.noti_counter', 1);
+});
+
+$(document).ready(function () {
+  removeRequestContactSent();
 });

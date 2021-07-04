@@ -17,9 +17,11 @@ function addContact() {
         .hide();
       $('#find-user')
         .find(
-          `div.user-remove-request-contact[data-uid=${targetId}]`
+          `div.user-remove-request-contact-sent[data-uid=${targetId}]`
         )
         .css('display', 'inline-block');
+
+      increaseNumberNotification('.noti_contact_counter', 1);
       increaseNumberNotifContact('.count-request-contact-sent');
 
       const userInfoHTML = $('#find-user')
@@ -28,12 +30,14 @@ function addContact() {
       // Thêm kêt bạn ở modal, tab chờ kết bạn
       $('#request-contact-sent').find('ul').prepend(userInfoHTML);
 
+      removeRequestContactSent(); //js/removeRequestContactSent.js
+
       socket.emit('add-new-contact', { contactId: targetId });
     }
   });
 }
 
-socket.on('response-add-new-contact', (user) => {
+socket.on('response-add-new-contact', user => {
   let notif = `
     <span class="d-block " data-uid="${user.id}">
       <img class="avatar-small" src="images/users/${user.avatar}" alt="" />

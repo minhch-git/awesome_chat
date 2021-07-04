@@ -20,7 +20,7 @@ function callFindUsers(element) {
       .then(data => {
         $('#find-user .contactList').html(renderUsers(data))
         addContact()
-        removeRequestContact()
+        removeRequestContactSent()
       })
   }
 }
@@ -34,7 +34,7 @@ function renderUsers(users) {
           </div><br />
           <div class="user-address"><span>${user.address}</span></div>
           <div class="user-add-new-contact" data-uid='${user._id}'>Thêm vào danh sách liên lạc</div>
-          <div class="user-remove-request-contact action-danger" data-uid='${user._id}'>Hủy yêu cầu</div>
+          <div class="user-remove-request-contact-sent action-danger" data-uid='${user._id}'>Hủy yêu cầu</div>
       </div>
   </li>
   `)
