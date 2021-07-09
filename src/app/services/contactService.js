@@ -82,7 +82,7 @@ class ContactService {
         currentUserId,
         contactId
       );
-      if (removeReq.n === 0) {
+      if (removeReq.result.n === 0) {
         return reject(false);
       }
 
@@ -93,6 +93,27 @@ class ContactService {
       //   Notification.types.ADD_CONTACT
       // );
 
+      return resolve(true);
+    });
+  }
+
+  approveRequestContactReceived(currentUserId, contactId) {
+    return new Promise(async (resolve, reject) => {
+      let approveReq = await Contact.approveRequestContactReceived(
+        currentUserId,
+        contactId
+      );
+      if (approveReq.nModified === 0) {
+        return reject(false);
+      }
+      //create notification
+      // create notification
+      let notificationItem = {
+        senderId: currentUserId,
+        receiverId: contactId,
+        type: Notification.types.APPROVE_CONTACT,
+      };
+      await Notification.model.createNew(notificationItem);
       return resolve(true);
     });
   }

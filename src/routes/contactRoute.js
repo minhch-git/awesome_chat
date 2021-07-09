@@ -25,6 +25,13 @@ router.delete(
   isLogin.isLoggedIn,
   contactController.removeRequestContactReceived
 );
+
+router.put(
+  '/approve-request-contact-received',
+  isLogin.isLoggedIn,
+  contactController.approveRequestContactReceived
+);
+
 router.get(
   '/read-more-contacts',
   isLogin.isLoggedIn,
@@ -41,5 +48,4 @@ router.get(
   isLogin.isLoggedIn,
   contactController.readMoreContactsReceived
 );
-
 export default router;
