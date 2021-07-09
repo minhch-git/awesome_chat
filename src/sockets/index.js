@@ -7,6 +7,7 @@ const initSocket = io => {
   ContactSocket.addNew(io);
   ContactSocket.removeRequestContactSent(io);
   ContactSocket.removeRequestContactReceived(io);
+  ContactSocket.approveRequestContactReceived(io);
   //
 };
 

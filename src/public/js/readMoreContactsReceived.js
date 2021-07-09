@@ -48,7 +48,7 @@ $(document).ready(function () {
                 <div class="user-address">
                   <span>${user.address ? user.address : ''}</span>
                 </div>
-                <div class="user-acccept-contact-received" data-uid="${
+                <div class="user-approve-request-contact-received" data-uid="${
                   user._id
                 }">
                   Chấp nhận
@@ -72,6 +72,7 @@ $(document).ready(function () {
           'none'
         );
         removeRequestContactReceived();
+        approveRequestContactReceived();
       }
     );
   });

@@ -56,6 +56,21 @@ class ContactController {
       return res.status(500).json(error);
     }
   }
+  async approveRequestContactReceived(req, res) {
+    try {
+      let currentUserId = req.user._id;
+      let contactId = req.body.uid;
+      let approveReq =
+        await contactService.approveRequestContactReceived(
+          currentUserId,
+          contactId
+        );
+      return res.status(200).json({ success: !!approveReq });
+    } catch (error) {
+      return res.status(500).json(error);
+    }
+  }
+
   async readMoreContacts(req, res) {
     try {
       let skipNumberContacts = +req.query.skipNumber;
