@@ -82,7 +82,7 @@ class ContactService {
         currentUserId,
         contactId
       );
-      if (removeReq.result.n === 0) {
+      if (removeReq.n === 0) {
         return reject(false);
       }
 
