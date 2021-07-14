@@ -54,6 +54,18 @@ class ContactService {
       resolve(newContact);
     });
   }
+  removeContact(currentUserId, contactId) {
+    return new Promise(async (resolve, reject) => {
+      let removeContact = await Contact.removeContact(
+        currentUserId,
+        contactId
+      );
+      if (removeContact.n === 0) {
+        return reject(false);
+      }
+      return resolve(true);
+    });
+  }
 
   removeRequestContactSent(currentUserId, contactId) {
     return new Promise(async (resolve, reject) => {

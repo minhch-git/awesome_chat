@@ -28,7 +28,19 @@ class ContactController {
       return res.status(500).json(error);
     }
   }
-
+  async removeContact(req, res) {
+    try {
+      let currentUserId = req.user._id;
+      let contactId = req.body.uid;
+      let removeContact = await contactService.removeContact(
+        currentUserId,
+        contactId
+      );
+      return res.status(200).json({ success: !!removeContact });
+    } catch (error) {
+      return res.status(500).json(error);
+    }
+  }
   async removeRequestContactSent(req, res) {
     try {
       let currentUserId = req.user._id;

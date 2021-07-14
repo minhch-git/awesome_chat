@@ -16,6 +16,11 @@ router.post(
   contactController.addNew
 );
 router.delete(
+  '/remove-contact',
+  isLogin.isLoggedIn,
+  contactController.removeContact
+);
+router.delete(
   '/remove-request-contact-sent',
   isLogin.isLoggedIn,
   contactController.removeRequestContactSent
@@ -48,4 +53,5 @@ router.get(
   isLogin.isLoggedIn,
   contactController.readMoreContactsReceived
 );
+
 export default router;

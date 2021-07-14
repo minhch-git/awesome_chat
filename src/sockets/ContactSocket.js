@@ -108,6 +108,40 @@ class ContactSocket {
       });
     });
   }
+  removeContact(io) {
+    let clients = {};
+    io.on('connection', socket => {
+      let currentUserId = socket.request.user._id;
+      clients = socketHelper.pushSocketIdToArray(
+        clients,
+        socket.request.user._id,
+        socket.id
+      );
+
+      socket.on('remove-contact', data => {
+        if (clients[data.contactId]) {
+          let currentUser = {
+            id: currentUserId,
+          };
+          socketHelper.emitNotifyToArray(
+            clients,
+            data.contactId,
+            io,
+            'response-remove-contact',
+            currentUser
+          );
+        }
+      });
+      socket.on('disconnect', () => {
+        clients = socketHelper.removeSocketIdFromArray(
+          clients,
+          socket.request.user._id,
+          socket
+        );
+      });
+    });
+  }
+
 
   approveRequestContactReceived(io) {
     let clients = {};

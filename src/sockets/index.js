@@ -6,6 +6,7 @@ import ContactSocket from './ContactSocket';
 const initSocket = io => {
   ContactSocket.addNew(io);
   ContactSocket.removeRequestContactSent(io);
+  ContactSocket.removeContact(io);
   ContactSocket.removeRequestContactReceived(io);
   ContactSocket.approveRequestContactReceived(io);
   //
