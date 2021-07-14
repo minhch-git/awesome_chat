@@ -47,6 +47,8 @@ $(document).ready(function () {
               </li>`
             );
         });
+
+        removeContact();
         $('#link-read-more-contacts').attr('class', 'd-block');
         $('.read-more-contacts-loader').css('display', 'none');
       }

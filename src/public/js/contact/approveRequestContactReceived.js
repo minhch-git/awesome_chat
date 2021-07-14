@@ -45,6 +45,9 @@ function approveRequestContactReceived() {
         socket.emit('approve-request-contact-received', {
           contactId: targetId,
         });
+
+        // Sau nay làm chức năng chat sẽ thêm tiếp user ơ phần chat
+
       }
     });
 }
@@ -93,6 +96,7 @@ socket.on('response-approve-request-contact-received', user => {
     </li>
   `;
   $('#contacts').find('ul.contactList').prepend(userInfoHtml);
+  removeContact();
 });
 
 $(document).ready(function () {
