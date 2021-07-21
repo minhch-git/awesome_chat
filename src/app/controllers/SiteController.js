@@ -1,6 +1,7 @@
 import {
   notificationService,
   contactService,
+  messageServices,
 } from './../services/index';
 class SiteController {
   // [ GET ] /
@@ -35,6 +36,12 @@ class SiteController {
     let countAllContactsReceived =
       await contactService.countAllContactsReceived(req.user._id);
 
+    let {
+      userConversations,
+      groupConversations,
+      allConversations,
+    } = await messageServices.getAllConversationItems(req.user._id);
+
     return res.render('main/home/home', {
       errors: req.flash('errors'),
       success: req.flash('success'),
@@ -47,6 +54,9 @@ class SiteController {
       countAllContacts,
       countAllContactsSent,
       countAllContactsReceived,
+      userConversations,
+      groupConversations,
+      allConversations,
     });
   }
 

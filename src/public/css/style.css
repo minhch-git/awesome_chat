@@ -688,7 +688,7 @@ label:focus,
 }
 
 .left a.create-group-chat {
-  display: none;
+  display: block;
   float: left;
   width: 40px;
   height: 40px;
@@ -1447,4 +1447,8 @@ label:focus,
 
 .d-inline-block {
   display: inline-block !important;
+}
+.py-2 {
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
 }

@@ -20,12 +20,7 @@ ContactSchema.statics = {
    */
   findAllByUser(userId) {
     return this.find({
-      $and: [
-        { status: true },
-        {
-          $or: [{ userId: userId }, { contactId: userId }],
-        },
-      ],
+      $or: [{ userId: userId }, { contactId: userId }],
     }).exec();
   },
 
