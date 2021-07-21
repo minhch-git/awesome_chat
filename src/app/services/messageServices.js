@@ -49,9 +49,7 @@ class MessageServices {
           [item => -item.createAt]
         );
         resolve({
-          userConversations: _.sortBy(userConversations, [
-            item => -item.createAt,
-          ]),
+          userConversations,
           groupConversations,
           allConversations,
         });

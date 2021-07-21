@@ -18,7 +18,14 @@
                   <div class="dot"></div>
                   <img src="images/users/<%=conversation.avatar%>" alt="" />
                 </div>
-                <span class="name"><%=conversation.username%></span>
+                <span class="name">
+                  <%if(conversation.username.length > 12) {%> 
+                    <%=conversation.username.slice(0,12)%> 
+                    <span>...</span>
+                  <%}else{%> 
+                    <%=conversation.username%>
+                  <%}%>
+                </span>
                 <span class="time">Một phút trước fake</span>
                 <span class="preview">Xin chào</span>
               </li>
@@ -48,11 +55,17 @@
                   <img src="images/users/group-avatar-trungquandev.png" alt="" />
                 </div>
                 <span class="name">
-                  <span class="group-chat-name">Group:</span> 
-                  <%=conversation.name%>
+                  <span class="group-chat-name">
+                    <%if(conversation.name.length > 12) {%> 
+                      <%=conversation.name.slice(0,12)%> 
+                      <span>...</span>
+                    <%}else{%> 
+                      <%=conversation.name%>
+                    <%}%> 
                   </span>
-                  <span class="time">Hai giờ trước fake</span>
-                  <span class="preview">Chào cả nhóm</span>
+                </span>
+                <span class="time">Hai giờ trước fake</span>
+                <span class="preview">Chào cả nhóm</span>
               </li>
             </a>
           <%});%>
@@ -81,9 +94,15 @@
                     <img src="images/users/group-avatar-trungquandev.png" alt="" />
                   </div>
                   <span class="name">
-                    <span class="group-chat-name">Group:</span> 
-                    <%=conversation.name%>
+                    <span class="group-chat-name">
+                      <%if(conversation.name.length > 12) {%> 
+                        <%=conversation.name.slice(0,12)%> 
+                        <span>...</span>
+                      <%}else{%> 
+                        <%=conversation.name%>
+                      <%}%> 
                     </span>
+                  </span>
                     <span class="time">Hai giờ trước fake</span>
                     <span class="preview">Chào cả nhóm</span>
                 </li>
@@ -95,7 +114,14 @@
                     <div class="dot"></div>
                     <img src="images/users/<%=conversation.avatar%>" alt="" />
                   </div>
-                  <span class="name"><%=conversation.username%></span>
+                  <span class="name">
+                    <%if(conversation.username.length > 14) {%> 
+                      <%=conversation.username.slice(0, 12)%> 
+                      <span>...</span>
+                    <%}else{%> 
+                      <%=conversation.username%>
+                    <%}%>
+                  </span>
                   <span class="time">Một phút trước fake</span>
                   <span class="preview">Xin chào</span>
                 </li>

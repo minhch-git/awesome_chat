@@ -105,7 +105,8 @@ ContactSchema.statics = {
           { status: false },
         ],
       },
-      { status: true }
+      { status: true },
+      { updateAt: Date.now() }
     ).exec();
   },
 
@@ -121,7 +122,7 @@ ContactSchema.statics = {
         { status: true },
       ],
     })
-      .sort({ createdAt: -1 })
+      .sort({ updateAt: -1 })
       .limit(limit)
       .exec();
   },
@@ -200,7 +201,7 @@ ContactSchema.statics = {
         { status: true },
       ],
     })
-      .sort({ createdAt: -1 })
+      .sort({ updateAt: -1 })
       .skip(skip)
       .limit(limit)
       .exec();
