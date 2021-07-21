@@ -7,7 +7,7 @@
   "author": "chiu minh",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon --exec babel-node src/server.js"
+    "start": "nodemon --exec babel-node src/server.js -w"
   },
   "dependencies": {
     "@babel/cli": "^7.13.16",
