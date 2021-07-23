@@ -7,7 +7,7 @@ import fsExtra from 'fs-extra';
 
 class UserController {
   updateAvatar(req, res) {
-    avatarUploadFile(req, res, async (err) => {
+    avatarUploadFile(req, res, async err => {
       if (err) {
         if (err.messages) {
           return res
@@ -28,9 +28,9 @@ class UserController {
         );
 
         // remove old user avatar
-        fsExtra.removeSync(
-          `${appConfig.avatar_directory}/${userUpdate.avatar}`
-        );
+        // fsExtra.removeSync(
+        //   `${appConfig.avatar_directory}/${userUpdate.avatar}`
+        // );
         let result = {
           messages: tranSuccess.avatar_update,
           imageSrc: `/images/users/${req.file.filename}`,
@@ -62,9 +62,7 @@ class UserController {
     } catch (errors) {
       let errorsArr = [];
       errors.details
-        ? errors.details.forEach((err) =>
-            errorsArr.push(err.message)
-          )
+        ? errors.details.forEach(err => errorsArr.push(err.message))
         : errorsArr.push(errors);
       return res.status(500).send(errorsArr);
     }
@@ -83,9 +81,7 @@ class UserController {
     } catch (errors) {
       let errorsArr = [];
       errors.details
-        ? errors.details.forEach((err) =>
-            errorsArr.push(err.message)
-          )
+        ? errors.details.forEach(err => errorsArr.push(err.message))
         : errorsArr.push(errors);
       return res.status(500).json({ msg: errorsArr });
     }
