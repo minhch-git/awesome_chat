@@ -1,3 +1,4 @@
+import { bufferToBase64 } from '../../helpers/clientHelper';
 import {
   notificationService,
   contactService,
@@ -40,6 +41,7 @@ class SiteController {
       userConversations,
       groupConversations,
       allConversations,
+      allConversationsWithMessage,
     } = await messageServices.getAllConversationItems(req.user._id);
 
     return res.render('main/home/home', {
@@ -57,6 +59,8 @@ class SiteController {
       userConversations,
       groupConversations,
       allConversations,
+      allConversationsWithMessage,
+      bufferToBase64
     });
   }
 

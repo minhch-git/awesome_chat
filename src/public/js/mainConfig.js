@@ -161,6 +161,16 @@ function changeTypeChat() {
   });
 }
 
+function changeScreenChat() {
+  $('.room-chat')
+    .unbind('click')
+    .on('click', function () {
+      $('.person').removeClass('active');
+      $(this).find('li').addClass('active');
+      $(this).tab('show');
+    });
+}
+
 $(document).ready(function () {
   // Hide số thông báo trên đầu icon mở modal contact
   showModalContacts();
@@ -193,4 +203,12 @@ $(document).ready(function () {
 
   // Thay đổi kiểu trò chuyện
   changeTypeChat();
+
+  // Thay đổi màn hình chat
+  changeScreenChat();
+
+  // click vào phần tử đâu tiên của cuộc trò chuyện khi load
+  Array.from($('ul.people')).forEach(item => {
+    item.querySelector('li').classList.add('active');
+  });
 });
