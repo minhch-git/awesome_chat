@@ -26,7 +26,7 @@
                     <%=conversation.username%>
                   <%}%>
                 </span>
-                <span class="time">Một phút trước fake</span>
+                <span class="time">...</span>
                 <span class="preview">Xin chào</span>
               </li>
             </a>
@@ -65,7 +65,7 @@
                   </span>
                 </span>
                 <span class="time">
-                  
+                  ...
                 </span>
                 <span class="preview">Chào cả nhóm</span>
               </li>
@@ -106,7 +106,7 @@
                     </span>
                   </span>
                     <span class="time">
-                      <%= convertTimestampToHumanTime(lastItemOfArray(conversation.messages).createdAt) %>
+                      <%= convertTimestampToHumanTime(lastItemOfArray(conversation.messages).updatedAt) %>
                     </span>
                     <span class="preview">
                       <%if(lastItemOfArray(conversation.messages).messageType == 'text') { %>
@@ -139,7 +139,7 @@
                     <%}%>
                   </span>
                   <span class="time">
-                    <%= convertTimestampToHumanTime(lastItemOfArray(conversation.messages).createdAt) %>
+                    <%= convertTimestampToHumanTime(lastItemOfArray(conversation.messages).updatedAt) %>
                   </span>
                   <span class="preview">
                     <%if(lastItemOfArray(conversation.messages).messageType == 'text') { %>

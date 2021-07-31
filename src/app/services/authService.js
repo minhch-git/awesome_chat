@@ -16,7 +16,7 @@ class AuthServices {
 
         if (user) {
           let errMessages =
-            (!!user.deleteAt && transErrors.account_removed) ||
+            (!!user.deletedAt && transErrors.account_removed) ||
             (!user.local.isActive && transErrors.account_not_active) ||
             transErrors.account_in_use;
 

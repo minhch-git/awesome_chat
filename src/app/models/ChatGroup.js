@@ -6,9 +6,9 @@ const ChatGroupSchema = mongoose.Schema({
   messagesAnount: { type: Number, default: 0 },
   userId: String,
   members: [{ userId: String }],
-  createAt: { type: Number, default: Date.now },
-  updateAt: { type: Number, default: Date.now },
-  deleteAt: { type: Number, default: null },
+  createdAt: { type: Number, default: Date.now },
+  updatedAt: { type: Number, default: Date.now },
+  deletedAt: { type: Number, default: null },
 });
 
 ChatGroupSchema.statics = {
@@ -21,9 +21,29 @@ ChatGroupSchema.statics = {
     return this.find({
       members: { $elemMatch: { userId } },
     })
-      .sort({ updateAt: -1 })
+      .sort({ updatedAt: -1 })
       .limit(limit)
       .exec();
+  },
+  /**
+   * Get chat group
+   * @param {string} id
+   * @returns
+   */
+  getChatGroupById(id) {
+    return this.findById(id).exec();
+  },
+
+  /**
+   * Update group chat when has new message
+   * @param {string} id
+   * @param {number} newMessageAmout
+   */
+  updateWhenHasNewMessage(id, newMessageAmout) {
+    return this.findByIdAndUpdate(id, {
+      messagesAnount: newMessageAmout,
+      updatedAt: Date.now(),
+    }).exec();
   },
 };
 

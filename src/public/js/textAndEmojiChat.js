@@ -5,7 +5,6 @@ function textAndEmojiChat(divId) {
       if (e.which === 13) {
         let targetId = $(`#write-chat-${divId}`).data("chat");
         let messageVal = $(`#write-chat-${divId}`).val();
-        console.log(targetId, messageVal);
         if (!targetId || !messageVal) {
           return false;
         }
@@ -23,9 +22,13 @@ function textAndEmojiChat(divId) {
           dataTextEmojiForSend,
           function (data) {
             // success
+            console.log(data);
           }
         ).fail(response => {
           // error
+          console.log(response);
+
+          alertify.notify(response.responseText, "error", 6);
         });
       }
     });
