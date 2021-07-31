@@ -64,7 +64,9 @@
                     <%}%> 
                   </span>
                 </span>
-                <span class="time">Hai giờ trước fake</span>
+                <span class="time">
+                  
+                </span>
                 <span class="preview">Chào cả nhóm</span>
               </li>
             </a>
@@ -85,7 +87,7 @@
       </div>
       <div class="tab-pane active" id="all-chat">
         <ul class="people no-padding-start">
-          <% allConversations.forEach(function(conversation){%>
+          <% allConversationsWithMessage.forEach(function(conversation){%>
             <% if(conversation.members) {%>
               <a class="room-chat" href="#uid_<%=conversation._id%>" data-target="#to_<%=conversation._id%>">
                 <li class="person group-chat" data-chat="<%=conversation._id%>">
@@ -103,8 +105,22 @@
                       <%}%> 
                     </span>
                   </span>
-                    <span class="time">Hai giờ trước fake</span>
-                    <span class="preview">Chào cả nhóm</span>
+                    <span class="time">
+                      <%= convertTimestampToHumanTime(lastItemOfArray(conversation.messages).createdAt) %>
+                    </span>
+                    <span class="preview">
+                      <%if(lastItemOfArray(conversation.messages).messageType == 'text') { %>
+                        <%= lastItemOfArray(conversation.messages).text %>
+                      <%}%>
+
+                      <%if(lastItemOfArray(conversation.messages).messageType == 'image') { %>
+                        Hình ảnh...
+                      <%}%>
+
+                      <%if(lastItemOfArray(conversation.messages).messageType == 'file') { %>
+                        Tệp đính kèm...
+                      <%}%>
+                    </span>
                 </li>
               </a>
             <%} else { %>
@@ -122,8 +138,22 @@
                       <%=conversation.username%>
                     <%}%>
                   </span>
-                  <span class="time">Một phút trước fake</span>
-                  <span class="preview">Xin chào</span>
+                  <span class="time">
+                    <%= convertTimestampToHumanTime(lastItemOfArray(conversation.messages).createdAt) %>
+                  </span>
+                  <span class="preview">
+                    <%if(lastItemOfArray(conversation.messages).messageType == 'text') { %>
+                      <%= lastItemOfArray(conversation.messages).text %>
+                    <%}%>
+
+                    <%if(lastItemOfArray(conversation.messages).messageType == 'image') { %>
+                      Hình ảnh...
+                    <%}%>
+
+                    <%if(lastItemOfArray(conversation.messages).messageType == 'file') { %>
+                      Tệp đính kèm...
+                    <%}%>
+                  </span>
                 </li>
               </a>
             <%}%>

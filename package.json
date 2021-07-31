@@ -27,6 +27,7 @@
     "joi": "^17.4.0",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.21",
+    "moment": "^2.29.1",
     "mongoose": "^5.12.6",
     "multer": "^1.4.2",
     "nodemailer": "^6.6.0",
@@ -40,5 +41,8 @@
     "pem": "^1.14.4",
     "socket.io": "^4.1.2",
     "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "colors": "^1.4.0"
   }
 }

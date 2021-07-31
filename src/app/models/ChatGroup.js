@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const ChatGroupSchema = mongoose.Schema({
   name: String,
@@ -27,4 +27,4 @@ ChatGroupSchema.statics = {
   },
 };
 
-export default mongoose.model('chat-group', ChatGroupSchema);
+export default mongoose.model("chat_group", ChatGroupSchema);
