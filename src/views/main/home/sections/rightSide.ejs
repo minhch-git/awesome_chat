@@ -8,7 +8,7 @@
           <div class="top">
             <span>To: <span class="name"><%= conversation.name %></span></span>
             <span class="chat-menu-right">
-              <a id="show-attachs" href="#attachsModal" data-toggle="modal">
+              <a class="show-attachs" href="#attachsModal_<%=conversation._id%>" data-toggle="modal">
                 Tệp đính kèm
                 <i class="fa fa-paperclip"></i>
               </a>
@@ -17,7 +17,7 @@
               <a href="javascript:void(0)">&nbsp;</a>
             </span>
             <span class="chat-menu-right">
-              <a id="show-images" href="#imagesModal" data-toggle="modal">
+              <a class="show-images" href="#imagesModal_<%=conversation._id%>" data-toggle="modal">
                 Hình ảnh
                 <i class="fa fa-photo"></i>
               </a>
@@ -31,14 +31,14 @@
                 <% if(message.messageType=='text') {%>
                   <div 
                     class="bubble <%if(message.senderId == user._id) {%> me <%} else {%> you <%}%>" data-mess-id="<%=message._id%>">
-                    <img src="/images/users/<%= message.sender.avatar%>" class="avatar-small mx-1" alt="">
+                    <img src="/images/users/<%= message.sender.avatar%>" class="avatar-small mx-1" title="<%=message.sender.name %>" alt="">
                     <%= message.text %>
                   </div>
                 <%}%>
 
                 <% if(message.messageType=='image') {%>
                   <div class="bubble bubble-image-file <%if(message.senderId == user._id) {%> me <%} else {%> you <%}%>" data-mess-id="<%=message._id%>">
-                    <img src="/images/users/<%= message.sender.avatar%>" class="avatar-small mx-1" alt="">
+                    <img src="/images/users/<%= message.sender.avatar%>" class="avatar-small mx-1" title="<%=message.sender.name %>" alt="">
                     <%= message.text %>
                     <img class="show-image-chat" src="data:<%= message.file.contentType%>; base64, <%= bufferToBase64(message.file.data) %>" />
                   </div>
@@ -46,7 +46,7 @@
 
                 <% if(message.messageType=='file') {%>
                   <div class="bubble bubble-image-file <%if(message.senderId == user._id) {%> me <%} else {%> you <%}%>" data-mess-id="<%=message._id%>">
-                    <img src="/images/users/<%= message.sender.avatar%>" class="avatar-small mx-1" alt="">
+                    <img src="/images/users/<%= message.sender.avatar%>" class="avatar-small mx-1" title="<%=message.sender.name %>" alt="">
                     <%= message.text %>
                     <a href="data:<%= message.file.contentType%>; base64, <%= bufferToBase64(message.file.data) %>" download="<%=message.file.fileName%>">
                       <%=message.file.fileName%>
@@ -59,7 +59,7 @@
           </div>
 
           <div class="write" data-chat="<%=conversation._id%>">
-            <input class="write-chat" type="text" data-chat="<%=conversation._id%>" />
+            <input class="write-chat chat-in-group" type="text" id="write-chat-<%=conversation._id%>"  data-chat="<%=conversation._id%>" />
             <div class="icons">
               <a class="icon-chat" href="#" data-chat="<%=conversation._id%>"><i class="fa fa-smile-o"></i></a>
               <label for="image-chat">
@@ -83,7 +83,7 @@
           <div class="top">
             <span>To: <span class="name"><%= conversation.username %></span></span>
             <span class="chat-menu-right">
-              <a id="show-attachs" href="#attachsModal" data-toggle="modal">
+              <a class="show-attachs" href="#attachsModal_<%=conversation._id%>" data-toggle="modal">
                 Tệp đính kèm
                 <i class="fa fa-paperclip"></i>
               </a>
@@ -92,7 +92,7 @@
               <a href="javascript:void(0)">&nbsp;</a>
             </span>
             <span class="chat-menu-right">
-              <a id="show-images" href="#imagesModal" data-toggle="modal">
+              <a class="show-images" href="#imagesModal_<%=conversation._id%>" data-toggle="modal">
                 Hình ảnh
                 <i class="fa fa-photo"></i>
               </a>
@@ -128,7 +128,7 @@
           </div>
 
           <div class="write" data-chat="<%=conversation._id%>">
-            <input class="write-chat" type="text" data-chat="<%=conversation._id%>" />
+            <input class="write-chat" type="text" id="write-chat-<%=conversation._id%>"  data-chat="<%=conversation._id%>" />
             <div class="icons">
               <a class="icon-chat" href="#" data-chat="<%=conversation._id%>"><i class="fa fa-smile-o"></i></a>
               <label for="image-chat">
