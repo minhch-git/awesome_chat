@@ -35,6 +35,15 @@ const MESSAGE_TYPES = {
 
 MessageSchema.statics = {
   /**
+   * Create new message
+   * @param {object} item
+   * @returns
+   */
+  createNew(item) {
+    return this.create(item);
+  },
+
+  /**
    * get limited one item of personal
    * @param {string} senderId
    * @param {string} receiverId
@@ -51,7 +60,7 @@ MessageSchema.statics = {
         },
       ],
     })
-      .sort({ createAt: 1 })
+      .sort({ createdAt: 1 })
       .limit(limit)
       .exec();
   },
@@ -63,7 +72,7 @@ MessageSchema.statics = {
    */
   getMessagesInGroup(receiverId, limit) {
     return this.find({ receiverId: receiverId })
-      .sort({ createAt: 1 })
+      .sort({ createdAt: 1 })
       .limit(limit)
       .exec();
   },

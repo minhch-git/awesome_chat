@@ -1,18 +1,16 @@
-import multer from 'multer';
-import { transErrors, tranSuccess } from '../../../lang/vi';
-import { appConfig } from '../../config/index';
-import { v4 as uuidv4 } from 'uuid';
-import userService from '../services/userService';
-import fsExtra from 'fs-extra';
+import multer from "multer";
+import { transErrors, tranSuccess } from "../../../lang/vi";
+import { appConfig } from "../../config/index";
+import { v4 as uuidv4 } from "uuid";
+import userService from "../services/userService";
+import fsExtra from "fs-extra";
 
 class UserController {
   updateAvatar(req, res) {
     avatarUploadFile(req, res, async err => {
       if (err) {
         if (err.messages) {
-          return res
-            .status(500)
-            .send(transErrors.avatar_limit_size);
+          return res.status(500).send(transErrors.avatar_limit_size);
         }
         return res.status(500).send(err);
       }
@@ -20,7 +18,7 @@ class UserController {
       try {
         let updateUserItem = {
           avatar: req.file.filename,
-          updateAt: Date.now(),
+          updatedAt: Date.now(),
         };
         let userUpdate = await userService.updateUser(
           req.user._id,
@@ -71,13 +69,8 @@ class UserController {
   async updatePassword(req, res) {
     try {
       let updateUserItem = await req.body.valueChecked;
-      await userService.updatePassword(
-        req.user._id,
-        updateUserItem
-      );
-      return res
-        .status(201)
-        .json({ msg: tranSuccess.user_password_update });
+      await userService.updatePassword(req.user._id, updateUserItem);
+      return res.status(201).json({ msg: tranSuccess.user_password_update });
     } catch (errors) {
       let errorsArr = [];
       errors.details
@@ -99,9 +92,7 @@ let storageAvatar = multer.diskStorage({
     if (!math.includes(file.mimetype)) {
       return callback(transErrors.avatar_type, null);
     }
-    let avatarName = `${Date.now()}-${uuidv4()}-${
-      file.originalname
-    }`;
+    let avatarName = `${Date.now()}-${uuidv4()}-${file.originalname}`;
     callback(null, avatarName);
   },
 });
@@ -109,6 +100,6 @@ let storageAvatar = multer.diskStorage({
 let avatarUploadFile = multer({
   storage: storageAvatar,
   limits: { fileSize: appConfig.avatar_limit_size },
-}).single('avatar');
+}).single("avatar");
 
 export default new UserController();

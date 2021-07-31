@@ -1,10 +1,10 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const NotificationSchema = mongoose.Schema({
   senderId: String,
   receiverId: String,
   type: String,
-  createAt: { type: Number, default: Date.now },
+  createdAt: { type: Number, default: Date.now },
   isRead: { type: Boolean, default: false },
 });
 
@@ -30,7 +30,7 @@ NotificationSchema.statics = {
    */
   getByUserIdAndLimit(userId, limit) {
     return this.find({ receiverId: userId })
-      .sort({ createAt: -1 })
+      .sort({ createdAt: -1 })
       .limit(limit)
       .exec();
   },
@@ -50,7 +50,7 @@ NotificationSchema.statics = {
   readMore(userId, skip, limit) {
     return this.find({ receiverId: userId })
       .skip(skip)
-      .sort({ createAt: -1 })
+      .sort({ createdAt: -1 })
       .limit(limit)
       .exec();
   },
@@ -63,10 +63,7 @@ NotificationSchema.statics = {
   markAllAsRead(userId, targetUsers) {
     return this.updateMany(
       {
-        $and: [
-          { receiverId: userId },
-          { senderId: { $in: targetUsers } },
-        ],
+        $and: [{ receiverId: userId }, { senderId: { $in: targetUsers } }],
       },
       { isRead: true }
     ).exec();
@@ -74,18 +71,12 @@ NotificationSchema.statics = {
 };
 
 const NOTIFYCATION_TYPES = {
-  ADD_CONTACT: 'add_contact',
-  APPROVE_CONTACT: 'approve_contact',
+  ADD_CONTACT: "add_contact",
+  APPROVE_CONTACT: "approve_contact",
 };
 
 const NOTIFYCATION_CONTENT = {
-  getContent: (
-    notificationTypes,
-    isRead,
-    userId,
-    username,
-    userAvatar
-  ) => {
+  getContent: (notificationTypes, isRead, userId, username, userAvatar) => {
     if (notificationTypes === NOTIFYCATION_TYPES.APPROVE_CONTACT) {
       if (!isRead) {
         return `
@@ -114,12 +105,12 @@ const NOTIFYCATION_CONTENT = {
           <strong>${username}</strong> Đã gửi cho bạn một lời mời kết bạn!
         </span>`;
     }
-    return 'No matching with any notification type.';
+    return "No matching with any notification type.";
   },
 };
 
 module.exports = {
-  model: mongoose.model('notification', NotificationSchema),
+  model: mongoose.model("notification", NotificationSchema),
   types: NOTIFYCATION_TYPES,
   content: NOTIFYCATION_CONTENT,
 };

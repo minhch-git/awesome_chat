@@ -24,9 +24,9 @@ const UserSchema = mongoose.Schema({
     token: String,
     email: { type: String, trim: true, lowerCase: true },
   },
-  createAt: { type: Number, default: Date.now },
-  updateAt: { type: Number, default: null },
-  deleteAt: { type: Number, default: null },
+  createdAt: { type: Number, default: Date.now },
+  updatedAt: { type: Number, default: null },
+  deletedAt: { type: Number, default: null },
 });
 
 UserSchema.statics = {
