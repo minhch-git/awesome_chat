@@ -36,6 +36,7 @@ class SiteController {
     // Count all contacts received
     let countAllContactsReceived =
       await contactService.countAllContactsReceived(req.user._id);
+      
     let {
       userConversations,
       groupConversations,

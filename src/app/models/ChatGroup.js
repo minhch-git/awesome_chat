@@ -37,12 +37,14 @@ ChatGroupSchema.statics = {
   /**
    * Update group chat when has new message
    * @param {string} id
-   * @param {number} newMessageAmout
+   * @param {number} newMessageAmount
    */
-  updateWhenHasNewMessage(id, newMessageAmout) {
+  updateWhenHasNewMessage(id, newMessageAmount) {
     return this.findByIdAndUpdate(id, {
-      messagesAnount: newMessageAmout,
-      updatedAt: Date.now(),
+      $set: {
+        messagesAnount: newMessageAmount,
+        updatedAt: Date.now(),
+      }
     }).exec();
   },
 };
