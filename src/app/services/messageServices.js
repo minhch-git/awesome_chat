@@ -1,3 +1,4 @@
+import _ from "lodash";
 import Contact from "../models/Contact";
 import Message, {
   MESSAGE_CONVERSATION_TYPES as messageConverSationType,
@@ -6,7 +7,6 @@ import Message, {
 import User from "../models/User";
 import ChatGroup from "../models/ChatGroup";
 
-import _ from "lodash";
 import { transErrors } from "../../../lang/vi";
 import { appConfig } from "../../config";
 const LIMIT_CONVERSATIONS_TAKEN = 30;
@@ -59,14 +59,14 @@ class MessageServices {
                 converstation._id,
                 LIMIT_MESSAGES_TAKEN
               );
-              converstation.messages = getMessages;
+              converstation.messages = _.reverse(getMessages);
             } else {
               let getMessages = await Message.getMessagesInPersonal(
                 currentUserId,
                 converstation._id,
                 LIMIT_MESSAGES_TAKEN
               );
-              converstation.messages = getMessages;
+              converstation.messages = _.reverse(getMessages);
             }
 
             return converstation;
@@ -130,8 +130,8 @@ class MessageServices {
           // create new Message
           let newMessage = await Message.createNew(newMessageItem);
           // update group chat
-          await ChatGroup.updateWhenHasNewMessage(
-            receiver._id,
+           await ChatGroup.updateWhenHasNewMessage(
+            receiver.id,
             getChatGroupReceiver.messagesAnount + 1
           );
 

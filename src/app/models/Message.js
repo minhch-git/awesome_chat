@@ -60,7 +60,7 @@ MessageSchema.statics = {
         },
       ],
     })
-      .sort({ createdAt: 1 })
+      .sort({ createdAt: -1 })
       .limit(limit)
       .exec();
   },
@@ -72,7 +72,7 @@ MessageSchema.statics = {
    */
   getMessagesInGroup(receiverId, limit) {
     return this.find({ receiverId: receiverId })
-      .sort({ createdAt: 1 })
+      .sort({ createdAt: -1 })
       .limit(limit)
       .exec();
   },
