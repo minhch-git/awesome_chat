@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose'
 
 const ChatGroupSchema = mongoose.Schema({
   name: String,
@@ -9,7 +9,7 @@ const ChatGroupSchema = mongoose.Schema({
   createdAt: { type: Number, default: Date.now },
   updatedAt: { type: Number, default: Date.now },
   deletedAt: { type: Number, default: null },
-});
+})
 
 ChatGroupSchema.statics = {
   /**
@@ -23,7 +23,7 @@ ChatGroupSchema.statics = {
     })
       .sort({ updatedAt: -1 })
       .limit(limit)
-      .exec();
+      .exec()
   },
   /**
    * Get chat group
@@ -31,7 +31,7 @@ ChatGroupSchema.statics = {
    * @returns
    */
   getChatGroupById(id) {
-    return this.findById(id).exec();
+    return this.findById(id).exec()
   },
 
   /**
@@ -44,9 +44,17 @@ ChatGroupSchema.statics = {
       $set: {
         messagesAnount: newMessageAmount,
         updatedAt: Date.now(),
-      }
-    }).exec();
+      },
+    }).exec()
   },
-};
 
-export default mongoose.model("chat_group", ChatGroupSchema);
+  getChatGroupByIds(userId) {
+    return this.find({
+      members: { $elemMatch: { userId } },
+    })
+      .select('_id')
+      .exec()
+  },
+}
+
+export default mongoose.model('chat_group', ChatGroupSchema)

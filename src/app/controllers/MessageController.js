@@ -22,7 +22,7 @@ class MessageController {
       );
 
       return res.status(200).json({ message: newMessage });
-      
+
     } catch (error) {
       return res.status(500).json(error.details[0].message);
     }

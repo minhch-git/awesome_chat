@@ -12,15 +12,15 @@ const mailer = (to, subject, htmlContent) => {
     secure: false,
     auth: {
       user: adminEmail,
-      pass: adminPassword
-    }
+      pass: adminPassword,
+    },
   })
 
   let info = {
     from: adminEmail,
     to: to,
     subject: subject,
-    html: htmlContent
+    html: htmlContent,
   }
 
   return transporter.sendMail(info)
