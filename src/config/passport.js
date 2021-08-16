@@ -1,4 +1,5 @@
 import User from '../app/models/User'
+import ChatGroup from '../app/models/ChatGroup'
 
 import passport from 'passport'
 
@@ -12,15 +13,22 @@ const applyPassport = (app) => {
   sessionPassport(passport)
 }
 
-const sessionPassport = passport => {
+const sessionPassport = (passport) => {
   passport.serializeUser(function (user, done) {
-    done(null, user.id);
+    done(null, user.id)
   })
-  passport.deserializeUser(function (id, done) {
-    User.findById(id, function (err, user) {
-      done(err, user);
-    });
-  });
+  passport.deserializeUser(async (id, done) => {
+    try {
+      let user = await User.findByUserIdForSessionToUse(id)
+      let getChatGroupByIds = await ChatGroup.getChatGroupByIds(user._id)
+
+      user = user.toObject()
+      user.groupByIds = getChatGroupByIds
+      return done(null, user)
+    } catch (error) {
+      done(error, null)
+    }
+  })
 }
 
 export default applyPassport

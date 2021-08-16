@@ -10,7 +10,7 @@
     "start": "nodemon --exec babel-node src/server.js -w"
   },
   "dependencies": {
-    "@babel/cli": "^7.13.16",
+    "@babel/cli": "^7.14.8",
     "@babel/core": "^7.13.16",
     "@babel/node": "^7.13.13",
     "@babel/preset-env": "^7.13.15",

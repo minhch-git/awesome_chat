@@ -900,12 +900,7 @@ label:focus,
 }
 
 .right .chat.active-chat .bubble {
-  -webkit-transition-timing-function: cubic-bezier(
-    0.4,
-    -0.04,
-    1,
-    1
-  );
+  -webkit-transition-timing-function: cubic-bezier(0.4, -0.04, 1, 1);
   transition-timing-function: cubic-bezier(0.4, -0.04, 1, 1);
 }
 
@@ -1460,4 +1455,8 @@ label:focus,
 .mx-1 {
   margin-left: 4px !important;
   margin-right: 4px !important;
+}
+.message-time-realtime {
+  color: #e74c3c !important;
+  font-weight: 'bold';
 }
