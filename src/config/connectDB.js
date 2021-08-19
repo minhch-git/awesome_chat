@@ -14,5 +14,4 @@ const connectDB = () => {
     .then(db => console.log("Connect mongodb successfully!".green.bold))
     .catch(err => console.error("Connect mongodb failure!".red, err));
 };
-
 export default connectDB;

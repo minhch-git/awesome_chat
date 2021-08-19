@@ -6,7 +6,6 @@ import validate, { SchemaValidate } from '../validation/validate'
 import authController from '../app/controllers/AuthController'
 import passportController from '../app/controllers/PassportController'
 
-
 // init passport
 passportController.applyPassportLocal(passport)
 // passportController.applyPassportFacebook(passport)
@@ -36,16 +35,18 @@ passportController.applyPassportLocal(passport)
 // )
 
 // login type: local
-router.post('/login',
+router.post(
+  '/login',
   passport.authenticate('local', {
     failureRedirect: '/login-register',
     successRedirect: '/',
     successFlash: true,
-    failureFlash: true
+    failureFlash: true,
   })
 )
 
-router.post('/register',
+router.post(
+  '/register',
   validate.body(SchemaValidate.register),
   authController.postRegister
 )

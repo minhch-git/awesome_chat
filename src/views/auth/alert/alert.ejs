@@ -1,17 +1,21 @@
 <% if (errors) { %>
   <% errors.forEach(function(error) { %>
     <script>
-    openLoginModal()
+      openLoginModal()
     </script>
-    <div class="alert alert-danger"><%= error%></div>
-  <% }) %>
-<% } %>
+    <div class="alert alert-danger">
+      <%= error%>
+    </div>
+    <% }) %>
+      <% } %>
 
-<% if (success) { %>
-  <% success.forEach(function(item) { %>
-    <script>
-    openLoginModal()
-    </script>
-    <div class="alert alert-success"><%= item%></div>
-  <% }) %>
-<% } %>
+        <% if (success) { %>
+          <% success.forEach(function(item) { %>
+            <script>
+              openLoginModal()
+            </script>
+            <div class="alert alert-success">
+              <%= item%>
+            </div>
+            <% }) %>
+              <% } %>

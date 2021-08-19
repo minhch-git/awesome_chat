@@ -25,6 +25,7 @@ function textAndEmojiChat(divId) {
             let dataToEmit = {
               message,
             }
+            console.log({ dataToEmit })
             // step 1: handle message data before show
             let messageOfme = $(
               `<div class="bubble me" data-mess-id="${message._id}"></div>`
@@ -44,7 +45,7 @@ function textAndEmojiChat(divId) {
             }
 
             // Step 02: append message data to screen
-            $(`.right .chat[data-chat=${divId}]`).append(messageOfme)
+            $(`.right .chat[data-chat="${divId}"]`).append(messageOfme)
             nineScrollRight(divId)
 
             // Step 03: remove all data at input
@@ -80,6 +81,15 @@ function textAndEmojiChat(divId) {
 
             // Step 06: Emit realtime
             socket.emit('chat-text-emoji', dataToEmit)
+
+            // Step 07: Emit remove typing realtime
+            typingOff(divId)
+
+            // Steo 08: If this has typing, remove that immediate
+            let checkTyping = $(`.chat[data-chat="${divId}"]`).find(
+              'div.bubble-typing-gif'
+            )
+            if (checkTyping.length) checkTyping.remove()
           }
         ).fail(response => {
           // error
@@ -114,6 +124,7 @@ $(document).ready(function () {
         divId = currentUserId
         messageOfYou.html(convertEmojiMessage)
       }
+      console.log({ messageOfYou })
 
       // Step 02: append message data to screen
       if (currentUserId !== $('#dropdown-navbar-user').data('uid')) {
