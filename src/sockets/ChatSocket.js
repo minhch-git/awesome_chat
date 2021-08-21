@@ -70,6 +70,73 @@ class Chat {
       })
     })
   }
+  chatImage(io) {
+    let clients = {}
+    io.on('connection', socket => {
+      clients = socketHelper.pushSocketIdToArray(
+        clients,
+        socket.request.user._id,
+        socket.id
+      )
+
+      socket.request.user.groupByIds.forEach(group => {
+        clients = socketHelper.pushSocketIdToArray(
+          clients,
+          group._id,
+          socket.id
+        )
+      })
+
+      socket.on('chat-image', data => {
+        if (data.groupId) {
+          let response = {
+            currentUserId: socket.request.user._id,
+            currentGroupId: data.groupId,
+            message: data.message,
+          }
+          if (clients[data.groupId]) {
+            socketHelper.emitNotifyToArray(
+              clients,
+              data.groupId,
+              io,
+              'response-chat-image',
+              response
+            )
+          }
+        }
+
+        if (data.contactId) {
+          let response = {
+            currentUserId: socket.request.user._id,
+            message: data.message,
+          }
+          if (clients[data.contactId]) {
+            socketHelper.emitNotifyToArray(
+              clients,
+              data.contactId,
+              io,
+              'response-chat-image',
+              response
+            )
+          }
+        }
+      })
+      socket.on('disconnect', () => {
+        clients = socketHelper.removeSocketIdFromArray(
+          clients,
+          socket.request.user._id,
+          socket
+        )
+        socket.request.user.groupByIds.forEach(group => {
+          clients = socketHelper.removeSocketIdFromArray(
+            clients,
+            group._id,
+            socket.id
+          )
+        })
+      })
+    })
+  }
 
   typingOn(io) {
     let clients = {}
