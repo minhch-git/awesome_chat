@@ -68,8 +68,46 @@ class MessageController {
       }
     })
   }
-}
 
+  async addNewAttachment(req, res) {
+    attachmentMessageUploadFile(req, res, async err => {
+      if (err) {
+        if (err.messages) {
+          return res.status(500).send(transErrors.attachment_message_size)
+        }
+        return res.status(500).send(err)
+      }
+
+      try {
+        let sender = {
+          id: req.user._id,
+          name: req.user.username,
+          avatar: req.user.avatar,
+        }
+        let receivedId = req.body.uid
+        let messageVal = req.file
+        let isChatGroup = req.body.isChatGroup
+        let newMessage = await messageService.addNewAttachment(
+          sender,
+          receivedId,
+          messageVal,
+          isChatGroup
+        )
+
+        // Remove attachment, because this attachment is saved to mongodb
+        await fsExtra.remove(
+          `${appConfig.attachment_message_directory}/${newMessage.file.fileName}`
+        )
+
+        return res.status(200).json({ message: newMessage })
+      } catch (error) {
+        console.log({ error })
+        return res.status(500).json(error)
+      }
+    })
+  }
+}
+// handle image chat
 let storageImageChat = multer.diskStorage({
   destination: (req, file, callback) => {
     callback(null, appConfig.image_message_directory)
@@ -90,5 +128,22 @@ let imageMessageUploadFile = multer({
   storage: storageImageChat,
   limits: { fileSize: appConfig.image_message_limit_size },
 }).single('my-image-chat')
+
+// handle attachment chat
+let storageAttachmentChat = multer.diskStorage({
+  destination: (req, file, callback) => {
+    callback(null, appConfig.attachment_message_directory)
+  },
+
+  filename: (req, file, callback) => {
+    let attachmentName = file.originalname
+    callback(null, attachmentName)
+  },
+})
+
+let attachmentMessageUploadFile = multer({
+  storage: storageAttachmentChat,
+  limits: { fileSize: appConfig.attachment_message_limit_size },
+}).single('my-attachment-chat')
 
 export default new MessageController()

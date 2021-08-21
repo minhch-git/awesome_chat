@@ -12,5 +12,10 @@ router.post(
   MessageController.addNewTextEmoji
 )
 router.post('/add-new-image', isLogin.isLoggedIn, MessageController.addNewImage)
+router.post(
+  '/add-new-attachment',
+  isLogin.isLoggedIn,
+  MessageController.addNewAttachment
+)
 
 export default router
