@@ -12,6 +12,7 @@ const initSocket = io => {
   ContactSocket.approveRequestContactReceived(io)
 
   ChatSocket.textEmoji(io)
+  ChatSocket.chatImage(io)
   ChatSocket.typingOn(io)
   ChatSocket.typingOff(io)
 }

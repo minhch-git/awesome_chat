@@ -101,6 +101,8 @@ function gridPhotos(layoutNumber) {
       let href = $(this).attr('href')
       let modalImagesId = href.replace('#', '')
 
+      let originDataImage = $(`#${modalImagesId}`).find('div.modal-body').html()
+
       let countRows = Math.ceil(
         $(`#${modalImagesId}`).find('div.all-images>img').length / layoutNumber
       )
@@ -124,6 +126,11 @@ function gridPhotos(layoutNumber) {
             })
           },
         })
+
+      // Bắt sự kiện đóng modal
+      $(`#${modalImagesId}`).on('hidden.bs.modal', function () {
+        $(this).find('div.modal-body').html(originDataImage)
+      })
     })
 }
 

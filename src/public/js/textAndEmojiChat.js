@@ -25,7 +25,6 @@ function textAndEmojiChat(divId) {
             let dataToEmit = {
               message,
             }
-            console.log({ dataToEmit })
             // step 1: handle message data before show
             let messageOfme = $(
               `<div class="bubble me" data-mess-id="${message._id}"></div>`
