@@ -13,6 +13,7 @@ const initSocket = io => {
 
   ChatSocket.textEmoji(io)
   ChatSocket.chatImage(io)
+  ChatSocket.chatAttachment(io)
   ChatSocket.typingOn(io)
   ChatSocket.typingOff(io)
 }

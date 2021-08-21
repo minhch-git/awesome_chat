@@ -259,5 +259,100 @@ class MessageServices {
       }
     })
   }
+
+  /**
+   * add new message attachment
+   * @param {object} sender // current user
+   * @param {string} receivedId // a user or a group
+   * @param {file} messageVal
+   * @param {boolean} isChatGroup
+   */
+  addNewAttachment(sender, receivedId, messageVal, isChatGroup) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let getChatGroupReceiver
+        if (isChatGroup) {
+          getChatGroupReceiver = await ChatGroup.getChatGroupById(receivedId)
+
+          if (!getChatGroupReceiver) {
+            return reject(transErrors.conversation_not_found)
+          }
+
+          let receiver = {
+            id: getChatGroupReceiver._id,
+            name: getChatGroupReceiver.name,
+            avatar: appConfig.general_avatar_group_chat,
+          }
+
+          let attachmentBuffer = await fsExtra.readFile(messageVal.path)
+          let attachmentContentType = messageVal.mimetype
+          let attachmentName = messageVal.originalname
+
+          let newMessageItem = {
+            senderId: sender.id,
+            receiverId: receiver.id,
+            conversationType: messageConverSationType.GROUP,
+            messageType: messageType.FILE,
+            sender: sender,
+            receiver: receiver,
+            file: {
+              data: attachmentBuffer,
+              contentType: attachmentContentType,
+              fileName: attachmentName,
+            },
+            createdAt: Date.now(),
+          }
+
+          // create new Message
+          let newMessage = await Message.createNew(newMessageItem)
+          // update group chat
+          await ChatGroup.updateWhenHasNewMessage(
+            receiver.id,
+            getChatGroupReceiver.messagesAnount + 1
+          )
+
+          resolve(newMessage)
+        } else {
+          let getUserReceiver = await User.getNormalUserById(receivedId)
+          if (!getUserReceiver) {
+            return reject(transErrors.conversation_not_found)
+          }
+          let receiver = {
+            id: getUserReceiver._id,
+            name: getUserReceiver.username,
+            avatar: getUserReceiver.avatar,
+          }
+
+          let attachmentBuffer = await fsExtra.readFile(messageVal.path)
+          let attachmentContentType = messageVal.mimetype
+          let attachmentName = messageVal.originalname
+
+          let newMessageItem = {
+            senderId: sender.id,
+            receiverId: receiver.id,
+            conversationType: messageConverSationType.PERSONAL,
+            messageType: messageType.FILE,
+            sender: sender,
+            receiver: receiver,
+            file: {
+              data: attachmentBuffer,
+              contentType: attachmentContentType,
+              fileName: attachmentName,
+            },
+            createdAt: Date.now(),
+          }
+
+          // create new Message
+          let newMessage = await Message.createNew(newMessageItem)
+          // update contact
+          await Contact.updateWhenHasNewMessage(sender.id, getUserReceiver._id)
+
+          resolve(newMessage)
+        }
+      } catch (error) {
+        reject(error)
+      }
+    })
+  }
 }
 export default new MessageServices()

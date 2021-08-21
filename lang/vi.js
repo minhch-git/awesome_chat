@@ -30,6 +30,7 @@ const transErrors = {
   conversation_not_found: 'Cuộc trò chuyện không tồn tại',
   image_message_type: `Kiểu file không hơp lệ, chỉ chấp nhận ảnh png, jpg và jpeg`,
   image_message_size: `Ảnh upload tối đa cho phép là 1MB`,
+  attachment_message_size: `Ảnh upload tối đa cho phép là 1MB`,
 }
 
 const tranSuccess = {

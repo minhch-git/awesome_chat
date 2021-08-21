@@ -205,6 +205,9 @@ function changeScreenChat() {
 
       // Bật lắng nghe DOM cho việc chat tin nhắn là hình ảnh
       imageChat(divId)
+
+      // Bật lắng nghe DOM cho việc chat tin nhắn là tệp đính kèm
+      attachmentChat(divId)
     })
 }
 
@@ -214,6 +217,16 @@ function convertEmonjione() {
     var converted = emojione.toImage(original)
     $(this).html(converted)
   })
+}
+
+function bufferToBase64(buffer) {
+  var binary = ''
+  var bytes = new Uint8Array(buffer)
+  var len = bytes.byteLength
+  for (var i = 0; i < len; i++) {
+    binary += String.fromCharCode(bytes[i])
+  }
+  return window.btoa(binary)
 }
 
 $(document).ready(function () {

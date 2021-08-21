@@ -1,23 +1,17 @@
-function imageChat(divId) {
-  $(`#image-chat-${divId}`)
+function attachmentChat(divId) {
+  $(`#attachment-chat-${divId}`)
     .unbind('change')
     .on('change', function () {
+      console.log({ data: this })
       let fileData = $(this).prop('files')[0]
-      let math = ['image/jpg', 'image/png', 'image/jpeg']
       let limit = 1048576 //byte = 1MB
 
-      if ($.inArray(fileData.type, math) == -1) {
+      if (fileData.size > limit) {
         alertify.notify(
-          'Kiểu file không hơp lệ, chỉ chấp nhận ảnh png, jpg và jpeg ',
+          `Tệp tin đính kèm upload tối đa cho phép là ${limit}`,
           'error',
           7
         )
-        $(this).val(null)
-        return false
-      }
-
-      if (fileData.size > limit) {
-        alertify.notify(`Ảnh upload tối đa cho phép là ${limit}`, 'error', 7)
         $(this).val(null)
         return false
       }
@@ -26,7 +20,7 @@ function imageChat(divId) {
       let isChatGroup = false
       let formData = new FormData()
 
-      formData.append('my-image-chat', fileData)
+      formData.append('my-attachment-chat', fileData)
       formData.append('uid', targetId)
 
       if ($(this).hasClass('chat-in-group')) {
@@ -35,7 +29,7 @@ function imageChat(divId) {
       }
 
       $.ajax({
-        url: '/message/add-new-image',
+        url: '/message/add-new-attachment',
         type: 'POST',
         cache: false,
         contentType: false,
@@ -49,20 +43,24 @@ function imageChat(divId) {
 
           // step 1: handle message data before show
           let messageOfme = $(
-            `<div class="bubble me buble-image-file" data-mess-id="${message._id}"></div>`
+            `<div class="bubble me buble-attachment-file" data-mess-id="${message._id}"></div>`
           )
-          let imageChat = `<img class="show-image-chat" src="data:${
-            message.file.contentType
-          }; base64, ${bufferToBase64(message.file.data.data)} " />`
+          let attachmentChat = `
+          <a href="data:${message.file.contentType}; base64, 
+          ${bufferToBase64(message.file.data.data)}" 
+          download="${message.file.fileName}">
+          ${message.file.fileName}
+          </a>
+        `
 
           if (isChatGroup) {
             let senderAvatar = `<img src="/images/users/${message.sender.avatar}" class="avatar-small mx-1" title="" alt="${message.sender.name}"/>`
 
-            messageOfme.html(`${senderAvatar} ${imageChat}`)
+            messageOfme.html(`${senderAvatar} ${attachmentChat}`)
             increaseNumberMessageGroup(divId)
             dataToEmit.groupId = targetId
           } else {
-            messageOfme.html(imageChat)
+            messageOfme.html(attachmentChat)
             dataToEmit.contactId = targetId
           }
 
@@ -84,7 +82,7 @@ function imageChat(divId) {
             )
           $(`.person[data-chat=${divId}]`)
             .find('span.preview')
-            .html('hình ảnh...')
+            .html('tệp đính kèm...')
 
           // Step 05: move converstation to the top
           $(`.person[data-chat=${divId}]`).on(
@@ -100,19 +98,25 @@ function imageChat(divId) {
           )
 
           // Step 06: Emit realtime
-          socket.emit('chat-image', dataToEmit)
+          socket.emit('chat-attachment', dataToEmit)
 
           // Step 07: Emit remove typing realtime: nothing to code :))))
           // Step 08: If this has typing, remove that immediate: nothing to code :))))
 
-          // Step 09: Add to modal image
-          let imageChatAddToModal = `<img src="data:${
-            message.file.contentType
-          }; base64, ${bufferToBase64(message.file.data.data)}" />`
+          // Step 09: Add to modal attachment
 
-          $(`#imagesModal_${divId}`)
-            .find(`div.all-images`)
-            .append(imageChatAddToModal)
+          let attachmentChatAddToModal = `
+          <li>
+            <a href="data:${message.file.contentType}; base64,
+            ${bufferToBase64(message.file.data.data)}" 
+            download="${message.file.fileName}">
+              ${message.file.fileName}
+            </a>
+          </li>`
+
+          $(`#attachmentsModal_${divId}`)
+            .find(`ul.list-attachments`)
+            .append(attachmentChatAddToModal)
         },
         error: function (error) {
           alertify.notify(error.responseText, 'error', 6)
@@ -123,21 +127,27 @@ function imageChat(divId) {
 
 $(document).ready(function () {
   socket.on(
-    'response-chat-image',
+    'response-chat-attachment',
     function ({ message, currentGroupId, currentUserId }) {
       let divId = ''
+      console.log({ message, currentGroupId, currentUserId })
 
       // step 1: handle message data before show
       let messageOfYou = $(
-        `<div class="bubble you buble-image-file" data-mess-id="${message._id}"></div>`
+        `<div class="bubble you buble-attachment-file" data-mess-id="${message._id}"></div>`
       )
-      let imageChat = `<img class="show-image-chat" src="data:${
-        message.file.contentType
-      }; base64, ${bufferToBase64(message.file.data.data)} " />`
+
+      let attachmentChat = `
+      <a href="data:${message.file.contentType}; base64, 
+      ${bufferToBase64(message.file.data.data)}" 
+      download="${message.file.fileName}">
+      ${message.file.fileName}
+      </a>
+    `
 
       if (currentGroupId) {
         let senderAvatar = `<img src="/images/users/${message.sender.avatar}" class="avatar-small mx-1" title="" alt="${message.sender.name}"/>`
-        messageOfYou.html(`${senderAvatar} ${imageChat}`)
+        messageOfYou.html(`${senderAvatar} ${attachmentChat}`)
 
         divId = currentGroupId
         if (currentUserId !== $('#dropdown-navbar-user').data('uid')) {
@@ -145,7 +155,7 @@ $(document).ready(function () {
         }
       } else {
         divId = currentUserId
-        messageOfYou.html(imageChat)
+        messageOfYou.html(attachmentChat)
       }
 
       // Step 02: append message data to screen
@@ -165,7 +175,9 @@ $(document).ready(function () {
         .html(
           moment(message.createdAt).locale('vi').startOf('seconds').fromNow()
         )
-      $(`.person[data-chat=${divId}]`).find('span.preview').html('hình ảnh...')
+      $(`.person[data-chat=${divId}]`)
+        .find('span.preview')
+        .html('tệp đính kèm...')
 
       // Step 05: move converstation to the top
       $(`.person[data-chat=${divId}]`).on(
@@ -182,15 +194,20 @@ $(document).ready(function () {
       // Step 07: Emit remove typing realtime: nothing to code :))))
       // Step 08: If this has typing, remove that immediate: nothing to code :))))
 
-      // Step 09: Add to modal image
+      // Step 09: Add to modal attachment
       if (currentUserId !== $('#dropdown-navbar-user').data('uid')) {
-        let imageChatAddToModal = `<img src="data:${
-          message.file.contentType
-        }; base64, ${bufferToBase64(message.file.data.data)}" />`
+        let attachmentChatAddToModal = `
+          <li>
+            <a href="data:${message.file.contentType}; base64,
+            ${bufferToBase64(message.file.data.data)}" 
+            download="${message.file.fileName}">
+              ${message.file.fileName}
+            </a>
+          </li>`
 
-        $(`#imagesModal_${divId}`)
-          .find(`div.all-images`)
-          .append(imageChatAddToModal)
+        $(`#attachmentsModal_${divId}`)
+          .find(`ul.list-attachments`)
+          .append(attachmentChatAddToModal)
       }
     }
   )
