@@ -92,7 +92,7 @@
                 <input class="attachment-chat chat-in-group" id="attachment-chat-<%=conversation._id%>" type="file" name="my-attachment-chat" data-chat="<%=conversation._id%>" />
                 <i class="fa fa-paperclip"></i>
               </label>
-              <a class="video-chat" id="video-chat" href="#streamModal" data-chat="<%=conversation._id%>" data-toggle="modal">
+              <a id="video-chat-group" href="javascript:void(0)" >
                 <i class="fa fa-video-camera"></i>
               </a>
               <input id="peer-id" type="hidden" value="" /></div>
@@ -160,10 +160,16 @@
               </label>
               
               <label for="attachment-chat-<%=conversation._id%>">
-                <input class="attachment-chat" id="attachment-chat-<%=conversation._id%>" type="file" name="my-attachment-chat" data-chat="<%=conversation._id%>" />
+                <input class="attachment-chat" 
+                id="attachment-chat-<%=conversation._id%>" 
+                type="file" name="my-attachment-chat" 
+                data-chat="<%=conversation._id%>" />
                 <i class="fa fa-paperclip"></i>
               </label>
-              <a class="video-chat" id="video-chat" href="#streamModal" data-chat="<%=conversation._id%>" data-toggle="modal">
+              <a class="video-chat" 
+              id="video-chat-<%=conversation._id%>" 
+              href="javascript:void(0)" 
+              data-chat="<%=conversation._id%>">
                 <i class="fa fa-video-camera"></i>
               </a>
               <input id="peer-id" type="hidden" value="" /></div>

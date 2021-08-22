@@ -208,6 +208,9 @@ function changeScreenChat() {
 
       // Bật lắng nghe DOM cho việc chat tin nhắn là tệp đính kèm
       attachmentChat(divId)
+
+      // Bật lắng nghe DOM cho việc gọi video
+      videoChat(divId)
     })
 }
 
@@ -265,4 +268,12 @@ $(document).ready(function () {
   convertEmonjione()
   // click vào phần tử đâu tiên của cuộc trò chuyện khi load
   $('ul.people').find('a')[0].click()
+
+  $(`#video-chat-group`).bind('click', function () {
+    alertify.notify(
+      'Không khả dụng tính năng này với nhóm trò truyện. Vui lòng thử lại với nhóm trò chuyện cá nhân',
+      'error',
+      6
+    )
+  })
 })
