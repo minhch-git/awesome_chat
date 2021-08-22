@@ -1,6 +1,7 @@
 import express from 'express'
 import path from 'path'
 import flash from 'connect-flash'
+import events from 'events'
 import 'colors'
 
 // import pem from 'pem'
@@ -45,6 +46,7 @@ config.applyPassport(app)
 
 // init routes
 initRoutes(app)
+events.EventEmitter.defaultMaxListeners = config.appConfig.max_event_listeners
 
 // Config socket io
 config.socketIo(io, cookieParser, config.sessionStore)
