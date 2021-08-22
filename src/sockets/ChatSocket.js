@@ -1,4 +1,3 @@
-import { response } from 'express'
 import socketHelper from '../helpers/socketHelper'
 class Chat {
   /**
