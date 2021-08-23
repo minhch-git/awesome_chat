@@ -201,6 +201,7 @@ class Chat {
         )
       })
       // End: When has new group chat
+
       socket.on('chat-attachment', data => {
         if (data.groupId) {
           let response = {
