@@ -35,11 +35,13 @@ $(document).ready(() => {
 
   // Step 03: of listener
   let getPeerId = ''
+  let iceServerList = $('#ice-server-list').val()
   const peer = new Peer({
     key: 'peerjs',
     host: 'peerjs-server-trungquandev.herokuapp.com',
     secure: true,
     port: 443,
+    config: { iceServerList: JSON.parse(iceServerList) },
     debug: 3,
   })
 

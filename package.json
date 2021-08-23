@@ -39,6 +39,8 @@
     "passport-local": "^1.0.0",
     "passport.socketio": "^3.7.0",
     "pem": "^1.14.4",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.6",
     "socket.io": "^4.1.2",
     "uuid": "^8.3.2"
   },
