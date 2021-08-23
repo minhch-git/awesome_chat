@@ -1,6 +1,7 @@
 import ContactSocket from './ContactSocket'
 import ChatSocket from './ChatSocket'
 import StatusSocket from './StatusSocket'
+import GroupSocket from './GroupSocket'
 /**
  * @param io from socket.io library
  */
@@ -19,6 +20,7 @@ const initSocket = io => {
   ChatSocket.typingOff(io)
 
   StatusSocket.userOnlineOffline(io)
+  GroupSocket.newGroupChat(io)
 }
 
 export default initSocket

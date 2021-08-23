@@ -9,82 +9,6 @@
       <a class="create-group-chat" href="#groupChatModal" data-toggle="modal" title="Tạo một nhóm trò chuyện mới"></a>
     </div>
     <div class="tab-content">
-      <div class="tab-pane" id="user-chat">
-        <ul class="people no-padding-start">
-          <% userConversations.forEach(function(conversation){%>
-            <a class="room-chat" data-target="#to_<%=conversation._id%>" href="#uid_<%=conversation._id%>">
-              <li class="person" data-chat="<%=conversation._id%>">
-                <div class="left-avatar">
-                  <div class="dot"></div>
-                  <img src="images/users/<%=conversation.avatar%>" alt="" />
-                </div>
-                <span class="name">
-                  <%if(conversation.username.length > 12) {%> 
-                    <%=conversation.username.slice(0,12)%> 
-                    <span>...</span>
-                  <%}else{%> 
-                    <%=conversation.username%>
-                  <%}%>
-                </span>
-                <span class="time">...</span>
-                <span class="preview">Xin chào</span>
-              </li>
-            </a>
-          <%});%> 
-          <div class="flex-column-center py-2">
-            <div class="read-more-user-chat-loader">
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-            </div>
-            <a href="javascript:void(0)" class="d-block" style="text-align: center;" id="link-read-more-user-chat">
-              <strong>Xem thêm 10 thông báo</strong>
-            </a>
-          </div>
-        </ul>
-        
-      </div>
-      <div class="tab-pane" id="group-chat">
-        <ul class="people no-padding-start">
-          <% groupConversations.forEach(function(conversation){%>
-            <a class="room-chat" data-target="#to_<%=conversation._id%>" href="#uid_<%=conversation._id%>">
-              <li class="person group-chat" data-chat="<%=conversation._id%>">
-                <div class="left-avatar">
-                  <!-- <div class="dot"></div>-->
-                  <img src="images/users/group-avatar-trungquandev.png" alt="" />
-                </div>
-                <span class="name">
-                  <span class="group-chat-name">
-                    <%if(conversation.name.length > 12) {%> 
-                      <%=conversation.name.slice(0,12)%> 
-                      <span>...</span>
-                    <%}else{%> 
-                      <%=conversation.name%>
-                    <%}%> 
-                  </span>
-                </span>
-                <span class="time">
-                  ...
-                </span>
-                <span class="preview">Chào cả nhóm</span>
-              </li>
-            </a>
-          <%});%>
-          <div class="flex-column-center py-2">
-            <div class="read-more-group-chat-loader">
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-            </div>
-            <a href="javascript:void(0)" class="d-block" style="text-align: center;" id="link-read-more-group-chat">
-              <strong>Xem thêm 10 thông báo</strong>
-            </a>
-          </div>
-        </ul>
-        
-      </div>
       <div class="tab-pane active" id="all-chat">
         <ul class="people no-padding-start">
           <% allConversationsWithMessage.forEach(function(conversation){%>
@@ -173,6 +97,83 @@
         </ul>
         
       </div>
+      <div class="tab-pane" id="user-chat">
+        <ul class="people no-padding-start">
+          <% userConversations.forEach(function(conversation){%>
+            <a class="room-chat" data-target="#to_<%=conversation._id%>" href="#uid_<%=conversation._id%>">
+              <li class="person" data-chat="<%=conversation._id%>">
+                <div class="left-avatar">
+                  <div class="dot"></div>
+                  <img src="images/users/<%=conversation.avatar%>" alt="" />
+                </div>
+                <span class="name">
+                  <%if(conversation.username.length > 12) {%> 
+                    <%=conversation.username.slice(0,12)%> 
+                    <span>...</span>
+                  <%}else{%> 
+                    <%=conversation.username%>
+                  <%}%>
+                </span>
+                <span class="time">...</span>
+                <span class="preview">Xin chào</span>
+              </li>
+            </a>
+          <%});%> 
+          <div class="flex-column-center py-2">
+            <div class="read-more-user-chat-loader">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+            <a href="javascript:void(0)" class="d-block" style="text-align: center;" id="link-read-more-user-chat">
+              <strong>Xem thêm 10 thông báo</strong>
+            </a>
+          </div>
+        </ul>
+        
+      </div>
+      <div class="tab-pane" id="group-chat">
+        <ul class="people no-padding-start">
+          <% groupConversations.forEach(function(conversation){%>
+            <a class="room-chat" data-target="#to_<%=conversation._id%>" href="#uid_<%=conversation._id%>">
+              <li class="person group-chat" data-chat="<%=conversation._id%>">
+                <div class="left-avatar">
+                  <!-- <div class="dot"></div>-->
+                  <img src="images/users/group-avatar-trungquandev.png" alt="" />
+                </div>
+                <span class="name">
+                  <span class="group-chat-name">
+                    <%if(conversation.name.length > 12) {%> 
+                      <%=conversation.name.slice(0,12)%> 
+                      <span>...</span>
+                    <%}else{%> 
+                      <%=conversation.name%>
+                    <%}%> 
+                  </span>
+                </span>
+                <span class="time">
+                  ...
+                </span>
+                <span class="preview">Chào cả nhóm</span>
+              </li>
+            </a>
+          <%});%>
+          <div class="flex-column-center py-2">
+            <div class="read-more-group-chat-loader">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+            <a href="javascript:void(0)" class="d-block" style="text-align: center;" id="link-read-more-group-chat">
+              <strong>Xem thêm 10 thông báo</strong>
+            </a>
+          </div>
+        </ul>
+        
+      </div>
+      
     </div>
     
   </div>

@@ -11,7 +11,6 @@ class Chat {
         socket.request.user._id,
         socket.id
       )
-
       socket.request.user.groupByIds.forEach(group => {
         clients = socketHelper.pushSocketIdToArray(
           clients,
@@ -19,6 +18,23 @@ class Chat {
           socket.id
         )
       })
+
+      // Start: When has new group chat
+      socket.on('new-group-created', groupChat => {
+        clients = socketHelper.pushSocketIdToArray(
+          clients,
+          groupChat._id,
+          socket.id
+        )
+      })
+      socket.on('member-received-group-chat', data => {
+        clients = socketHelper.pushSocketIdToArray(
+          clients,
+          data.groupChatId,
+          socket.id
+        )
+      })
+      // End: When has new group chat
 
       socket.on('chat-text-emoji', data => {
         if (data.groupId) {
@@ -78,7 +94,6 @@ class Chat {
         socket.request.user._id,
         socket.id
       )
-
       socket.request.user.groupByIds.forEach(group => {
         clients = socketHelper.pushSocketIdToArray(
           clients,
@@ -86,6 +101,23 @@ class Chat {
           socket.id
         )
       })
+
+      // Start: When has new group chat
+      socket.on('new-group-created', groupChat => {
+        clients = socketHelper.pushSocketIdToArray(
+          clients,
+          groupChat._id,
+          socket.id
+        )
+      })
+      socket.on('member-received-group-chat', data => {
+        clients = socketHelper.pushSocketIdToArray(
+          clients,
+          data.groupChatId,
+          socket.id
+        )
+      })
+      // End: When has new group chat
 
       socket.on('chat-image', data => {
         if (data.groupId) {
@@ -145,7 +177,6 @@ class Chat {
         socket.request.user._id,
         socket.id
       )
-
       socket.request.user.groupByIds.forEach(group => {
         clients = socketHelper.pushSocketIdToArray(
           clients,
@@ -154,6 +185,22 @@ class Chat {
         )
       })
 
+      // Start: When has new group chat
+      socket.on('new-group-created', groupChat => {
+        clients = socketHelper.pushSocketIdToArray(
+          clients,
+          groupChat._id,
+          socket.id
+        )
+      })
+      socket.on('member-received-group-chat', data => {
+        clients = socketHelper.pushSocketIdToArray(
+          clients,
+          data.groupChatId,
+          socket.id
+        )
+      })
+      // End: When has new group chat
       socket.on('chat-attachment', data => {
         if (data.groupId) {
           let response = {
@@ -213,7 +260,6 @@ class Chat {
         socket.request.user._id,
         socket.id
       )
-
       socket.request.user.groupByIds.forEach(group => {
         clients = socketHelper.pushSocketIdToArray(
           clients,
@@ -221,6 +267,24 @@ class Chat {
           socket.id
         )
       })
+
+      // Start: When has new group chat
+      socket.on('new-group-created', groupChat => {
+        clients = socketHelper.pushSocketIdToArray(
+          clients,
+          groupChat._id,
+          socket.id
+        )
+      })
+      socket.on('member-received-group-chat', data => {
+        clients = socketHelper.pushSocketIdToArray(
+          clients,
+          data.groupChatId,
+          socket.id
+        )
+      })
+      // End: When has new group chat
+
       // Step 01: of caller
       socket.on('caller-check-listener-online-or-not', data => {
         if (clients[data.listenerId]) {
@@ -378,7 +442,6 @@ class Chat {
         socket.request.user._id,
         socket.id
       )
-
       socket.request.user.groupByIds.forEach(group => {
         clients = socketHelper.pushSocketIdToArray(
           clients,
@@ -386,6 +449,23 @@ class Chat {
           socket.id
         )
       })
+
+      // Start: When has new group chat
+      socket.on('new-group-created', groupChat => {
+        clients = socketHelper.pushSocketIdToArray(
+          clients,
+          groupChat._id,
+          socket.id
+        )
+      })
+      socket.on('member-received-group-chat', data => {
+        clients = socketHelper.pushSocketIdToArray(
+          clients,
+          data.groupChatId,
+          socket.id
+        )
+      })
+      // End: When has new group chat
 
       socket.on('user-is-typing', data => {
         if (data.groupId) {
@@ -443,7 +523,6 @@ class Chat {
         socket.request.user._id,
         socket.id
       )
-
       socket.request.user.groupByIds.forEach(group => {
         clients = socketHelper.pushSocketIdToArray(
           clients,
@@ -451,6 +530,23 @@ class Chat {
           socket.id
         )
       })
+
+      // Start: When has new group chat
+      socket.on('new-group-created', groupChat => {
+        clients = socketHelper.pushSocketIdToArray(
+          clients,
+          groupChat._id,
+          socket.id
+        )
+      })
+      socket.on('member-received-group-chat', data => {
+        clients = socketHelper.pushSocketIdToArray(
+          clients,
+          data.groupChatId,
+          socket.id
+        )
+      })
+      // End: When has new group chat
 
       socket.on('user-is-not-typing', data => {
         if (data.groupId) {

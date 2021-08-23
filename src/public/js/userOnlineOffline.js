@@ -1,3 +1,6 @@
+// Step 0
+socket.emit('check-status')
+
 // Step 01:
 socket.on('server-send-list-user-online', listUserIds => {
   listUserIds.forEach(userId => {
