@@ -10,6 +10,7 @@ router.get(
   Validate.params(SchemaValidate.keyword),
   contactController.findUsersContact
 )
+
 router.post('/add-new', isLogin.isLoggedIn, contactController.addNew)
 router.delete(
   '/remove-contact',
@@ -50,4 +51,10 @@ router.get(
   contactController.readMoreContactsReceived
 )
 
+router.get(
+  '/search-friends/:keyword',
+  isLogin.isLoggedIn,
+  Validate.params(SchemaValidate.keyword),
+  contactController.searchFriends
+)
 export default router
