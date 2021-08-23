@@ -14,6 +14,10 @@ const transValidations = {
     'Lõi từ khóa tìm kiếm, chỉ cho phép ký tự chữ cái và số, cho phép khoảng trống.',
   message_text_emoji_incorrect:
     'Tin nhắn không hợp lệ. Đảm bảo tối thiểu 1 ký tự, tối đa 400 ký tự',
+  add_new_group_users_incorrect:
+    'Vui vòng chọn bạn bè để thêm vào nhóm, tối thiểu 2 người',
+  add_new_group_name_incorrect:
+    'Vui vòng nhập tên cuộc trò, giới hạn 5 - 20 ký tự',
 }
 
 const transErrors = {

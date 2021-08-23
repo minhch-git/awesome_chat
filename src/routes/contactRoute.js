@@ -57,4 +57,5 @@ router.get(
   Validate.params(SchemaValidate.keyword),
   contactController.searchFriends
 )
+
 export default router

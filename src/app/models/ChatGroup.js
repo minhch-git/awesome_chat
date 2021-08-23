@@ -13,6 +13,14 @@ const ChatGroupSchema = mongoose.Schema({
 
 ChatGroupSchema.statics = {
   /**
+   * create a new group
+   * @param {object} item
+   */
+  createNew(item) {
+    return this.create(item)
+  },
+
+  /**
    * Get chat group by userId and limit
    * @param {string} userId current userId
    * @param {number} limit

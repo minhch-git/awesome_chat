@@ -5,7 +5,11 @@ import isLogin from './../validation/isLogin'
 import { Router } from 'express'
 const router = new Router()
 
-router.get('/login-register', isLogin.isLoggedOut, siteController.getLoginRegister)
+router.get(
+  '/login-register',
+  isLogin.isLoggedOut,
+  siteController.getLoginRegister
+)
 router.get('/', isLogin.isLoggedIn, siteController.getHome)
 
 export default router

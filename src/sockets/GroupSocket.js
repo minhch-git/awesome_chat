@@ -1,9 +1,6 @@
 import socketHelper from '../helpers/socketHelper'
-/**
- * @param io from socket.io library
- */
-class StatusSocket {
-  userOnlineOffline(io) {
+class Group {
+  newGroupChat(io) {
     let clients = {}
     io.on('connection', socket => {
       clients = socketHelper.pushSocketIdToArray(
@@ -11,6 +8,7 @@ class StatusSocket {
         socket.request.user._id,
         socket.id
       )
+
       socket.request.user.groupByIds.forEach(group => {
         clients = socketHelper.pushSocketIdToArray(
           clients,
@@ -19,14 +17,31 @@ class StatusSocket {
         )
       })
 
-      // Start: When has new group chat
       socket.on('new-group-created', groupChat => {
         clients = socketHelper.pushSocketIdToArray(
           clients,
           groupChat._id,
           socket.id
         )
+
+        let response = { groupChat }
+
+        groupChat.members.forEach(member => {
+          if (
+            clients[member.userId] &&
+            member.userId != socket.request.user._id
+          ) {
+            socketHelper.emitNotifyToArray(
+              clients,
+              member.userId,
+              io,
+              'response-new-group-created',
+              response
+            )
+          }
+        })
       })
+
       socket.on('member-received-group-chat', data => {
         clients = socketHelper.pushSocketIdToArray(
           clients,
@@ -34,20 +49,6 @@ class StatusSocket {
           socket.id
         )
       })
-      // End: When has new group chat
-
-      socket.on('check-status', () => {
-        let listUsersOnline = Object.keys(clients)
-        // Step 01: Emit to user after login of f5 web page
-        socket.emit('server-send-list-user-online', listUsersOnline)
-
-        // Step 02: Emit to all anothor users when has new user online
-        socket.broadcast.emit(
-          'server-send-when-new-user-online',
-          socket.request.user._id
-        )
-      })
-
       socket.on('disconnect', () => {
         clients = socketHelper.removeSocketIdFromArray(
           clients,
@@ -61,15 +62,8 @@ class StatusSocket {
             socket.id
           )
         })
-
-        // Step 03: Emit to all anothor users when has new user offline
-        socket.broadcast.emit(
-          'server-send-when-new-user-offline',
-          socket.request.user._id
-        )
       })
     })
   }
 }
-
-export default new StatusSocket()
+export default new Group()
