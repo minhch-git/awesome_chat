@@ -122,6 +122,37 @@ UserSchema.statics = {
       avatar: 1,
     }).exec()
   },
+
+  findAllToAddGroupChat(friendIds, keyword) {
+    return this.find({
+      $and: [
+        { _id: { $in: friendIds } },
+        { 'local.isActive': true },
+        {
+          $or: [
+            { username: { $regex: new RegExp(keyword, 'i') } },
+            {
+              'local.email': {
+                $regex: new RegExp(keyword, 'i'),
+              },
+            },
+            {
+              'google.email': {
+                $regex: new RegExp(keyword, 'i'),
+              },
+            },
+            {
+              'facebook.email': {
+                $regex: new RegExp(keyword, 'i'),
+              },
+            },
+          ],
+        },
+      ],
+    })
+      .select('_id username address, avatar')
+      .exec()
+  },
 }
 
 UserSchema.methods = {

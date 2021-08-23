@@ -11,7 +11,6 @@ class ContactController {
       return res.status(500).json(error)
     }
   }
-
   async addNew(req, res) {
     try {
       let currentUserId = req.user._id
@@ -108,6 +107,17 @@ class ContactController {
         skipNumberContacts
       )
       return res.status(200).json(newContactUsers)
+    } catch (error) {
+      return res.status(500).json(error)
+    }
+  }
+
+  async searchFriends(req, res) {
+    try {
+      let currentUserId = req.user._id
+      let { keyword } = await req.params.valueChecked
+      let users = await contactService.searchFriends(currentUserId, keyword)
+      res.status(200).json(users)
     } catch (error) {
       return res.status(500).json(error)
     }
