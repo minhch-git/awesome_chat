@@ -1,6 +1,6 @@
 import ContactSocket from './ContactSocket'
 import ChatSocket from './ChatSocket'
-
+import StatusSocket from './StatusSocket'
 /**
  * @param io from socket.io library
  */
@@ -17,6 +17,8 @@ const initSocket = io => {
   ChatSocket.chatVideo(io)
   ChatSocket.typingOn(io)
   ChatSocket.typingOff(io)
+
+  StatusSocket.userOnlineOffline(io)
 }
 
 export default initSocket
