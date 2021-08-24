@@ -7,7 +7,7 @@ function callFindUsers(element) {
       return false
     }
 
-    // check value of input 
+    // check value of input
 
     // call API
     fetch(`/contact/find-users/${keyword}`)
@@ -18,14 +18,16 @@ function callFindUsers(element) {
         return response.json()
       })
       .then(data => {
-        $('#find-user .contactList').html(renderUsers(data))
+        $('#find-user .contactList').html(renderUsersToContactList(data))
+        console.log(data)
         addContact()
         removeRequestContactSent()
       })
   }
 }
-function renderUsers(users) {
-  let htmls = users.map(user => `
+function renderUsersToContactList(users) {
+  let htmls = users.map(
+    user => `
     <li class="_contactList" data-uid='${user._id}'>
       <div class="contactPanel">
           <div class="user-avatar"><img src="/images/users/${user.avatar}" alt="" /></div>
@@ -37,7 +39,8 @@ function renderUsers(users) {
           <div class="user-remove-request-contact-sent action-danger" data-uid='${user._id}'>Hủy yêu cầu</div>
       </div>
   </li>
-  `)
+  `
+  )
   return htmls
 }
 
@@ -46,6 +49,3 @@ $(document).ready(function () {
 
   $('#btn-find-users-contact').bind('click', callFindUsers)
 })
-
-
-
