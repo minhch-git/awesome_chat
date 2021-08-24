@@ -63,6 +63,16 @@ ChatGroupSchema.statics = {
       .select('_id')
       .exec()
   },
+
+  readMoreChatGroup(userId, skip, limit){
+    return this.find({
+          members: { $elemMatch: { userId } },
+        })
+          .sort({ updatedAt: -1 })
+          .skip(skip)
+          .limit(limit)
+          .exec()
+  }
 }
 
 export default mongoose.model('chat_group', ChatGroupSchema)

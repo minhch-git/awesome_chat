@@ -17,5 +17,5 @@ router.post(
   isLogin.isLoggedIn,
   MessageController.addNewAttachment
 )
-
+router.get('/read-more-all-chat', isLogin.isLoggedIn, MessageController.readMoreAllChat)
 export default router

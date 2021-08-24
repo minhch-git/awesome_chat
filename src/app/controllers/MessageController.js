@@ -1,7 +1,13 @@
+import ejs from 'ejs'
 import messageService from '../services/messageServices'
 import { appConfig } from '../../config/index'
 import multer from 'multer'
 import fsExtra from 'fs-extra'
+import { lastItemOfArray, convertTimestampToHumanTime, bufferToBase64 } from '../../helpers/clientHelper'
+import { promisify } from 'util'
+
+// Make ejs function readerFile available with async await
+const renderFile = promisify(ejs.renderFile).bind(ejs)
 
 class MessageController {
   async addNewTextEmoji(req, res) {
@@ -105,6 +111,40 @@ class MessageController {
         return res.status(500).json(error)
       }
     })
+  }
+
+  async readMoreAllChat(req, res){
+    try {
+      let skipGroup = +req.query.skipGroup
+      let skipPersonal = +req.query.skipPersonal
+      let newAllConversations = await messageService.readMoreAllChat(
+        req.user._id,
+        skipGroup,
+        skipPersonal
+      )
+
+      let dataToRender = {
+        newAllConversations,
+        lastItemOfArray,
+        convertTimestampToHumanTime,
+        bufferToBase64,
+        user: req.user,
+      }
+
+
+      let leftSideData = await renderFile('src/views/main/readMoreConversations/_leftSide.ejs', dataToRender)
+      let rightSideData = await renderFile('src/views/main/readMoreConversations/_rightSide.ejs', dataToRender)
+      let imageModalData = await renderFile('src/views/main/readMoreConversations/_imageModal.ejs', dataToRender)
+      let attachmentModalData = await renderFile('src/views/main/readMoreConversations/_attachmentModal.ejs', dataToRender)
+      return res.status(200).json({
+        leftSideData,
+        rightSideData,
+        imageModalData,
+        attachmentModalData
+      })
+    } catch (error) {
+      return res.status(500).json(error)
+    }
   }
 }
 // handle image chat

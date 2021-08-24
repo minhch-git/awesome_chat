@@ -10,7 +10,7 @@ import { transErrors } from '../../../lang/vi'
 import { appConfig } from '../../config'
 import fsExtra from 'fs-extra'
 
-const LIMIT_CONVERSATIONS_TAKEN = 30
+const LIMIT_CONVERSATIONS_TAKEN = 2
 const LIMIT_MESSAGES_TAKEN = 30
 class MessageServices {
   /**
@@ -354,5 +354,85 @@ class MessageServices {
       }
     })
   }
+
+  /**
+   * Read more personal and group
+   * @param {string} currentUserId 
+   * @param {number} skipGroup 
+   * @param {number} skipPersonal 
+   */
+  readMoreAllChat(currentUserId, skipGroup, skipPersonal){
+    return new Promise(async (resolve, reject) => {
+      try {
+
+        let contacts = await Contact.readMoreContacts(
+          currentUserId,
+          skipPersonal,
+          LIMIT_CONVERSATIONS_TAKEN
+        )
+        
+        let userConversationsPromise = contacts.map(async contact => {
+          if (contact.contactId == currentUserId) {
+            let getUserContact = await User.getNormalUserById(contact.userId)
+            getUserContact.updatedAt = contact.updatedAt
+            return getUserContact
+          } else {
+            let getUserContact = await User.getNormalUserById(contact.contactId)
+            getUserContact.updatedAt = contact.updatedAt
+            return getUserContact
+          }
+        })
+
+        // get user conversation
+        let userConversations = await Promise.all(userConversationsPromise)
+        // get group conversation
+        let groupConversations = await ChatGroup.readMoreChatGroup(
+          currentUserId,
+          skipGroup,
+          LIMIT_CONVERSATIONS_TAKEN
+        )
+
+        let allConversations = _.sortBy(
+          userConversations.concat(groupConversations),
+          [item => -item.createdAt]
+        )
+
+        // get message to apply in screen chat
+        let allConversationsWithMessagePromise = allConversations.map(
+          async converstation => {
+            if (converstation.members) {
+              let getMessages = await Message.getMessagesInGroup(
+                converstation._id,
+                LIMIT_MESSAGES_TAKEN
+              )
+              converstation.messages = _.reverse(getMessages)
+            } else {
+              let getMessages = await Message.getMessagesInPersonal(
+                currentUserId,
+                converstation._id,
+                LIMIT_MESSAGES_TAKEN
+              )
+              converstation.messages = _.reverse(getMessages)
+            }
+
+            return converstation
+          }
+        )
+
+        let allConversationsWithMessage = await Promise.all(
+          allConversationsWithMessagePromise
+        )
+        // sort by updatedAt desending
+        allConversationsWithMessage = _.sortBy(
+          allConversationsWithMessage,
+          item => -item.updatedAt
+        )
+        resolve(allConversationsWithMessage)
+      } catch (error) {
+        reject(error)
+      }
+    })
+  }
+
 }
 export default new MessageServices()
