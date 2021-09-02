@@ -1,13 +1,13 @@
-import { Router } from 'express'
-const router = new Router()
-import passport from 'passport'
-import validate, { SchemaValidate } from '../validation/validate'
+import { Router } from "express";
+const router = new Router();
+import passport from "passport";
+import validate, { SchemaValidate } from "../validation/validate";
 
-import authController from '../app/controllers/AuthController'
-import passportController from '../app/controllers/PassportController'
+import authController from "../app/controllers/AuthController";
+import passportController from "../app/controllers/PassportController";
 
 // init passport
-passportController.applyPassportLocal(passport)
+passportController.applyPassportLocal(passport);
 // passportController.applyPassportFacebook(passport)
 // passportController.applyPassportGoogle(passport)
 
@@ -36,23 +36,23 @@ passportController.applyPassportLocal(passport)
 
 // login type: local
 router.post(
-  '/login',
-  passport.authenticate('local', {
-    failureRedirect: '/login-register',
-    successRedirect: '/',
+  "/login",
+  passport.authenticate("local", {
+    failureRedirect: "/login-register",
+    successRedirect: "/",
     successFlash: true,
     failureFlash: true,
   })
-)
+);
 
 router.post(
-  '/register',
+  "/register",
   validate.body(SchemaValidate.register),
-  authController.postRegister
-)
+  authController.create
+);
 
-router.get('/logout', authController.getLogout)
+router.get("/logout", authController.getLogout);
 
-router.get('/verify/:token', authController.verifyAccount)
+router.get("/verify/:token", authController.verifyAccount);
 
-export default router
+export default router;

@@ -1,17 +1,17 @@
-import _ from 'lodash'
-import Contact from '../models/Contact'
+import _ from "lodash";
+import Contact from "../models/Contact";
 import Message, {
   MESSAGE_CONVERSATION_TYPES as messageConverSationType,
   MESSAGE_TYPES as messageType,
-} from '../models/Message'
-import User from '../models/User'
-import ChatGroup from '../models/ChatGroup'
-import { transErrors } from '../../../lang/vi'
-import { appConfig } from '../../config'
-import fsExtra from 'fs-extra'
+} from "../models/Message";
+import User from "../models/User";
+import ChatGroup from "../models/ChatGroup";
+import { transErrors } from "../../../lang/vi";
+import { appConfig } from "../../config";
+import fsExtra from "fs-extra";
 
-const LIMIT_CONVERSATIONS_TAKEN = 2
-const LIMIT_MESSAGES_TAKEN = 30
+const LIMIT_CONVERSATIONS_TAKEN = 6;
+const LIMIT_MESSAGES_TAKEN = 10;
 class MessageServices {
   /**
    * Get all conversations
@@ -23,31 +23,33 @@ class MessageServices {
         let contacts = await Contact.getContacts(
           currentUserId,
           LIMIT_CONVERSATIONS_TAKEN
-        )
+        );
         let userConversationsPromise = contacts.map(async contact => {
           if (contact.contactId == currentUserId) {
-            let getUserContact = await User.getNormalUserById(contact.userId)
-            getUserContact.updatedAt = contact.updatedAt
-            return getUserContact
+            let getUserContact = await User.getNormalUserById(contact.userId);
+            getUserContact.updatedAt = contact.updatedAt;
+            return getUserContact;
           } else {
-            let getUserContact = await User.getNormalUserById(contact.contactId)
-            getUserContact.updatedAt = contact.updatedAt
-            return getUserContact
+            let getUserContact = await User.getNormalUserById(
+              contact.contactId
+            );
+            getUserContact.updatedAt = contact.updatedAt;
+            return getUserContact;
           }
-        })
+        });
 
         // get user conversation
-        let userConversations = await Promise.all(userConversationsPromise)
+        let userConversations = await Promise.all(userConversationsPromise);
         // get group conversation
         let groupConversations = await ChatGroup.getChatGroups(
           currentUserId,
           LIMIT_CONVERSATIONS_TAKEN
-        )
+        );
 
         let allConversations = _.sortBy(
           userConversations.concat(groupConversations),
           [item => -item.createdAt]
-        )
+        );
 
         // get message to apply in screen chat
         let allConversationsWithMessagePromise = allConversations.map(
@@ -56,39 +58,39 @@ class MessageServices {
               let getMessages = await Message.getMessagesInGroup(
                 converstation._id,
                 LIMIT_MESSAGES_TAKEN
-              )
-              converstation.messages = _.reverse(getMessages)
+              );
+              converstation.messages = _.reverse(getMessages);
             } else {
               let getMessages = await Message.getMessagesInPersonal(
                 currentUserId,
                 converstation._id,
                 LIMIT_MESSAGES_TAKEN
-              )
-              converstation.messages = _.reverse(getMessages)
+              );
+              converstation.messages = _.reverse(getMessages);
             }
 
-            return converstation
+            return converstation;
           }
-        )
+        );
 
         let allConversationsWithMessage = await Promise.all(
           allConversationsWithMessagePromise
-        )
+        );
         // sort by updatedAt desending
         allConversationsWithMessage = _.sortBy(
           allConversationsWithMessage,
           item => -item.updatedAt
-        )
+        );
         resolve({
           userConversations,
           groupConversations,
           allConversations,
           allConversationsWithMessage,
-        })
+        });
       } catch (error) {
-        reject(error)
+        reject(error);
       }
-    })
+    });
   }
 
   /**
@@ -101,19 +103,19 @@ class MessageServices {
   addNewTextEmoji(sender, receivedId, messageVal, isChatGroup) {
     return new Promise(async (resolve, reject) => {
       try {
-        let getChatGroupReceiver
+        let getChatGroupReceiver;
         if (isChatGroup) {
-          getChatGroupReceiver = await ChatGroup.getChatGroupById(receivedId)
+          getChatGroupReceiver = await ChatGroup.getChatGroupById(receivedId);
 
           if (!getChatGroupReceiver) {
-            return reject(transErrors.conversation_not_found)
+            return reject(transErrors.conversation_not_found);
           }
 
           let receiver = {
             id: getChatGroupReceiver._id,
             name: getChatGroupReceiver.name,
             avatar: appConfig.general_avatar_group_chat,
-          }
+          };
 
           let newMessageItem = {
             senderId: sender.id,
@@ -124,27 +126,27 @@ class MessageServices {
             receiver: receiver,
             text: messageVal,
             createdAt: Date.now(),
-          }
+          };
 
           // create new Message
-          let newMessage = await Message.createNew(newMessageItem)
+          let newMessage = await Message.createNew(newMessageItem);
           // update group chat
           await ChatGroup.updateWhenHasNewMessage(
             receiver.id,
             getChatGroupReceiver.messagesAnount + 1
-          )
+          );
 
-          resolve(newMessage)
+          resolve(newMessage);
         } else {
-          let getUserReceiver = await User.getNormalUserById(receivedId)
+          let getUserReceiver = await User.getNormalUserById(receivedId);
           if (!getUserReceiver) {
-            return reject(transErrors.conversation_not_found)
+            return reject(transErrors.conversation_not_found);
           }
           let receiver = {
             id: getUserReceiver._id,
             name: getUserReceiver.username,
             avatar: getUserReceiver.avatar,
-          }
+          };
           let newMessageItem = {
             senderId: sender.id,
             receiverId: receiver.id,
@@ -154,18 +156,18 @@ class MessageServices {
             receiver: receiver,
             text: messageVal,
             createdAt: Date.now(),
-          }
+          };
           // create new Message
-          let newMessage = await Message.createNew(newMessageItem)
+          let newMessage = await Message.createNew(newMessageItem);
           // update contact
-          await Contact.updateWhenHasNewMessage(sender.id, getUserReceiver._id)
+          await Contact.updateWhenHasNewMessage(sender.id, getUserReceiver._id);
 
-          resolve(newMessage)
+          resolve(newMessage);
         }
       } catch (error) {
-        reject(error)
+        reject(error);
       }
-    })
+    });
   }
 
   /**
@@ -178,23 +180,23 @@ class MessageServices {
   addNewImage(sender, receivedId, messageVal, isChatGroup) {
     return new Promise(async (resolve, reject) => {
       try {
-        let getChatGroupReceiver
+        let getChatGroupReceiver;
         if (isChatGroup) {
-          getChatGroupReceiver = await ChatGroup.getChatGroupById(receivedId)
+          getChatGroupReceiver = await ChatGroup.getChatGroupById(receivedId);
 
           if (!getChatGroupReceiver) {
-            return reject(transErrors.conversation_not_found)
+            return reject(transErrors.conversation_not_found);
           }
 
           let receiver = {
             id: getChatGroupReceiver._id,
             name: getChatGroupReceiver.name,
             avatar: appConfig.general_avatar_group_chat,
-          }
+          };
 
-          let imageBuffer = await fsExtra.readFile(messageVal.path)
-          let imageContentType = messageVal.mimetype
-          let imageName = messageVal.originalname
+          let imageBuffer = await fsExtra.readFile(messageVal.path);
+          let imageContentType = messageVal.mimetype;
+          let imageName = messageVal.originalname;
           let newMessageItem = {
             senderId: sender.id,
             receiverId: receiver.id,
@@ -208,30 +210,30 @@ class MessageServices {
               fileName: imageName,
             },
             createdAt: Date.now(),
-          }
+          };
 
           // create new Message
-          let newMessage = await Message.createNew(newMessageItem)
+          let newMessage = await Message.createNew(newMessageItem);
           // update group chat
           await ChatGroup.updateWhenHasNewMessage(
             receiver.id,
             getChatGroupReceiver.messagesAnount + 1
-          )
+          );
 
-          resolve(newMessage)
+          resolve(newMessage);
         } else {
-          let getUserReceiver = await User.getNormalUserById(receivedId)
+          let getUserReceiver = await User.getNormalUserById(receivedId);
           if (!getUserReceiver) {
-            return reject(transErrors.conversation_not_found)
+            return reject(transErrors.conversation_not_found);
           }
           let receiver = {
             id: getUserReceiver._id,
             name: getUserReceiver.username,
             avatar: getUserReceiver.avatar,
-          }
-          let imageBuffer = await fsExtra.readFile(messageVal.path)
-          let imageContentType = messageVal.mimetype
-          let imageName = messageVal.originalname
+          };
+          let imageBuffer = await fsExtra.readFile(messageVal.path);
+          let imageContentType = messageVal.mimetype;
+          let imageName = messageVal.originalname;
           let newMessageItem = {
             senderId: sender.id,
             receiverId: receiver.id,
@@ -245,19 +247,19 @@ class MessageServices {
               fileName: imageName,
             },
             createdAt: Date.now(),
-          }
+          };
 
           // create new Message
-          let newMessage = await Message.createNew(newMessageItem)
+          let newMessage = await Message.createNew(newMessageItem);
           // update contact
-          await Contact.updateWhenHasNewMessage(sender.id, getUserReceiver._id)
+          await Contact.updateWhenHasNewMessage(sender.id, getUserReceiver._id);
 
-          resolve(newMessage)
+          resolve(newMessage);
         }
       } catch (error) {
-        reject(error)
+        reject(error);
       }
-    })
+    });
   }
 
   /**
@@ -270,23 +272,23 @@ class MessageServices {
   addNewAttachment(sender, receivedId, messageVal, isChatGroup) {
     return new Promise(async (resolve, reject) => {
       try {
-        let getChatGroupReceiver
+        let getChatGroupReceiver;
         if (isChatGroup) {
-          getChatGroupReceiver = await ChatGroup.getChatGroupById(receivedId)
+          getChatGroupReceiver = await ChatGroup.getChatGroupById(receivedId);
 
           if (!getChatGroupReceiver) {
-            return reject(transErrors.conversation_not_found)
+            return reject(transErrors.conversation_not_found);
           }
 
           let receiver = {
             id: getChatGroupReceiver._id,
             name: getChatGroupReceiver.name,
             avatar: appConfig.general_avatar_group_chat,
-          }
+          };
 
-          let attachmentBuffer = await fsExtra.readFile(messageVal.path)
-          let attachmentContentType = messageVal.mimetype
-          let attachmentName = messageVal.originalname
+          let attachmentBuffer = await fsExtra.readFile(messageVal.path);
+          let attachmentContentType = messageVal.mimetype;
+          let attachmentName = messageVal.originalname;
 
           let newMessageItem = {
             senderId: sender.id,
@@ -301,31 +303,31 @@ class MessageServices {
               fileName: attachmentName,
             },
             createdAt: Date.now(),
-          }
+          };
 
           // create new Message
-          let newMessage = await Message.createNew(newMessageItem)
+          let newMessage = await Message.createNew(newMessageItem);
           // update group chat
           await ChatGroup.updateWhenHasNewMessage(
             receiver.id,
             getChatGroupReceiver.messagesAnount + 1
-          )
+          );
 
-          resolve(newMessage)
+          resolve(newMessage);
         } else {
-          let getUserReceiver = await User.getNormalUserById(receivedId)
+          let getUserReceiver = await User.getNormalUserById(receivedId);
           if (!getUserReceiver) {
-            return reject(transErrors.conversation_not_found)
+            return reject(transErrors.conversation_not_found);
           }
           let receiver = {
             id: getUserReceiver._id,
             name: getUserReceiver.username,
             avatar: getUserReceiver.avatar,
-          }
+          };
 
-          let attachmentBuffer = await fsExtra.readFile(messageVal.path)
-          let attachmentContentType = messageVal.mimetype
-          let attachmentName = messageVal.originalname
+          let attachmentBuffer = await fsExtra.readFile(messageVal.path);
+          let attachmentContentType = messageVal.mimetype;
+          let attachmentName = messageVal.originalname;
 
           let newMessageItem = {
             senderId: sender.id,
@@ -340,62 +342,99 @@ class MessageServices {
               fileName: attachmentName,
             },
             createdAt: Date.now(),
-          }
+          };
 
           // create new Message
-          let newMessage = await Message.createNew(newMessageItem)
+          let newMessage = await Message.createNew(newMessageItem);
           // update contact
-          await Contact.updateWhenHasNewMessage(sender.id, getUserReceiver._id)
+          await Contact.updateWhenHasNewMessage(sender.id, getUserReceiver._id);
 
-          resolve(newMessage)
+          resolve(newMessage);
         }
       } catch (error) {
-        reject(error)
+        reject(error);
       }
-    })
+    });
   }
 
   /**
-   * Read more personal and group
-   * @param {string} currentUserId 
-   * @param {number} skipGroup 
-   * @param {number} skipPersonal 
+   * Read more message
+   * @param {string} currentUserId
+   * @param {number} skipMessage
+   * @param {string} targetId
+   * @param {boolean} isChatGroup
    */
-  readMoreAllChat(currentUserId, skipGroup, skipPersonal){
+  readMore(currentUserId, skipMessage, targetId, isChatGroup) {
     return new Promise(async (resolve, reject) => {
       try {
+        // Message in group
+        if (isChatGroup) {
+          let getMessages = await Message.readMoreMessagesInGroup(
+            targetId,
+            skipMessage,
+            LIMIT_MESSAGES_TAKEN
+          );
+          getMessages.messages = _.reverse(getMessages);
+          return resolve(getMessages);
+        }
 
+        // Message in personal
+        let getMessages = await Message.readMoreMessagesInPersonal(
+          currentUserId,
+          targetId,
+          skipMessage,
+          LIMIT_MESSAGES_TAKEN
+        );
+        getMessages.messages = _.reverse(getMessages);
+
+        return resolve(getMessages);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+  /**
+   * Read more personal and group
+   * @param {string} currentUserId
+   * @param {number} skipGroup
+   * @param {number} skipPersonal
+   */
+  readMoreAllChat(currentUserId, skipGroup, skipPersonal) {
+    return new Promise(async (resolve, reject) => {
+      try {
         let contacts = await Contact.readMoreContacts(
           currentUserId,
           skipPersonal,
           LIMIT_CONVERSATIONS_TAKEN
-        )
-        
+        );
+
         let userConversationsPromise = contacts.map(async contact => {
           if (contact.contactId == currentUserId) {
-            let getUserContact = await User.getNormalUserById(contact.userId)
-            getUserContact.updatedAt = contact.updatedAt
-            return getUserContact
+            let getUserContact = await User.getNormalUserById(contact.userId);
+            getUserContact.updatedAt = contact.updatedAt;
+            return getUserContact;
           } else {
-            let getUserContact = await User.getNormalUserById(contact.contactId)
-            getUserContact.updatedAt = contact.updatedAt
-            return getUserContact
+            let getUserContact = await User.getNormalUserById(
+              contact.contactId
+            );
+            getUserContact.updatedAt = contact.updatedAt;
+            return getUserContact;
           }
-        })
+        });
 
         // get user conversation
-        let userConversations = await Promise.all(userConversationsPromise)
+        let userConversations = await Promise.all(userConversationsPromise);
         // get group conversation
         let groupConversations = await ChatGroup.readMoreChatGroup(
           currentUserId,
           skipGroup,
           LIMIT_CONVERSATIONS_TAKEN
-        )
+        );
 
         let allConversations = _.sortBy(
           userConversations.concat(groupConversations),
           [item => -item.createdAt]
-        )
+        );
 
         // get message to apply in screen chat
         let allConversationsWithMessagePromise = allConversations.map(
@@ -404,35 +443,34 @@ class MessageServices {
               let getMessages = await Message.getMessagesInGroup(
                 converstation._id,
                 LIMIT_MESSAGES_TAKEN
-              )
-              converstation.messages = _.reverse(getMessages)
+              );
+              converstation.messages = _.reverse(getMessages);
             } else {
               let getMessages = await Message.getMessagesInPersonal(
                 currentUserId,
                 converstation._id,
                 LIMIT_MESSAGES_TAKEN
-              )
-              converstation.messages = _.reverse(getMessages)
+              );
+              converstation.messages = _.reverse(getMessages);
             }
 
-            return converstation
+            return converstation;
           }
-        )
+        );
 
         let allConversationsWithMessage = await Promise.all(
           allConversationsWithMessagePromise
-        )
+        );
         // sort by updatedAt desending
         allConversationsWithMessage = _.sortBy(
           allConversationsWithMessage,
           item => -item.updatedAt
-        )
-        resolve(allConversationsWithMessage)
+        );
+        resolve(allConversationsWithMessage);
       } catch (error) {
-        reject(error)
+        reject(error);
       }
-    })
+    });
   }
-
 }
-export default new MessageServices()
+export default new MessageServices();

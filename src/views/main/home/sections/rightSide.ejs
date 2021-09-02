@@ -1,183 +1,354 @@
 <div class="col-sm-9 sidenav no-padding">
   <div class="tab-content" id="screen-chat">
+    <% allConversationsWithMessage.forEach(function(conversation, index){%> <%
+    if(conversation.members) {%>
+    <div
+      class="right tab-pane <% if(index==0) {%> active <%}%>"
+      id="to_<%=conversation._id%>"
+      data-chat="<%=conversation._id%>"
+    >
+      <div class="top">
+        <span>To: <span class="name"><%= conversation.name %></span></span>
+        <span class="chat-menu-right">
+          <a
+            class="show-attachments"
+            href="#attachmentsModal_<%=conversation._id%>"
+            data-toggle="modal"
+          >
+            Tệp đính kèm
+            <i class="fa fa-paperclip"></i>
+          </a>
+        </span>
+        <span class="chat-menu-right">
+          <a href="javascript:void(0)">&nbsp;</a>
+        </span>
+        <span class="chat-menu-right">
+          <a
+            class="show-images"
+            href="#imagesModal_<%=conversation._id%>"
+            data-toggle="modal"
+          >
+            Hình ảnh
+            <i class="fa fa-photo"></i>
+          </a>
+        </span>
+        <!-- number members in group -->
+        <span class="chat-menu-right">
+          <a href="javascript:void(0)">&nbsp;</a>
+        </span>
+        <span class="chat-menu-right">
+          <a
+            class="number-members"
+            href="javascript:void(0)"
+            data-toggle="modal"
+          >
+            <span class="show-number-members">
+              <%= conversation.usersAmount %></span
+            >
+            <i class="fa fa-users"></i>
+          </a>
+        </span>
 
-    <% allConversationsWithMessage.forEach(function(conversation, index){%>
-      <% if(conversation.members) {%>
-        <div class="right tab-pane <% if(index==0) {%> active <%}%>" id="to_<%=conversation._id%>" data-chat="<%=conversation._id%>">
+        <!-- number messages -->
+        <span class="chat-menu-right">
+          <a href="javascript:void(0)">&nbsp;</a>
+        </span>
+        <span class="chat-menu-right">
+          <a
+            class="number-messages"
+            href="javascript:void(0)"
+            data-toggle="modal"
+          >
+            <span class="show-number-messages">
+              <%= conversation.messagesAnount %></span
+            >
+            <i class="fa fa-comment"></i>
+          </a>
+        </span>
+      </div>
 
-          <div class="top">
-            <span>To: <span class="name"><%= conversation.name %></span></span>
-            <span class="chat-menu-right">
-              <a class="show-attachments" href="#attachmentsModal_<%=conversation._id%>" data-toggle="modal">
-                Tệp đính kèm
-                <i class="fa fa-paperclip"></i>
-              </a>
-            </span>
-            <span class="chat-menu-right">
-              <a href="javascript:void(0)">&nbsp;</a>
-            </span>
-            <span class="chat-menu-right">
-              <a class="show-images" href="#imagesModal_<%=conversation._id%>" data-toggle="modal">
-                Hình ảnh
-                <i class="fa fa-photo"></i>
-              </a>
-            </span>
-            <!-- number members in group -->
-            <span class="chat-menu-right">
-              <a href="javascript:void(0)">&nbsp;</a>
-            </span>
-            <span class="chat-menu-right">
-              <a class="number-members" href="javascript:void(0)" data-toggle="modal">
-               <span class="show-number-members"> <%= conversation.usersAmount %></span>
-               <i class="fa fa-users"></i>
-              </a>
-            </span>
-
-            <!-- number messages -->
-            <span class="chat-menu-right">
-              <a href="javascript:void(0)">&nbsp;</a>
-            </span>
-            <span class="chat-menu-right">
-              <a class="number-messages" href="javascript:void(0)" data-toggle="modal">
-               <span class="show-number-messages"> <%= conversation.messagesAnount %></span>
-               <i class="fa fa-comment"></i>
-              </a>
-            </span>
-
+      <div class="content-chat">
+        <div class="chat chat-in-group" data-chat="<%=conversation._id%>">
+          <% conversation.messages.forEach(function(message) {%> <%
+          if(message.messageType=='text') {%>
+          <div
+            class="
+              convert-emoji
+              bubble
+              <%if(message.senderId
+              ==
+              user._id)
+              {%>
+              me
+              <%}
+              else
+              {%>
+              you
+              <%}%>
+            "
+            data-mess-id="<%=message._id%>"
+          >
+            <img
+              src="/images/users/<%= message.sender.avatar%>"
+              class="avatar-small mx-1"
+              title="<%=message.sender.name %>"
+              alt=""
+            />
+            <%= message.text %>
           </div>
-          
-          <div class="content-chat">
-            <div class="chat" 
-            data-chat="<%=conversation._id%>">
-              <% conversation.messages.forEach(function(message) {%>
-                <% if(message.messageType=='text') {%>
-                  <div 
-                    class="convert-emoji bubble <%if(message.senderId == user._id) {%> me <%} else {%> you <%}%>" data-mess-id="<%=message._id%>">
-                    <img src="/images/users/<%= message.sender.avatar%>" class="avatar-small mx-1" title="<%=message.sender.name %>" alt="">
-                    <%= message.text %>
-                  </div>
-                <%}%>
-
-                <% if(message.messageType=='image') {%>
-                  <div class="bubble bubble-image-file <%if(message.senderId == user._id) {%> me <%} else {%> you <%}%>" data-mess-id="<%=message._id%>">
-                    <img src="/images/users/<%= message.sender.avatar%>" class="avatar-small mx-1" title="<%=message.sender.name %>" alt="">
-                    <%= message.text %>
-                    <img class="show-image-chat" src="data:<%= message.file.contentType%>; base64, <%= bufferToBase64(message.file.data) %>" />
-                  </div>
-                <%}%>
-
-                <% if(message.messageType=='file') {%>
-                  <div class="bubble bubble-attachment-file <%if(message.senderId == user._id) {%> me <%} else {%> you <%}%>" data-mess-id="<%=message._id%>">
-                    <img src="/images/users/<%= message.sender.avatar%>" class="avatar-small mx-1" title="<%=message.sender.name %>" alt="">
-                    <%= message.text %>
-                    <a href="data:<%= message.file.contentType%>; base64, <%= bufferToBase64(message.file.data) %>" download="<%=message.file.fileName%>">
-                      <%=message.file.fileName%>
-                    </a>
-                  </div>
-                <%}%>
-              <%})%>
-             
-            </div>
+          <%}%> <% if(message.messageType=='image') {%>
+          <div
+            class="
+              bubble bubble-image-file
+              <%if(message.senderId
+              ==
+              user._id)
+              {%>
+              me
+              <%}
+              else
+              {%>
+              you
+              <%}%>
+            "
+            data-mess-id="<%=message._id%>"
+          >
+            <img
+              src="/images/users/<%= message.sender.avatar%>"
+              class="avatar-small mx-1"
+              title="<%=message.sender.name %>"
+              alt=""
+            />
+            <%= message.text %>
+            <img
+              class="show-image-chat"
+              src="data:<%= message.file.contentType%>; base64, <%= bufferToBase64(message.file.data) %>"
+            />
           </div>
-
-          <div class="write" data-chat="<%=conversation._id%>">
-            <input class="write-chat chat-in-group" type="text" id="write-chat-<%=conversation._id%>"  data-chat="<%=conversation._id%>" />
-            <div class="icons">
-              <a class="icon-chat" href="#" data-chat="<%=conversation._id%>"><i class="fa fa-smile-o"></i></a>
-              <label for="image-chat-<%=conversation._id%>">
-                <input class="image-chat chat-in-group" id="image-chat-<%=conversation._id%>" type="file" name="my-image-chat" data-chat="<%=conversation._id%>" />
-                <i class="fa fa-photo"></i>
-              </label>
-              <label for="attachment-chat-<%=conversation._id%>">
-                <input class="attachment-chat chat-in-group" id="attachment-chat-<%=conversation._id%>" type="file" name="my-attachment-chat" data-chat="<%=conversation._id%>" />
-                <i class="fa fa-paperclip"></i>
-              </label>
-              <a id="video-chat-group" href="javascript:void(0)" >
-                <i class="fa fa-video-camera"></i>
-              </a>
-              <input id="peer-id" type="hidden" value="" /></div>
+          <%}%> <% if(message.messageType=='file') {%>
+          <div
+            class="
+              bubble bubble-attachment-file
+              <%if(message.senderId
+              ==
+              user._id)
+              {%>
+              me
+              <%}
+              else
+              {%>
+              you
+              <%}%>
+            "
+            data-mess-id="<%=message._id%>"
+          >
+            <img
+              src="/images/users/<%= message.sender.avatar%>"
+              class="avatar-small mx-1"
+              title="<%=message.sender.name %>"
+              alt=""
+            />
+            <%= message.text %>
+            <a
+              href="data:<%= message.file.contentType%>; base64, <%= bufferToBase64(message.file.data) %>"
+              download="<%=message.file.fileName%>"
+            >
+              <%=message.file.fileName%>
+            </a>
           </div>
-
+          <%}%> <%})%>
         </div>
-    
-      <%} else { %>
-        <div class="right tab-pane <% if(index==0) {%> active <%}%>" id="to_<%=conversation._id%>" data-chat="<%=conversation._id%>">
-          <div class="top">
-            <span>To: <span class="name"><%= conversation.username %></span></span>
-            <span class="chat-menu-right">
-              <a class="show-attachments" href="#attachmentsModal_<%=conversation._id%>" data-toggle="modal">
-                Tệp đính kèm
-                <i class="fa fa-paperclip"></i>
-              </a>
-            </span>
-            <span class="chat-menu-right">
-              <a href="javascript:void(0)">&nbsp;</a>
-            </span>
-            <span class="chat-menu-right">
-              <a class="show-images" href="#imagesModal_<%=conversation._id%>" data-toggle="modal">
-                Hình ảnh
-                <i class="fa fa-photo"></i>
-              </a>
-            </span>
-          </div>
-          <div class="content-chat">
-            <div class="chat" 
-            data-chat="<%=conversation._id%>">
-              <% conversation.messages.forEach(function(message) {%>
-                <% if(message.messageType=='text') {%>
-                  <div 
-                    class="convert-emoji bubble <%if(message.senderId == user._id) {%> me <%} else {%> you <%}%>" data-mess-id="<%=message._id%>">
-                    <%= message.text %>
-                  </div>
-                <%}%>
+      </div>
 
-                <% if(message.messageType =='image') {%>
-                  <div class="bubble bubble-image-file <%if(message.senderId == user._id) {%> me <%} else {%> you <%}%>" data-mess-id="<%=message._id%>">
-                    <img class="show-image-chat" src="data:<%= message.file.contentType%>; base64, <%= bufferToBase64(message.file.data) %>" />
-                  </div>
-                <%}%>
-
-                <% if(message.messageType =='file') {%>
-                  <div class="bubble bubble-attachment-file <%if(message.senderId == user._id) {%> me <%} else {%> you <%}%>" data-mess-id="<%=message._id%>">
-                    <a href="data:<%= message.file.contentType%>; base64, <%= bufferToBase64(message.file.data) %>" download="<%= message.file.fileName %>">
-                      <%= message.file.fileName %>
-                    </a>
-                  </div>
-                <%}%>
-              <%})%>
-             
-            </div>
-          </div>
-
-          <div class="write" data-chat="<%=conversation._id%>">
-            <input class="write-chat" type="text" id="write-chat-<%=conversation._id%>"  data-chat="<%=conversation._id%>" />
-            <div class="icons">
-              <a class="icon-chat" href="#" data-chat="<%=conversation._id%>"><i class="fa fa-smile-o"></i></a>
-              
-              <label for="image-chat-<%=conversation._id%>">
-                <input class="image-chat" id="image-chat-<%=conversation._id%>" type="file" name="my-image-chat" data-chat="<%=conversation._id%>" />
-                <i class="fa fa-photo"></i>
-              </label>
-              
-              <label for="attachment-chat-<%=conversation._id%>">
-                <input class="attachment-chat" 
-                id="attachment-chat-<%=conversation._id%>" 
-                type="file" name="my-attachment-chat" 
-                data-chat="<%=conversation._id%>" />
-                <i class="fa fa-paperclip"></i>
-              </label>
-              <a class="video-chat" 
-              id="video-chat-<%=conversation._id%>" 
-              href="javascript:void(0)" 
-              data-chat="<%=conversation._id%>">
-                <i class="fa fa-video-camera"></i>
-              </a>
-              <input id="peer-id" type="hidden" value="" /></div>
-          </div>
+      <div class="write" data-chat="<%=conversation._id%>">
+        <input
+          class="write-chat chat-in-group"
+          type="text"
+          id="write-chat-<%=conversation._id%>"
+          data-chat="<%=conversation._id%>"
+        />
+        <div class="icons">
+          <a class="icon-chat" href="#" data-chat="<%=conversation._id%>"
+            ><i class="fa fa-smile-o"></i
+          ></a>
+          <label for="image-chat-<%=conversation._id%>">
+            <input
+              class="image-chat chat-in-group"
+              id="image-chat-<%=conversation._id%>"
+              type="file"
+              name="my-image-chat"
+              data-chat="<%=conversation._id%>"
+            />
+            <i class="fa fa-photo"></i>
+          </label>
+          <label for="attachment-chat-<%=conversation._id%>">
+            <input
+              class="attachment-chat chat-in-group"
+              id="attachment-chat-<%=conversation._id%>"
+              type="file"
+              name="my-attachment-chat"
+              data-chat="<%=conversation._id%>"
+            />
+            <i class="fa fa-paperclip"></i>
+          </label>
+          <a id="video-chat-group" href="javascript:void(0)">
+            <i class="fa fa-video-camera"></i>
+          </a>
+          <input id="peer-id" type="hidden" value="" />
         </div>
-      <%}%>
-    <%});%> 
+      </div>
+    </div>
 
-    
+    <%} else { %>
+    <div
+      class="right tab-pane <% if(index==0) {%> active <%}%>"
+      id="to_<%=conversation._id%>"
+      data-chat="<%=conversation._id%>"
+    >
+      <div class="top">
+        <span>To: <span class="name"><%= conversation.username %></span></span>
+        <span class="chat-menu-right">
+          <a
+            class="show-attachments"
+            href="#attachmentsModal_<%=conversation._id%>"
+            data-toggle="modal"
+          >
+            Tệp đính kèm
+            <i class="fa fa-paperclip"></i>
+          </a>
+        </span>
+        <span class="chat-menu-right">
+          <a href="javascript:void(0)">&nbsp;</a>
+        </span>
+        <span class="chat-menu-right">
+          <a
+            class="show-images"
+            href="#imagesModal_<%=conversation._id%>"
+            data-toggle="modal"
+          >
+            Hình ảnh
+            <i class="fa fa-photo"></i>
+          </a>
+        </span>
+      </div>
+      <div class="content-chat">
+        <div class="chat" data-chat="<%=conversation._id%>">
+          <% conversation.messages.forEach(function(message) {%> <%
+          if(message.messageType=='text') {%>
+          <div
+            class="
+              convert-emoji
+              bubble
+              <%if(message.senderId
+              ==
+              user._id)
+              {%>
+              me
+              <%}
+              else
+              {%>
+              you
+              <%}%>
+            "
+            data-mess-id="<%=message._id%>"
+          >
+            <%= message.text %>
+          </div>
+          <%}%> <% if(message.messageType =='image') {%>
+          <div
+            class="
+              bubble bubble-image-file
+              <%if(message.senderId
+              ==
+              user._id)
+              {%>
+              me
+              <%}
+              else
+              {%>
+              you
+              <%}%>
+            "
+            data-mess-id="<%=message._id%>"
+          >
+            <img
+              class="show-image-chat"
+              src="data:<%= message.file.contentType%>; base64, <%= bufferToBase64(message.file.data) %>"
+            />
+          </div>
+          <%}%> <% if(message.messageType =='file') {%>
+          <div
+            class="
+              bubble bubble-attachment-file
+              <%if(message.senderId
+              ==
+              user._id)
+              {%>
+              me
+              <%}
+              else
+              {%>
+              you
+              <%}%>
+            "
+            data-mess-id="<%=message._id%>"
+          >
+            <a
+              href="data:<%= message.file.contentType%>; base64, <%= bufferToBase64(message.file.data) %>"
+              download="<%= message.file.fileName %>"
+            >
+              <%= message.file.fileName %>
+            </a>
+          </div>
+          <%}%> <%})%>
+        </div>
+      </div>
+
+      <div class="write" data-chat="<%=conversation._id%>">
+        <input
+          class="write-chat"
+          type="text"
+          id="write-chat-<%=conversation._id%>"
+          data-chat="<%=conversation._id%>"
+        />
+        <div class="icons">
+          <a class="icon-chat" href="#" data-chat="<%=conversation._id%>"
+            ><i class="fa fa-smile-o"></i
+          ></a>
+
+          <label for="image-chat-<%=conversation._id%>">
+            <input
+              class="image-chat"
+              id="image-chat-<%=conversation._id%>"
+              type="file"
+              name="my-image-chat"
+              data-chat="<%=conversation._id%>"
+            />
+            <i class="fa fa-photo"></i>
+          </label>
+
+          <label for="attachment-chat-<%=conversation._id%>">
+            <input
+              class="attachment-chat"
+              id="attachment-chat-<%=conversation._id%>"
+              type="file"
+              name="my-attachment-chat"
+              data-chat="<%=conversation._id%>"
+            />
+            <i class="fa fa-paperclip"></i>
+          </label>
+          <a
+            class="video-chat"
+            id="video-chat-<%=conversation._id%>"
+            href="javascript:void(0)"
+            data-chat="<%=conversation._id%>"
+          >
+            <i class="fa fa-video-camera"></i>
+          </a>
+          <input id="peer-id" type="hidden" value="" />
+        </div>
+      </div>
+    </div>
+    <%}%> <%});%>
   </div>
 </div>

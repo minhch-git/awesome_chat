@@ -20,9 +20,9 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
   font-weight: 400;
-  background-image: url('../images/background/image.jpg');
+  background-image: url("../images/background/image.jpg");
   background-size: cover;
   background-repeat: none;
 }
@@ -266,7 +266,7 @@ label:focus,
 
 #notifications:before {
   float: right;
-  content: '';
+  content: "";
   display: block;
   width: 0;
   height: 0;
@@ -372,7 +372,7 @@ label:focus,
 
 #search-results:before {
   float: left;
-  content: '';
+  content: "";
   display: block;
   width: 0;
   height: 0;
@@ -545,7 +545,7 @@ label:focus,
 /* Create the indicator (the dot/circle - hidden when not checked) */
 
 .checkmark:after {
-  content: '';
+  content: "";
   position: absolute;
   display: none;
 }
@@ -660,7 +660,7 @@ label:focus,
   display: block;
   width: 100%;
   height: 1px;
-  content: '';
+  content: "";
   background-color: #e6e6e6;
   /*-webkit-transform: translate(-50%, 0);*/
   /*transform: translate(-50%, 0);*/
@@ -675,7 +675,7 @@ label:focus,
   border: 1px solid #e6e6e6;
   background-color: #eceff1;
   /* border-radius: 21px; */
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
   font-weight: 400;
   outline: none !important;
   box-shadow: none !important;
@@ -695,7 +695,7 @@ label:focus,
   margin-left: 10px;
   border: 1px solid #2ecc71;
   background-color: #2ecc71;
-  background-image: url('../images/icons/name-type.png');
+  background-image: url("../images/icons/name-type.png");
   background-repeat: no-repeat;
   background-position: top 11px left 12.5px;
   border-radius: 50%;
@@ -724,7 +724,7 @@ label:focus,
   display: block;
   width: 100%;
   height: 1px;
-  content: '';
+  content: "";
   background-color: #e6e6e6;
   -webkit-transform: translate(-50%, 0);
   transform: translate(-50%, 0);
@@ -747,7 +747,7 @@ label:focus,
   font-size: 14px;
   line-height: 22px;
   color: #1a1a1a;
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
   font-weight: 600;
 }
 
@@ -814,7 +814,7 @@ label:focus,
 
 .right .top span .name {
   color: #1a1a1a;
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
   font-weight: 600;
 }
 
@@ -979,7 +979,7 @@ label:focus,
   color: #1a1a1a;
   border: 0;
   background-color: #eceff1;
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
   font-weight: 400;
   outline: none !important;
   -webkit-appearance: none !important;
@@ -1003,7 +1003,7 @@ label:focus,
   border: 0;
   outline: none;
   background-color: #eceff1;
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
   font-weight: 400;
 }
 
@@ -1041,7 +1041,7 @@ label:focus,
   display: block;
   width: 8px;
   height: 6px;
-  content: '\00a0';
+  content: "\00a0";
   -webkit-transform: rotate(29deg) skew(-35deg);
   transform: rotate(29deg) skew(-35deg);
 }
@@ -1116,7 +1116,7 @@ label:focus,
   display: inline-block;
   width: 30%;
   height: 1px;
-  content: '';
+  content: "";
   background-color: #e6e6e6;
 }
 
@@ -1515,5 +1515,9 @@ label:focus,
 }
 .message-time-realtime {
   color: #e74c3c !important;
-  font-weight: 'bold';
+  font-weight: "bold";
+}
+.message-loading {
+  display: block;
+  margin: 0 auto;
 }

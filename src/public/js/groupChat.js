@@ -1,44 +1,44 @@
 function addFriendsToGroup() {
-  $('ul#group-chat-friends')
-    .find('div.add-user')
-    .bind('click', function () {
-      let uid = $(this).data('uid')
-      $(this).remove()
-      let html = $('ul#group-chat-friends')
-        .find('div[data-uid=' + uid + ']')
-        .html()
+  $("ul#group-chat-friends")
+    .find("div.add-user")
+    .bind("click", function () {
+      let uid = $(this).data("uid");
+      $(this).remove();
+      let html = $("ul#group-chat-friends")
+        .find("div[data-uid=" + uid + "]")
+        .html();
 
       let promise = new Promise(function (resolve, reject) {
-        $('ul#friends-added').append(html)
-        $('#groupChatModal .list-user-added').show()
-        resolve(true)
-      })
+        $("ul#friends-added").append(html);
+        $("#groupChatModal .list-user-added").show();
+        resolve(true);
+      });
       promise.then(function (success) {
-        $('ul#group-chat-friends')
-          .find('div[data-uid=' + uid + ']')
-          .remove()
-      })
-    })
+        $("ul#group-chat-friends")
+          .find("div[data-uid=" + uid + "]")
+          .remove();
+      });
+    });
 }
 
 function cancelCreateGroup() {
-  $('#cancel-group-chat').bind('click', function () {
-    $('#groupChatModal .list-user-added').hide()
-    if ($('ul#friends-added>li').length) {
-      $('ul#friends-added>li').each(function (index) {
-        $(this).remove()
-      })
+  $("#cancel-group-chat").bind("click", function () {
+    $("#groupChatModal .list-user-added").hide();
+    if ($("ul#friends-added>li").length) {
+      $("ul#friends-added>li").each(function (index) {
+        $(this).remove();
+      });
     }
-  })
+  });
 }
 
 function callSearchFriends(element) {
-  if (element.which === 13 || element.type === 'click') {
-    let keyword = $('#input-search-friends-to-add-group-chat').val()
+  if (element.which === 13 || element.type === "click") {
+    let keyword = $("#input-search-friends-to-add-group-chat").val();
 
     if (!keyword.length) {
-      alertify.notify('Chưa nhập nội dung tìm kiếm', 'error', 7)
-      return false
+      alertify.notify("Chưa nhập nội dung tìm kiếm", "error", 7);
+      return false;
     }
 
     // check value of input
@@ -47,89 +47,89 @@ function callSearchFriends(element) {
     fetch(`/contact/search-friends/${keyword}`)
       .then(res => {
         if (!res.ok) {
-          throw res.json()
+          throw res.json();
         }
 
-        return res.json()
+        return res.json();
       })
       .then(users => {
-        $('ul#group-chat-friends').html(renderUsers(users))
+        $("ul#group-chat-friends").html(renderUsers(users));
 
         // Thêm người dùng vào danh sách liệt kê trước khi tạo nhóm trò chuyện
-        addFriendsToGroup()
+        addFriendsToGroup();
 
         // Action hủy việc tạo nhóm trò chuyện
-        cancelCreateGroup()
+        cancelCreateGroup();
       })
       .catch(async ex => {
-        alertify.notify(await ex, 'error', 8)
-      })
+        alertify.notify(await ex, "error", 8);
+      });
   }
 }
 
 function callCreateGroupChat() {
-  let usersElement = $('ul#friends-added').find('li')
+  let usersElement = $("ul#friends-added").find("li");
 
   if (usersElement.length < 2) {
     alertify.notify(
-      'Vui lòng chọn bạn bè để thêm vào nhóm, tối thiểu 2 người',
-      'error',
+      "Vui lòng chọn bạn bè để thêm vào nhóm, tối thiểu 2 người",
+      "error",
       8
-    )
-    return false
+    );
+    return false;
   }
 
-  let groupChatName = $('input#name-group-chat').val()
+  let groupChatName = $("input#name-group-chat").val();
   if (groupChatName.length < 5 || groupChatName.length > 20) {
     alertify.notify(
-      'Vui lòng nhập tên cuộc trò chuyện giới hạn 5 - 20 kí tự',
-      'error',
+      "Vui lòng nhập tên cuộc trò chuyện giới hạn 5 - 20 kí tự",
+      "error",
       8
-    )
-    return false
+    );
+    return false;
   }
 
-  let arrayId = []
-  $('ul#friends-added')
-    .find('li')
+  let arrayId = [];
+  $("ul#friends-added")
+    .find("li")
     .each((index, item) => {
-      arrayId.push({ userId: $(item).data('uid') })
-    })
+      arrayId.push({ userId: $(item).data("uid") });
+    });
 
   Swal.fire({
     title: `Bạn có chắc chắn muốn tạo nhóm ${groupChatName}`,
-    icon: 'info',
+    icon: "info",
     showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Xác nhận',
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Xác nhận",
   }).then(result => {
-    if (!result.value) return false
+    if (!result.value) return false;
 
-    fetch('/group-chat/add-new', {
-      method: 'POST',
+    fetch("/group-chat/add-new", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({ arrayId, groupChatName }),
     })
       .then(res => {
         if (!res.ok) {
-          throw res.json()
+          throw res.json();
         }
 
-        return res.json()
+        return res.json();
       })
       .then(groupChat => {
         // Step 01: hide modal
-        $('#cancel-group-chat').click()
-        $('#input-search-friends-to-add-group-chat').val('')
-        $('#groupChatModal').modal('hide')
+        $("#cancel-group-chat").click();
+        $("#input-search-friends-to-add-group-chat").val("");
+        $("#groupChatModal").modal("hide");
 
         // Step 02: handle leftSide.ejs
-        let subGroupChatName = groupChat.name
+        let subGroupChatName = groupChat.name;
         if (subGroupChatName.length > 13)
-          subGroupChatName = subGroupChatName.slice(0, 12)
+          subGroupChatName = subGroupChatName.slice(0, 12);
 
         let leftSideData = `
           <a class="room-chat" href="#uid_${groupChat._id}" data-target="#to_${groupChat._id}">
@@ -146,10 +146,10 @@ function callCreateGroupChat() {
               <span class="preview"></span>
            </li>
           </a>
-        `
+        `;
 
-        $('#all-chat').find('ul').prepend(leftSideData)
-        $('#group-chat').find('ul').prepend(leftSideData)
+        $("#all-chat").find("ul").prepend(leftSideData);
+        $("#group-chat").find("ul").prepend(leftSideData);
 
         // Step 03: handle rightSide.ejs
         let rightSideData = `
@@ -196,7 +196,7 @@ function callCreateGroupChat() {
           </div>
           
           <div class="content-chat">
-            <div class="chat" 
+            <div class="chat chat-in-group" 
             data-chat="${groupChat._id}"></div>
           </div>
 
@@ -219,11 +219,11 @@ function callCreateGroupChat() {
           </div>
 
       </div>
-        `
-        $('#screen-chat').prepend(rightSideData)
+        `;
+        $("#screen-chat").prepend(rightSideData);
 
         // Step 04: Call function changeScreenChat
-        changeScreenChat()
+        changeScreenChat();
 
         // Step 05: Handle imageModal.ejs
         let imageModalData = `
@@ -239,11 +239,11 @@ function callCreateGroupChat() {
               </div>
           </div>
         </div>
-        `
-        $('body').append(imageModalData)
+        `;
+        $("body").append(imageModalData);
 
         // Step 06: Call function gridPhotos
-        gridPhotos(5)
+        gridPhotos(5);
 
         // Step 07: Handle attachmentChat.ejs
         let attachmentModalData = `
@@ -260,22 +260,22 @@ function callCreateGroupChat() {
               </div>
           </div>
         </div>
-        `
-        $('body').append(attachmentModalData)
+        `;
+        $("body").append(attachmentModalData);
 
         // Step 08: Emit new group created
-        socket.emit('new-group-created', groupChat)
+        socket.emit("new-group-created", groupChat);
 
         // Step 09: Emit when member received a group chat: nothing to code :))
 
         // Step 10: update online
-        socket.emit('check-status')
+        socket.emit("check-status");
       })
       .catch(async ex => {
-        const errors = await ex
-        alertify.notify(errors.message, 'error', 8)
-      })
-  })
+        const errors = await ex;
+        alertify.notify(errors.message, "error", 8);
+      });
+  });
 }
 
 function renderUsers(users) {
@@ -300,30 +300,30 @@ function renderUsers(users) {
         </div>
       </li>
     </div>
-    `
-  })
+    `;
+  });
 }
 
 $(document).ready(function () {
-  $('#input-search-friends-to-add-group-chat').bind(
-    'keypress',
+  $("#input-search-friends-to-add-group-chat").bind(
+    "keypress",
     callSearchFriends
-  )
-  $('input#name-group-chat').on('keydown', function (e) {
+  );
+  $("input#name-group-chat").on("keydown", function (e) {
     if (e.which == 13) {
-      callCreateGroupChat()
+      callCreateGroupChat();
     }
-  })
-  $('#btn-search-friends-to-add-group-chat').bind('click', callSearchFriends)
-  $('#create-group-chat').bind('click', callCreateGroupChat)
+  });
+  $("#btn-search-friends-to-add-group-chat").bind("click", callSearchFriends);
+  $("#create-group-chat").bind("click", callCreateGroupChat);
 
-  socket.on('response-new-group-created', response => {
+  socket.on("response-new-group-created", response => {
     // Step 01: hide modal: nothing to code :))
 
     // Step 02: handle leftSide.ejs
-    let subGroupChatName = response.groupChat.name
+    let subGroupChatName = response.groupChat.name;
     if (subGroupChatName.length > 13)
-      subGroupChatName = subGroupChatName.slice(0, 12)
+      subGroupChatName = subGroupChatName.slice(0, 12);
 
     let leftSideData = `
        <a class="room-chat" href="#uid_${response.groupChat._id}" data-target="#to_${response.groupChat._id}">
@@ -340,10 +340,10 @@ $(document).ready(function () {
            <span class="preview"></span>
         </li>
        </a>
-     `
+     `;
 
-    $('#all-chat').find('ul').prepend(leftSideData)
-    $('#group-chat').find('ul').prepend(leftSideData)
+    $("#all-chat").find("ul").prepend(leftSideData);
+    $("#group-chat").find("ul").prepend(leftSideData);
 
     // Step 03: handle rightSide.ejs
     let rightSideData = `
@@ -390,7 +390,7 @@ $(document).ready(function () {
        </div>
        
        <div class="content-chat">
-         <div class="chat" 
+         <div class="chat chat-in-group" 
          data-chat="${response.groupChat._id}"></div>
        </div>
 
@@ -413,11 +413,11 @@ $(document).ready(function () {
        </div>
 
    </div>
-     `
-    $('#screen-chat').prepend(rightSideData)
+     `;
+    $("#screen-chat").prepend(rightSideData);
 
     // Step 04: Call function changeScreenChat
-    changeScreenChat()
+    changeScreenChat();
 
     // Step 05: Handle imageModal.ejs
     let imageModalData = `
@@ -433,11 +433,11 @@ $(document).ready(function () {
            </div>
        </div>
      </div>
-     `
-    $('body').append(imageModalData)
+     `;
+    $("body").append(imageModalData);
 
     // Step 06: Call function gridPhotos
-    gridPhotos(5)
+    gridPhotos(5);
 
     // Step 07: Handle attachmentChat.ejs
     let attachmentModalData = `
@@ -454,16 +454,16 @@ $(document).ready(function () {
           </div>
       </div>
     </div>
-   `
-    $('body').append(attachmentModalData)
+   `;
+    $("body").append(attachmentModalData);
     // Step 08: Emit new group created: nothing to code :)))
 
     // Step 09: Emit when member received a group chat
-    socket.emit('member-received-group-chat', {
+    socket.emit("member-received-group-chat", {
       groupChatId: response.groupChat._id,
-    })
+    });
 
     // Step 10: update online
-    socket.emit('check-status')
-  })
-})
+    socket.emit("check-status");
+  });
+});
