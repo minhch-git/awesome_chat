@@ -233,7 +233,9 @@ $(document).ready(function () {
   // convert các unicode thành hình ảnh cảm xúc
   convertEmoji();
   // click vào phần tử đâu tiên của cuộc trò chuyện khi load
-  $("ul.people").find("a")[0].click();
+  if ($("ul.people").find("a").length) {
+    $("ul.people").find("a")[0].click();
+  }
 
   $(`#video-chat-group`).bind("click", function () {
     alertify.notify(
