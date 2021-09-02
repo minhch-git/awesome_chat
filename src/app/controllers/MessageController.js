@@ -37,7 +37,11 @@ class MessageController {
 
       return res.status(200).json({ message: newMessage });
     } catch (error) {
-      return res.status(500).json(error.details[0].message);
+      console.log({ error });
+      if (error.details) {
+        return res.status(500).json(error.details[0].message);
+      }
+      return res.status(500).json(error);
     }
   }
 
@@ -172,7 +176,6 @@ class MessageController {
         targetId,
         isChatGroup
       );
-
       let dataToRender = {
         newMessages,
         bufferToBase64,

@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+import mongoose from "mongoose";
 
 const ContactSchema = mongoose.Schema({
   userId: String,
@@ -7,11 +7,11 @@ const ContactSchema = mongoose.Schema({
   createdAt: { type: Number, default: Date.now },
   updatedAt: { type: Number, default: null },
   deletedAt: { type: Number, default: null },
-})
+});
 
 ContactSchema.statics = {
   createNew(item) {
-    return this.create(item)
+    return this.create(item);
   },
 
   /**
@@ -21,7 +21,7 @@ ContactSchema.statics = {
   findAllByUser(userId) {
     return this.find({
       $or: [{ userId: userId }, { contactId: userId }],
-    }).exec()
+    }).exec();
   },
 
   /**
@@ -39,7 +39,7 @@ ContactSchema.statics = {
           $and: [{ userId: contactId }, { contactId: userId }],
         },
       ],
-    }).exec()
+    }).exec();
   },
   /**
    * Remove contact
@@ -64,7 +64,7 @@ ContactSchema.statics = {
           ],
         },
       ],
-    }).exec()
+    }).exec();
   },
   /**
    * Remove request contact
@@ -74,7 +74,7 @@ ContactSchema.statics = {
   removeRequestContactSent(userId, contactId) {
     return this.deleteOne({
       $and: [{ userId }, { contactId }, { status: false }],
-    }).exec()
+    }).exec();
   },
 
   /**
@@ -85,7 +85,7 @@ ContactSchema.statics = {
   removeRequestContactReceived(userId, contactId) {
     return this.deleteOne({
       $and: [{ userId: contactId }, { contactId: userId }, { status: false }],
-    }).exec()
+    }).exec();
   },
   /**
    * approve contact
@@ -99,7 +99,7 @@ ContactSchema.statics = {
       },
       { status: true },
       { updatedAt: Date.now() }
-    ).exec()
+    ).exec();
   },
 
   /**
@@ -116,7 +116,7 @@ ContactSchema.statics = {
     })
       .sort({ updatedAt: -1 })
       .limit(limit)
-      .exec()
+      .exec();
   },
 
   /**
@@ -130,7 +130,7 @@ ContactSchema.statics = {
     })
       .sort({ createdAt: -1 })
       .limit(limit)
-      .exec()
+      .exec();
   },
 
   /**
@@ -144,7 +144,7 @@ ContactSchema.statics = {
     })
       .sort({ createdAt: -1 })
       .limit(limit)
-      .exec()
+      .exec();
   },
 
   /**
@@ -157,7 +157,7 @@ ContactSchema.statics = {
         { $or: [{ userId: userId }, { contactId: userId }] },
         { status: true },
       ],
-    }).exec()
+    }).exec();
   },
 
   /**
@@ -167,7 +167,7 @@ ContactSchema.statics = {
   countAllContactsSent(userId) {
     return this.countDocuments({
       $and: [{ userId: userId }, { status: false }],
-    }).exec()
+    }).exec();
   },
 
   /**
@@ -177,7 +177,7 @@ ContactSchema.statics = {
   countAllContactsReceived(userId) {
     return this.countDocuments({
       $and: [{ contactId: userId }, { status: false }],
-    }).exec()
+    }).exec();
   },
   /**
    * Get contacts by userId and skip and limit
@@ -196,7 +196,7 @@ ContactSchema.statics = {
       .sort({ updatedAt: -1 })
       .skip(skip)
       .limit(limit)
-      .exec()
+      .exec();
   },
   /**
    * Get contacts sent by userId and skip and limit
@@ -212,7 +212,7 @@ ContactSchema.statics = {
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(limit)
-      .exec()
+      .exec();
   },
 
   /**
@@ -229,7 +229,7 @@ ContactSchema.statics = {
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(limit)
-      .exec()
+      .exec();
   },
 
   /**
@@ -238,7 +238,7 @@ ContactSchema.statics = {
    * @param {string} contactId  // contact id
    */
   updateWhenHasNewMessage(userId, contactId) {
-    return this.findOne(
+    return this.findOneAndUpdate(
       {
         $or: [
           {
@@ -252,7 +252,7 @@ ContactSchema.statics = {
       {
         updatedAt: Date.now(),
       }
-    ).exec()
+    ).exec();
   },
 
   /**
@@ -267,8 +267,8 @@ ContactSchema.statics = {
       ],
     })
       .sort({ username: 1 })
-      .exec()
+      .exec();
   },
-}
+};
 
-export default mongoose.model('contact', ContactSchema)
+export default mongoose.model("contact", ContactSchema);

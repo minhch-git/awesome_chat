@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+import mongoose from "mongoose";
 
 const ChatGroupSchema = mongoose.Schema({
   name: String,
@@ -9,7 +9,7 @@ const ChatGroupSchema = mongoose.Schema({
   createdAt: { type: Number, default: Date.now },
   updatedAt: { type: Number, default: Date.now },
   deletedAt: { type: Number, default: null },
-})
+});
 
 ChatGroupSchema.statics = {
   /**
@@ -17,7 +17,7 @@ ChatGroupSchema.statics = {
    * @param {object} item
    */
   createNew(item) {
-    return this.create(item)
+    return this.create(item);
   },
 
   /**
@@ -31,7 +31,7 @@ ChatGroupSchema.statics = {
     })
       .sort({ updatedAt: -1 })
       .limit(limit)
-      .exec()
+      .exec();
   },
   /**
    * Get chat group
@@ -39,7 +39,7 @@ ChatGroupSchema.statics = {
    * @returns
    */
   getChatGroupById(id) {
-    return this.findById(id).exec()
+    return this.findById(id).exec();
   },
 
   /**
@@ -53,26 +53,26 @@ ChatGroupSchema.statics = {
         messagesAnount: newMessageAmount,
         updatedAt: Date.now(),
       },
-    }).exec()
+    }).exec();
   },
 
   getChatGroupByIds(userId) {
     return this.find({
       members: { $elemMatch: { userId } },
     })
-      .select('_id')
-      .exec()
+      .select("_id")
+      .exec();
   },
 
-  readMoreChatGroup(userId, skip, limit){
+  readMoreChatGroup(userId, skip, limit) {
     return this.find({
-          members: { $elemMatch: { userId } },
-        })
-          .sort({ updatedAt: -1 })
-          .skip(skip)
-          .limit(limit)
-          .exec()
-  }
-}
+      members: { $elemMatch: { userId } },
+    })
+      .sort({ updatedAt: -1 })
+      .skip(skip)
+      .limit(limit)
+      .exec();
+  },
+};
 
-export default mongoose.model('chat_group', ChatGroupSchema)
+export default mongoose.model("chat_group", ChatGroupSchema);

@@ -47,8 +47,12 @@ $(document).ready(function () {
         // Step 09: update status
         socket.emit("check-status");
 
+        // Step 10: Remove loading
         $("#link-read-more-all-chat").attr("class", "d-block");
         $(".read-more-all-chat-loader").css("display", "none");
+
+        // Step 11: Call readMoreMessage
+        readMoreMessages();
       }
     );
   });
