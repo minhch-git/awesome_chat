@@ -204,6 +204,55 @@ function bufferToBase64(buffer) {
   return window.btoa(binary);
 }
 
+function notYetConversation() {
+  if (!$("ul.people").find("li").length) {
+    Swal.fire({
+      title: "Bạn chưa có bạn bè nào. Hãy tìm kiếm bạn quanh đây!",
+      type: "info",
+      showCancelButton: false,
+      confirmButtonColor: "#3085d6",
+      confirmButtonText: "Xác nhận",
+      title: "Bạn chưa có bạn bè nào. Hãy tìm kiếm bạn quanh đây!",
+    }).then(result => {
+      $("#contactsModal").modal("show");
+    });
+  }
+}
+
+function userTalk() {
+  $(".user-talk")
+    .unbind("click")
+    .on("click", function () {
+      let dataChat = $(this).data("uid");
+      $("ul.people").find(`a[href="#uid_${dataChat}"`).click();
+      $(this).closes("div.modal").modal("hide");
+    });
+}
+
+function zoomImageInChat() {
+  $(".show-image-chat")
+    .unbind("click")
+    .on("click", function () {
+      $("#modalImageChat").show();
+      $("#chatImage").attr("src", this.src);
+    });
+
+  $("#modalImageChat").on("click", e => {
+    $("#modalImageChat").hide();
+  });
+  $("#chatImage").on("click", function (e) {
+    e.stopPropagation();
+  });
+}
+
+function showMembersInfo() {
+  $(".number-members")
+    .unbind("click")
+    .on("click", function () {
+      console.log($(this).data("chat"));
+    });
+}
+
 $(document).ready(function () {
   // Hide số thông báo trên đầu icon mở modal contact
   showModalContacts();
@@ -237,6 +286,7 @@ $(document).ready(function () {
     $("ul.people").find("a")[0].click();
   }
 
+  // Hiển thị thông báo, chức năng video trò chuyện nhóm chưa có
   $(`#video-chat-group`).bind("click", function () {
     alertify.notify(
       "Không khả dụng tính năng này với nhóm trò truyện. Vui lòng thử lại với nhóm trò chuyện cá nhân",
@@ -244,4 +294,13 @@ $(document).ready(function () {
       6
     );
   });
+
+  // Hiển thị thông báo, khi chưa có bạn bè nào
+  notYetConversation();
+
+  // Click vào nút trò chuyện, hiện thị ra phần chat
+  userTalk();
+
+  // Phóng to ảnh khi click vào hình ảnh trong chat
+  zoomImageInChat();
 });

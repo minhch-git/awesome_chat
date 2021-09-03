@@ -32,6 +32,7 @@
             <i class="fa fa-photo"></i>
           </a>
         </span>
+
         <!-- number members in group -->
         <span class="chat-menu-right">
           <a href="javascript:void(0)">&nbsp;</a>
@@ -41,6 +42,7 @@
             class="number-members"
             href="javascript:void(0)"
             data-toggle="modal"
+            data-target="#membersModal_<%=conversation._id%>"
           >
             <span class="show-number-members">
               <%= conversation.usersAmount %></span
@@ -48,6 +50,66 @@
             <i class="fa fa-users"></i>
           </a>
         </span>
+        <!-- Modal -->
+        <div
+          class="modal fade"
+          id="membersModal_<%=conversation._id%>"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="membersModalLabel_<%=conversation._id%>"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog" role="document">
+            <div class="modal-content h-auto">
+              <div class="modal-header">
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <h3
+                  class="modal-title text-dark"
+                  id="membersModalLabel_<%=conversation._id%>"
+                >
+                  Thành viên nhóm
+                  <b class="text-primary"><%=conversation.name%></b>
+                </h3>
+              </div>
+              <div class="modal-body">
+                <ul class="list-member-info">
+                  <%conversation.membersInfo.forEach(user => { %>
+                  <li class="member-info-item">
+                    <img
+                      src="/images/users/<%=user.avatar%>"
+                      class="member-info-item-img"
+                      alt="..."
+                    />
+                    <span class="member-info-item-label"
+                      ><%=user.username%></span
+                    >
+                    <p class="d-none">Quản trị viên</p>
+                    <button class="btn btn-sm btn-info" style="margin-top: 8px">
+                      Trò chuyện
+                    </button>
+                  </li>
+                  <%})%>
+                </ul>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary text-dark"
+                  data-dismiss="modal"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <!-- number messages -->
         <span class="chat-menu-right">
@@ -350,5 +412,13 @@
       </div>
     </div>
     <%}%> <%});%>
+  </div>
+  <!-- The Modal -->
+  <div id="modalImageChat" class="modal-chat-image">
+    <!-- The Close Button -->
+    <span class="close-modal-image-chat">&times;</span>
+
+    <!-- Modal Content (The Image) -->
+    <img class="modal-content-chat-image" id="chatImage" />
   </div>
 </div>

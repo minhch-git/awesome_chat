@@ -108,6 +108,29 @@ class SiteController {
     });
   }
 
+  async findConversation(req, res) {
+    const { keyword } = req.params;
+    const { allConversations } = await messageServices.getAllConversationItems(
+      req.user._id
+    );
+    let data = allConversations.filter(conversation => {
+      let name = conversation?.name || conversation?.username;
+      let groupName;
+      if (!!conversation?.name) {
+        groupName = conversation.name.split(" ").includes(keyword)
+          ? conversation.name
+          : "";
+      }
+      return name.indexOf(keyword) == 0;
+    });
+    if (data.length > 0) {
+      return res.status(200).json(data);
+    }
+    return res.status(404).json({
+      message: `Không tìm thấy cuộc trò chuyện có tên: <b>${keyword}</b>`,
+    });
+  }
+
   // [ GET ] /login-register
   async getLoginRegister(req, res) {
     return res.render("auth/main", {

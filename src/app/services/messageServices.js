@@ -50,11 +50,16 @@ class MessageServices {
           userConversations.concat(groupConversations),
           [item => -item.createdAt]
         );
-
         // get message to apply in screen chat
         let allConversationsWithMessagePromise = allConversations.map(
           async converstation => {
+            converstation.membersInfo = [];
             if (converstation.members) {
+              for (const member of converstation.members) {
+                let userInfo = await User.getNormalUserById(member.userId);
+                converstation.membersInfo.push(userInfo);
+              }
+
               let getMessages = await Message.getMessagesInGroup(
                 converstation._id,
                 LIMIT_MESSAGES_TAKEN
@@ -68,7 +73,6 @@ class MessageServices {
               );
               converstation.messages = _.reverse(getMessages);
             }
-
             return converstation;
           }
         );
@@ -76,11 +80,13 @@ class MessageServices {
         let allConversationsWithMessage = await Promise.all(
           allConversationsWithMessagePromise
         );
+
         // sort by updatedAt desending
         allConversationsWithMessage = _.sortBy(
           allConversationsWithMessage,
           item => -item.updatedAt
         );
+
         resolve({
           userConversations,
           groupConversations,

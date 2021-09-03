@@ -27,4 +27,5 @@ router.get(
   MessageController.readMoreAllChat
 );
 router.get("/read-more", isLogin.isLoggedIn, MessageController.readMore);
+
 export default router;

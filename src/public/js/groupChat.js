@@ -153,11 +153,15 @@ function callCreateGroupChat() {
 
         // Step 03: handle rightSide.ejs
         let rightSideData = `
-        <div class="right tab-pane" id="to_${groupChat._id}" data-chat="${groupChat._id}">
+        <div class="right tab-pane" id="to_${groupChat._id}" data-chat="${
+          groupChat._id
+        }">
           <div class="top">
             <span>To: <span class="name">${groupChat.name}</span></span>
             <span class="chat-menu-right">
-              <a class="show-attachments" href="#attachmentsModal_${groupChat._id}" data-toggle="modal">
+              <a class="show-attachments" href="#attachmentsModal_${
+                groupChat._id
+              }" data-toggle="modal">
                 Tệp đính kèm
                 <i class="fa fa-paperclip"></i>
               </a>
@@ -166,7 +170,9 @@ function callCreateGroupChat() {
               <a href="javascript:void(0)">&nbsp;</a>
             </span>
             <span class="chat-menu-right">
-              <a class="show-images" href="#imagesModal_${groupChat._id}" data-toggle="modal">
+              <a class="show-images" href="#imagesModal_${
+                groupChat._id
+              }" data-toggle="modal">
                 Hình ảnh
                 <i class="fa fa-photo"></i>
               </a>
@@ -176,19 +182,80 @@ function callCreateGroupChat() {
               <a href="javascript:void(0)">&nbsp;</a>
             </span>
             <span class="chat-menu-right">
-              <a class="number-members" href="javascript:void(0)" data-toggle="modal">
+              <a data-target="#membersModal_${
+                groupChat._id
+              }" class="number-members" href="javascript:void(0)" data-toggle="modal">
               <span class="show-number-members"> ${groupChat.usersAmount}</span>
               <i class="fa fa-users"></i>
               </a>
             </span>
 
+            <!-- Modal -->
+            <div
+              class="modal fade"
+              id="membersModal_${groupChat._id}"
+              tabindex="-1"
+              role="dialog"
+              aria-labelledby="membersModalLabel_${groupChat._id}"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog" role="document">
+                <div class="modal-content h-auto">
+                  <div class="modal-header">
+                    <button
+                      type="button"
+                      class="close"
+                      data-dismiss="modal"
+                      aria-label="Close"
+                    >
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h3 class="modal-title text-dark" id="membersModalLabel_${
+                      groupChat._id
+                    }">
+                      Thành viên nhóm <b class="text-primary">${
+                        groupChat.name
+                      }</b>
+                    </h3>
+                  </div>
+                  <div class="modal-body">
+                  <ul class="list-member-info">
+                    ${groupChat.membersInfo.map(
+                      user => `
+                      <li class="member-info-item">
+                            <img
+                              src="/images/users/${user.avatar}"
+                              class="member-info-item-img"
+                              alt="..."
+                            />
+                            <span class="member-info-item-label">${user.username}</span>
+                            <p class="d-none">Quản trị viên</p>
+                            <button class="btn btn-sm btn-info" style="margin-top: 8px">
+                              Trò chuyện
+                            </button>
+                          </li>
+                      `
+                    )}
+                    </ul>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary text-dark" data-dismiss="modal">
+                      Close
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
             <!-- number messages -->
             <span class="chat-menu-right">
               <a href="javascript:void(0)">&nbsp;</a>
             </span>
             <span class="chat-menu-right">
               <a class="number-messages" href="javascript:void(0)" data-toggle="modal">
-              <span class="show-number-messages"> ${groupChat.messagesAnount}</span>
+              <span class="show-number-messages"> ${
+                groupChat.messagesAnount
+              }</span>
               <i class="fa fa-comment"></i>
               </a>
             </span>
@@ -201,15 +268,27 @@ function callCreateGroupChat() {
           </div>
 
           <div class="write" data-chat="${groupChat._id}">
-            <input class="write-chat chat-in-group" type="text" id="write-chat-${groupChat._id}"  data-chat="${groupChat._id}" />
+            <input class="write-chat chat-in-group" type="text" id="write-chat-${
+              groupChat._id
+            }"  data-chat="${groupChat._id}" />
             <div class="icons">
-              <a class="icon-chat" href="#" data-chat="${groupChat._id}"><i class="fa fa-smile-o"></i></a>
+              <a class="icon-chat" href="#" data-chat="${
+                groupChat._id
+              }"><i class="fa fa-smile-o"></i></a>
               <label for="image-chat-${groupChat._id}">
-                <input class="image-chat chat-in-group" id="image-chat-${groupChat._id}" type="file" name="my-image-chat" data-chat="${groupChat._id}" />
+                <input class="image-chat chat-in-group" id="image-chat-${
+                  groupChat._id
+                }" type="file" name="my-image-chat" data-chat="${
+          groupChat._id
+        }" />
                 <i class="fa fa-photo"></i>
               </label>
               <label for="attachment-chat-${groupChat._id}">
-                <input class="attachment-chat chat-in-group" id="attachment-chat-${groupChat._id}" type="file" name="my-attachment-chat" data-chat="${groupChat._id}" />
+                <input class="attachment-chat chat-in-group" id="attachment-chat-${
+                  groupChat._id
+                }" type="file" name="my-attachment-chat" data-chat="${
+          groupChat._id
+        }" />
                 <i class="fa fa-paperclip"></i>
               </label>
               <a id="video-chat-group" href="javascript:void(0)" >
@@ -347,11 +426,15 @@ $(document).ready(function () {
 
     // Step 03: handle rightSide.ejs
     let rightSideData = `
-     <div class="right tab-pane" id="to_${response.groupChat._id}" data-chat="${response.groupChat._id}">
+     <div class="right tab-pane" id="to_${response.groupChat._id}" data-chat="${
+      response.groupChat._id
+    }">
        <div class="top">
          <span>To: <span class="name">${response.groupChat.name}</span></span>
          <span class="chat-menu-right">
-           <a class="show-attachments" href="#attachmentsModal_${response.groupChat._id}" data-toggle="modal">
+           <a class="show-attachments" href="#attachmentsModal_${
+             response.groupChat._id
+           }" data-toggle="modal">
              Tệp đính kèm
              <i class="fa fa-paperclip"></i>
            </a>
@@ -360,7 +443,9 @@ $(document).ready(function () {
            <a href="javascript:void(0)">&nbsp;</a>
          </span>
          <span class="chat-menu-right">
-           <a class="show-images" href="#imagesModal_${response.groupChat._id}" data-toggle="modal">
+           <a class="show-images" href="#imagesModal_${
+             response.groupChat._id
+           }" data-toggle="modal">
              Hình ảnh
              <i class="fa fa-photo"></i>
            </a>
@@ -370,11 +455,73 @@ $(document).ready(function () {
            <a href="javascript:void(0)">&nbsp;</a>
          </span>
          <span class="chat-menu-right">
-           <a class="number-members" href="javascript:void(0)" data-toggle="modal">
-           <span class="show-number-members"> ${response.groupChat.usersAmount}</span>
+           <a data-target="#membersModal_${
+             response.groupChat._id
+           }" class="number-members" href="javascript:void(0)" data-toggle="modal">
+           <span class="show-number-members"> ${
+             response.groupChat.usersAmount
+           }</span>
            <i class="fa fa-users"></i>
            </a>
          </span>
+
+         <!-- Modal -->
+         <div
+           class="modal fade"
+           id="membersModal_${response.groupChat._id}"
+           tabindex="-1"
+           role="dialog"
+           aria-labelledby="membersModalLabel_${response.groupChat._id}"
+           aria-hidden="true"
+         >
+           <div class="modal-dialog" role="document">
+             <div class="modal-content h-auto">
+               <div class="modal-header">
+                 <button
+                   type="button"
+                   class="close"
+                   data-dismiss="modal"
+                   aria-label="Close"
+                 >
+                   <span aria-hidden="true">&times;</span>
+                 </button>
+                 <h3 class="modal-title text-dark" id="membersModalLabel_${
+                   response.groupChat._id
+                 }">
+                   Thành viên nhóm <b class="text-primary">${
+                     response.groupChat.name
+                   }</b>
+                 </h3>
+               </div>
+               <div class="modal-body">
+               <ul class="list-member-info">
+                 ${response.groupChat.membersInfo.map(
+                   user => `
+                   <li class="member-info-item">
+                         <img
+                           src="/images/users/${user.avatar}"
+                           class="member-info-item-img"
+                           alt="..."
+                         />
+                         <span class="member-info-item-label">${user.username}</span>
+                         <p class="d-none">Quản trị viên</p>
+                         <button class="btn btn-sm btn-info" style="margin-top: 8px">
+                           Trò chuyện
+                         </button>
+                       </li>
+                   `
+                 )}
+                 </ul>
+               </div>
+               <div class="modal-footer">
+                 <button type="button" class="btn btn-secondary text-dark" data-dismiss="modal">
+                   Close
+                 </button>
+               </div>
+             </div>
+           </div>
+         </div>
+         
 
          <!-- number messages -->
          <span class="chat-menu-right">
@@ -382,7 +529,9 @@ $(document).ready(function () {
          </span>
          <span class="chat-menu-right">
            <a class="number-messages" href="javascript:void(0)" data-toggle="modal">
-           <span class="show-number-messages"> ${response.groupChat.messagesAnount}</span>
+           <span class="show-number-messages"> ${
+             response.groupChat.messagesAnount
+           }</span>
            <i class="fa fa-comment"></i>
            </a>
          </span>
@@ -395,15 +544,27 @@ $(document).ready(function () {
        </div>
 
        <div class="write" data-chat="${response.groupChat._id}">
-         <input class="write-chat chat-in-group" type="text" id="write-chat-${response.groupChat._id}"  data-chat="${response.groupChat._id}" />
+         <input class="write-chat chat-in-group" type="text" id="write-chat-${
+           response.groupChat._id
+         }"  data-chat="${response.groupChat._id}" />
          <div class="icons">
-           <a class="icon-chat" href="#" data-chat="${response.groupChat._id}"><i class="fa fa-smile-o"></i></a>
+           <a class="icon-chat" href="#" data-chat="${
+             response.groupChat._id
+           }"><i class="fa fa-smile-o"></i></a>
            <label for="image-chat-${response.groupChat._id}">
-             <input class="image-chat chat-in-group" id="image-chat-${response.groupChat._id}" type="file" name="my-image-chat" data-chat="${response.groupChat._id}" />
+             <input class="image-chat chat-in-group" id="image-chat-${
+               response.groupChat._id
+             }" type="file" name="my-image-chat" data-chat="${
+      response.groupChat._id
+    }" />
              <i class="fa fa-photo"></i>
            </label>
            <label for="attachment-chat-${response.groupChat._id}">
-             <input class="attachment-chat chat-in-group" id="attachment-chat-${response.groupChat._id}" type="file" name="my-attachment-chat" data-chat="${response.groupChat._id}" />
+             <input class="attachment-chat chat-in-group" id="attachment-chat-${
+               response.groupChat._id
+             }" type="file" name="my-attachment-chat" data-chat="${
+      response.groupChat._id
+    }" />
              <i class="fa fa-paperclip"></i>
            </label>
            <a id="video-chat-group" href="javascript:void(0)" >
