@@ -20,10 +20,11 @@ const sessionPassport = (passport) => {
   passport.deserializeUser(async (id, done) => {
     try {
       let user = await User.findByUserIdForSessionToUse(id)
-      let getChatGroupByIds = await ChatGroup.getChatGroupByIds(user._id)
-
-      user = user.toObject()
-      user.groupByIds = getChatGroupByIds
+      if(user) {
+        let getChatGroupByIds = await ChatGroup.getChatGroupByIds(user._id)
+        user = user.toObject()
+        user.groupByIds = getChatGroupByIds
+      }
       return done(null, user)
     } catch (error) {
       done(error, null)

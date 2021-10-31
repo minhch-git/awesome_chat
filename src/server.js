@@ -54,9 +54,13 @@ config.socketIo(io, cookieParser, config.sessionStore);
 // init all socket
 initSocket(io);
 
-server.listen(port, () =>
-  console.log(`App listening at http://${host}:${port}`.bold.magenta)
+server.listen(process.env.APP_PORT, () =>
+  console.log(`App listening at http://${host}:${port}/`)
 );
+
+// server.listen(process.env.PORT, () =>
+//   console.log(`App listening at http://${host}:${port}`.bold.magenta)
+// );
 
 // pem.createCertificate({ days: 1, selfSigned: true }, function (err, keys) {
 //   if (err) {

@@ -1,71 +1,66 @@
-<% newAllConversations.forEach(function(conversation){%>
-    <% if(conversation.members) {%>
-      <a class="room-chat" href="#uid_<%=conversation._id%>" data-target="#to_<%=conversation._id%>">
-        <li class="person group-chat" data-chat="<%=conversation._id%>">
-          <div class="left-avatar">
-            <!-- <div class="dot"></div>-->
-            <img src="images/users/group-avatar-trungquandev.png" alt="" />
-          </div>
-          <span class="name">
-            <span class="group-chat-name">
-              <%if(conversation.name.length > 12) {%> 
-                <%=conversation.name.slice(0,12)%> 
-                <span>...</span>
-              <%}else{%> 
-                <%=conversation.name%>
-              <%}%> 
-            </span>
-          </span>
-            <span class="time">
-              <%= convertTimestampToHumanTime(lastItemOfArray(conversation.messages).updatedAt) %>
-            </span>
-            <span class="preview">
-              <%if(lastItemOfArray(conversation.messages).messageType == 'text') { %>
-                <%= lastItemOfArray(conversation.messages).text %>
-              <%}%>
-
-              <%if(lastItemOfArray(conversation.messages).messageType == 'image') { %>
-                Hình ảnh...
-              <%}%>
-
-              <%if(lastItemOfArray(conversation.messages).messageType == 'file') { %>
-                Tệp đính kèm...
-              <%}%>
-            </span>
-        </li>
-      </a>
-    <%} else { %>
-      <a class="room-chat" data-target="#to_<%=conversation._id%>" href="#uid_<%=conversation._id%>">
-        <li class="person" data-chat="<%=conversation._id%>">
-          <div class="left-avatar">
-            <div class="dot"></div>
-            <img src="images/users/<%=conversation.avatar%>" alt="" />
-          </div>
-          <span class="name">
-            <%if(conversation.username.length > 14) {%> 
-              <%=conversation.username.slice(0, 12)%> 
-              <span>...</span>
-            <%}else{%> 
-              <%=conversation.username%>
-            <%}%>
-          </span>
-          <span class="time">
-            <%= convertTimestampToHumanTime(lastItemOfArray(conversation.messages).updatedAt) %>
-          </span>
-          <span class="preview">
-            <%if(lastItemOfArray(conversation.messages).messageType == 'text') { %>
-              <%= lastItemOfArray(conversation.messages).text %>
-            <%}%>
-
-            <%if(lastItemOfArray(conversation.messages).messageType == 'image') { %>
-              Hình ảnh...
-            <%}%>
-
-            <%if(lastItemOfArray(conversation.messages).messageType == 'file') { %>
-              Tệp đính kèm...
-            <%}%>
-          </span>
-        </li>
-      </a>
-    <%}%>
-  <%});%> 
+<% newAllConversations.forEach(function(conversation){%> <%
+if(conversation.members) {%>
+<a
+  class="room-chat"
+  href="#uid_<%=conversation._id%>"
+  data-target="#to_<%=conversation._id%>"
+>
+  <li class="person group-chat" data-chat="<%=conversation._id%>">
+    <div class="left-avatar">
+      <!-- <div class="dot"></div>-->
+      <img src="images/users/group-avatar.png" alt="" />
+    </div>
+    <span class="name">
+      <span class="group-chat-name">
+        <%if(conversation.name.length > 12) {%>
+        <%=conversation.name.slice(0,12)%>
+        <span>...</span>
+        <%}else{%> <%=conversation.name%> <%}%>
+      </span>
+    </span>
+    <span class="time">
+      <%=
+      convertTimestampToHumanTime(lastItemOfArray(conversation.messages).updatedAt)
+      %>
+    </span>
+    <span class="preview">
+      <%if(lastItemOfArray(conversation.messages).messageType == 'text') { %>
+      <%= lastItemOfArray(conversation.messages).text %> <%}%>
+      <%if(lastItemOfArray(conversation.messages).messageType == 'image') { %>
+      Hình ảnh... <%}%> <%if(lastItemOfArray(conversation.messages).messageType
+      == 'file') { %> Tệp đính kèm... <%}%>
+    </span>
+  </li>
+</a>
+<%} else { %>
+<a
+  class="room-chat"
+  data-target="#to_<%=conversation._id%>"
+  href="#uid_<%=conversation._id%>"
+>
+  <li class="person" data-chat="<%=conversation._id%>">
+    <div class="left-avatar">
+      <div class="dot"></div>
+      <img src="images/users/<%=conversation.avatar%>" alt="" />
+    </div>
+    <span class="name">
+      <%if(conversation.username.length > 14) {%>
+      <%=conversation.username.slice(0, 12)%>
+      <span>...</span>
+      <%}else{%> <%=conversation.username%> <%}%>
+    </span>
+    <span class="time">
+      <%=
+      convertTimestampToHumanTime(lastItemOfArray(conversation.messages).updatedAt)
+      %>
+    </span>
+    <span class="preview">
+      <%if(lastItemOfArray(conversation.messages).messageType == 'text') { %>
+      <%= lastItemOfArray(conversation.messages).text %> <%}%>
+      <%if(lastItemOfArray(conversation.messages).messageType == 'image') { %>
+      Hình ảnh... <%}%> <%if(lastItemOfArray(conversation.messages).messageType
+      == 'file') { %> Tệp đính kèm... <%}%>
+    </span>
+  </li>
+</a>
+<%}%> <%});%>

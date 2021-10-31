@@ -24,7 +24,9 @@ class MessageServices {
           currentUserId,
           LIMIT_CONVERSATIONS_TAKEN
         );
-        let userConversationsPromise = contacts.map(async contact => {
+
+
+        var contactCall = async contact => {
           if (contact.contactId == currentUserId) {
             let getUserContact = await User.getNormalUserById(contact.userId);
             getUserContact.updatedAt = contact.updatedAt;
@@ -36,8 +38,10 @@ class MessageServices {
             getUserContact.updatedAt = contact.updatedAt;
             return getUserContact;
           }
-        });
+        }
+        let userConversationsPromise = contacts.map(contactCall);
 
+        
         // get user conversation
         let userConversations = await Promise.all(userConversationsPromise);
         // get group conversation
