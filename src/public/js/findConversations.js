@@ -36,7 +36,7 @@ function renderConversation(conversations) {
   let itemRender = conversations.map(conversation => {
     let avatarSrc = conversation.avatar
       ? `images/users/${conversation.avatar}`
-      : "images/users/group-avatar-trungquandev.png";
+      : "images/users/group-avatar.png";
     return `
       <li data-chat="${conversation._id}">
         <img src="${avatarSrc}" /> ${

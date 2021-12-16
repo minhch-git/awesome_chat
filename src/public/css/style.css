@@ -448,7 +448,20 @@ label:focus,
   -webkit-filter: brightness(130%);
   filter: brightness(130%);
 }
-
+.navbar-brand {
+  float: left;
+  height: 50px;
+  padding: 15px 15px;
+  font-size: 18px;
+  line-height: 20px;
+  font-size: 30px;
+  color: cyan;
+  color: cyan;
+  color: cyan !important;
+  font-size: 34;
+  font-weight: 600;
+  text-transform: uppercase;
+}
 .navbar {
   font-size: 14px;
 }

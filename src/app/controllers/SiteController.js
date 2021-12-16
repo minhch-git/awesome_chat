@@ -13,36 +13,36 @@ import r from "request";
 function getICETurnServer() {
   return new Promise(async (resolve, reject) => {
     // // Node Get ICE STUN and TURN list
-    // let o = {
-    //   format: 'urls',
-    // }
-    // let bodyString = JSON.stringify(o)
+    let o = {
+      format: "urls",
+    };
+    let bodyString = JSON.stringify(o);
 
-    // let uri = 'https://global.xirsys.net/_turn/AwesomeChat'
-    // let options = {
-    //   host: 'global.xirsys.net',
-    //   path: '/_turn/AwesomeChat',
-    //   method: 'PUT',
-    //   headers: {
-    //     Authorization:
-    //       'Basic ' +
-    //       Buffer.from('minhchiu:2e6d782c-03a6-11ec-b6c4-0242ac130003').toString(
-    //         'base64'
-    //       ),
-    //     'Content-Type': 'application/json',
-    //     'Content-Length': bodyString.length,
-    //   },
-    // }
+    let uri = "https://global.xirsys.net/_turn/AwesomeChat";
+    let options = {
+      host: "global.xirsys.net",
+      path: "/_turn/AwesomeChat",
+      method: "PUT",
+      headers: {
+        Authorization:
+          "Basic " +
+          Buffer.from("minhchiu:2e6d782c-03a6-11ec-b6c4-0242ac130003").toString(
+            "base64"
+          ),
+        "Content-Type": "application/json",
+        "Content-Length": bodyString.length,
+      },
+    };
 
-    // rp(uri, options)
-    //   .then(body => {
-    //     let bodyJson = JSON.parse(body)
-    //     resolve(bodyJson.v.iceServers)
-    //   })
-    //   .catch(err => {
-    //     console.log(err)
-    //     reject(err)
-    //   })
+    rp(uri, options)
+      .then(body => {
+        let bodyJson = JSON.parse(body);
+        resolve(bodyJson.v.iceServers);
+      })
+      .catch(err => {
+        console.log(err);
+        reject(err);
+      });
     resolve("");
   });
 }
